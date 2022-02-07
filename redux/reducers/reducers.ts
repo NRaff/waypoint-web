@@ -11,4 +11,4 @@ const baseReducer = (state:any = 0, {type}:any) => {
   }
 }
 
-export default combineReducers(baseReducer)
+export default combineReducers({baseReducer})
