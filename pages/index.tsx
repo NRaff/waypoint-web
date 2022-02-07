@@ -7,7 +7,7 @@ import { updateBase } from 'redux/actions/actions'
 
 export default function Home() {
   const dispatch = useDispatch()
-  const currentCount = useSelector((state: any) => state.baseReducer)
+  const currentCount = useSelector((state: any) => state.testReducer)
   return (
     <header>
       <h1>Waypoint Web: {currentCount}</h1>

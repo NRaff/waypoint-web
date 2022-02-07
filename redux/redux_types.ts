@@ -1,27 +1,27 @@
 export const BASE = 'BASE'
 
 export const UX_TYPES = {
-  ui: 'UI',
+  UI: 'UI',
   SESSION: 'SESSION',
   ERRORS: 'ERRORS'
 }
 
-export const USER_TYPES = {
+export const USERS_TYPES = {
   USER: 'USER'
 }
 
-export const COURSE_TYPES = {
+export const COURSES_TYPES = {
   COURSE: 'COURSE'
 }
 
-export const RACE_TYPES = {
+export const RACES_TYPES = {
   RACE: 'RACE'
 }
 
-export const PATH_TYPES = {
+export const PATHS_TYPES = {
   PATH: 'PATH'
 }
 
-export const WAYPOINT_TYPES = {
+export const WAYPOINTS_TYPES = {
   WAYPOINT: 'WAYPOINT'
 }
