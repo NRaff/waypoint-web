@@ -12,6 +12,8 @@ export const ui_reducer = (state: any={}, {type}:any) => {
   }
 }
 
+// TODO: Add ui selectors
+
 export const session_reducer = (state: any={}, {type}: any) => {
   Object.freeze(state)
   const nextState = Object.assign({}, state)
@@ -24,6 +26,8 @@ export const session_reducer = (state: any={}, {type}: any) => {
   }
 }
 
+// TODO: Add session selectors
+
 export const errors_reducer = (state: any={}, {type}: any) => {
   Object.freeze(state)
   const nextState = Object.assign({}, state)
@@ -35,3 +39,5 @@ export const errors_reducer = (state: any={}, {type}: any) => {
       return nextState
   }
 }
+
+// TODO: Add errors selectors
