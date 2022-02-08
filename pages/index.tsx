@@ -3,6 +3,7 @@ import Image from 'next/image'
 import styles from '@/pages/index.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateBase } from 'redux/actions/actions'
+import Link from 'next/link'
 
 
 export default function Home() {
@@ -14,6 +15,12 @@ export default function Home() {
       <button
         onClick={() => dispatch(updateBase())}
       >Add One</button>
+      <Link href='/login'>
+        <a>Login</a>
+      </Link>
+      <Link href='/signup'>
+        <a>Signup</a>
+      </Link>
     </header>
   )
 }
