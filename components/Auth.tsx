@@ -6,7 +6,7 @@ export default function Auth({authType} : any) {
   const [displayName, setDisplayName] = useState('')
 
   function showSignUp() {
-    if (authType === 'Login') {
+    if (authType === 'login') {
       return null
     } else {
       return (

@@ -15,10 +15,10 @@ export default function Home() {
       <button
         onClick={() => dispatch(updateBase())}
       >Add One</button>
-      <Link href='/login'>
+      <Link href='/auth/login'>
         <a>Login</a>
       </Link>
-      <Link href='/signup'>
+      <Link href='/auth/signup'>
         <a>Signup</a>
       </Link>
     </header>
