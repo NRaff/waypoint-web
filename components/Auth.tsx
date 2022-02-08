@@ -3,6 +3,25 @@ import { useState } from "react"
 export default function Auth({authType} : any) {
   const [username, setUsername] = useState('nick')
   const [password, setPassword] = useState('')
+  const [displayName, setDisplayName] = useState('')
+
+  function showSignUp() {
+    if (authType === 'Login') {
+      return null
+    } else {
+      return (
+        <>
+          <label>Display Name</label>
+          <input
+            type="text"
+            value={displayName}
+            onChange={e => setDisplayName(e.target.value)}
+          />
+        </>
+      )
+    }
+  }
+
   return (
     <section>
       <label>Username</label>
@@ -11,6 +30,7 @@ export default function Auth({authType} : any) {
         value={username}
         onChange={e => setUsername(e.target.value)}
       />
+      {showSignUp()}
       <label>Password</label>
       <input 
         type="password"
