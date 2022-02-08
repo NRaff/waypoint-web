@@ -6,7 +6,7 @@ import { setupFirebase } from 'firebaseUtil/setup_firebase'
 
 export default function WaypointWeb({ Component, pageProps }: AppProps) {
   const store = useStore(pageProps.initialReduxState)
-  const app = setupFirebase()
+  setupFirebase()
   return (
     <Provider store={store}>
       <Component {...pageProps} />
