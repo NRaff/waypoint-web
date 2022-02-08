@@ -1,7 +1,8 @@
 import { useState } from "react"
+import { createUserEP } from "utility/auth"
 
 export default function Auth({authType} : any) {
-  const [username, setUsername] = useState('nick')
+  const [email, setEmail] = useState('nick')
   const [password, setPassword] = useState('')
   const [displayName, setDisplayName] = useState('')
 
@@ -24,11 +25,11 @@ export default function Auth({authType} : any) {
 
   return (
     <section>
-      <label>Username</label>
+      <label>Email</label>
       <input 
         type="text"
-        value={username}
-        onChange={e => setUsername(e.target.value)}
+        value={email}
+        onChange={e => setEmail(e.target.value)}
       />
       {showSignUp()}
       <label>Password</label>
@@ -38,7 +39,7 @@ export default function Auth({authType} : any) {
         onChange={e => setPassword(e.target.value)}
       />
       <button
-        onClick={() => console.log('login was clicked')}
+        onClick={() => createUserEP(email,password)}
       >Login</button>
     </section>
   )
