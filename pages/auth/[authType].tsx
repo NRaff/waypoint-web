@@ -6,12 +6,18 @@ import { useRouter } from "next/router";
 export default function Login() {
   const router = useRouter()
   const { authType } = router.query
-  const stringType = (authType as string)
-  const cappedType = stringType.replace(stringType[0], stringType[0].toUpperCase())
+
+  function displayAuthType() {
+    const stringType = ((authType as string) || 'signup').split('')
+    const capitalFirst = stringType[0].toUpperCase()
+    stringType[0] = capitalFirst
+    return stringType.join('')
+  }
+
   return (
     <Landing>
       <Head>
-        <title>{`${siteTitle} ${cappedType}`}</title>
+        <title>{`${siteTitle} ${displayAuthType()}`}</title>
       </Head>
       <Auth authType={authType} />
     </Landing>
