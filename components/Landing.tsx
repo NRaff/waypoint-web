@@ -3,7 +3,7 @@ import Head from "next/head"
 
 // TODO: Review next js blog to add back relevant meta data
 export const siteTitle = 'Waypoint'
-export default function Landing({children, home}: any) {
+export default function Landing({children}: any) {
   return (
     <div>
       <Head>

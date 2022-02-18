@@ -1,3 +1,4 @@
+import styles from '@/styles/modules/auth.module.css'
 import { useState } from "react"
 import { createUserEP } from "utility/auth"
 
@@ -24,7 +25,7 @@ export default function Auth({authType} : any) {
   }
 
   return (
-    <section>
+    <section className={styles.authContainer}>
       <label>Email</label>
       <input 
         type="text"

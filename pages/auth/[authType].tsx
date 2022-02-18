@@ -2,7 +2,7 @@ import Auth from "@/components/Auth";
 import Head from "next/head";
 import Landing, { siteTitle } from "@/components/Landing";
 import { useRouter } from "next/router";
-import Logo from "@/components/Logo";
+import WaypointNav from "@/components/WaypointNav";
 
 export default function Login() {
   const router = useRouter()
@@ -20,7 +20,7 @@ export default function Login() {
       <Head>
         <title>{`${siteTitle} ${displayAuthType()}`}</title>
       </Head>
-      <Logo />
+      <WaypointNav type={authType}/>
       <Auth authType={authType} />
     </Landing>
   )
