@@ -10,8 +10,14 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  font-size: 2rem;
 }
 
 .authOptions a:nth-child(even) {
   margin-left: 1rem;
+}
+
+.waypoint {
+  font-size: 3rem;
 }
