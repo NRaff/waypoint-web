@@ -11,9 +11,23 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  font-size: 2rem;
+  font-size: 1.5rem;
+  height: 100%;
+}
+
+.authOptions a {
+  padding: .5rem;
+  border-radius: .25rem;
+  background-color: whitesmoke;
+  height: 100%;
 }
 
 .authOptions a:nth-child(even) {
-  margin-left: 1rem;
+  margin-left: .5rem;
+}
+
+.authOptions a:hover {
+  cursor: pointer;
+  transform: scale(1.09) perspective(1px);
+  box-sizing: border-box;
 }
