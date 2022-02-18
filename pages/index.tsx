@@ -1,4 +1,4 @@
-import styles from '@/pages/index.module.css'
+import styles from '@/styles/modules/index.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateBase } from 'redux/actions/actions'
 import Link from 'next/link'
@@ -12,9 +12,9 @@ export default function Home() {
     <Landing home>
       <header>
         <h1>Waypoint Web: {currentCount}</h1>
-        <button
+        {/* <button
           onClick={() => dispatch(updateBase())}
-        >Add One</button>
+        >Add One</button> */}
         <Link href='/auth/login'>
           <a>Login</a>
         </Link>
