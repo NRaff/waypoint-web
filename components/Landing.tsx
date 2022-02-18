@@ -15,13 +15,6 @@ export default function Landing({children, home}: any) {
         <meta name="og:title" content={siteTitle} />
       </Head>
       <main>{children}</main>
-      {!home && (
-        <div>
-          <Link href="/">
-            <a>← Back to home</a>
-          </Link>
-        </div>
-      )}
     </div>
   )
 }
