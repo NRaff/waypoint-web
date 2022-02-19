@@ -23,6 +23,11 @@ export function createUserEP(payload: NewAuth, dispatch: Dispatch) {
       })
       .then( () => {
         console.log('Display name updated.')
+        const payload = {
+          uid: user.uid,
+          displayName: user.displayName
+        } as Session
+        dispatch(signupUser(payload))
       })
       .catch( () => {
         console.log('there was an issue updating display name')
