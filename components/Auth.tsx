@@ -40,7 +40,7 @@ export default function Auth({authType} : any) {
         onChange={e => setPassword(e.target.value)}
       />
       <button
-        //onClick={() => createUserEP(email,password)}
+        onClick={() => createUserEP(email,password)}
       >Login</button>
     </section>
   )
