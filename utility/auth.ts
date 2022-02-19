@@ -1,7 +1,13 @@
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { 
+  getAuth, 
+  createUserWithEmailAndPassword, 
+  GoogleAuthProvider,
+  signInWithRedirect,
+  signInWithPopup
+} from 'firebase/auth'
 
-var auth = getAuth();
-
+const auth = getAuth();
+auth.useDeviceLanguage()
 
 // TODO: consider changing options passed in to a payload 
 // TODO: (simplifies crossover between login and signup actions)
@@ -18,4 +24,17 @@ export function createUserEP(email: string, password: string) {
       const errorMessage = error.message;
       // ..
     });
+}
+
+export function signupWithGoogle() {
+  const provider = new GoogleAuthProvider();
+  signInWithPopup(auth, provider)
+  .then(res => {
+    console.log(res.user)
+  })
+  .catch(error => {
+    console.log(error)
+  })
+
+
 }

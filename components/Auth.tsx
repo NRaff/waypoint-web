@@ -1,6 +1,6 @@
 import styles from '@/styles/modules/auth.module.css'
 import { useState } from "react"
-import { createUserEP } from "utility/auth"
+import { createUserEP, signupWithGoogle } from "utility/auth"
 
 export default function Auth({authType} : any) {
   const [email, setEmail] = useState('nick')
@@ -42,6 +42,9 @@ export default function Auth({authType} : any) {
       <button
         onClick={() => createUserEP(email,password)}
       >Login</button>
+      <button
+        onClick={() => signupWithGoogle()}
+      >Signup with Google</button>
     </section>
   )
 }
