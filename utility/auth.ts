@@ -2,21 +2,29 @@ import {
   getAuth, 
   createUserWithEmailAndPassword, 
   GoogleAuthProvider,
-  signInWithPopup
+  signInWithPopup,
+  updateProfile
 } from 'firebase/auth'
+import { NewAuth } from './types';
 
 const auth = getAuth();
 auth.useDeviceLanguage()
 
-// TODO: consider changing options passed in to a payload 
-// TODO: (simplifies crossover between login and signup actions)
-export function createUserEP(email: string, password: string) {
+export function createUserEP(payload: NewAuth) {
+  const {email, password, displayName} = payload
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
-      // TODO: use user.updateProfile to set display name and other details
-      // TODO: would be good to set a default profile image
+      updateProfile(user, {
+        displayName: displayName
+      })
+      .then( () => {
+        console.log('Display name updated.')
+      })
+      .catch( () => {
+        console.log('there was an issue updating display name')
+      })
     })
     .catch((error) => {
       const errorCode = error.code;

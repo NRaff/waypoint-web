@@ -1,6 +1,7 @@
 import styles from '@/styles/modules/auth.module.css'
 import { useState } from "react"
 import { createUserEP, signupWithGoogle } from "utility/auth"
+import { NewAuth } from 'utility/types'
 
 export default function Auth({authType} : any) {
   const [email, setEmail] = useState('nick')
@@ -25,6 +26,14 @@ export default function Auth({authType} : any) {
     }
   }
 
+  function payload() {
+    return({
+      email,
+      displayName,
+      password
+    }) as NewAuth
+  }
+
   return (
     <section className={styles.authContainer}>
       <label className={styles.authLabel}>Email</label>
@@ -43,7 +52,7 @@ export default function Auth({authType} : any) {
         className={styles.authInput}
       />
       <button
-        onClick={() => createUserEP(email,password)}
+        onClick={() => createUserEP(payload())}
         className={styles.authButton}
       >Login</button>
       <button
