@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
+import logger from "redux-logger"
 import reducer from "./reducers/reducers";
 
 let store: any
@@ -9,7 +10,7 @@ function initStore(initialState: any) {
   return createStore(
     reducer,
     initialState, 
-    applyMiddleware(thunk)
+    applyMiddleware(thunk,logger)
   )
 }
 
