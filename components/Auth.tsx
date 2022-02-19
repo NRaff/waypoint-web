@@ -13,11 +13,12 @@ export default function Auth({authType} : any) {
     } else {
       return (
         <>
-          <label>Display Name</label>
+          <label className={styles.authLabel}>Display Name</label>
           <input
             type="text"
             value={displayName}
             onChange={e => setDisplayName(e.target.value)}
+            className={styles.authInput}
           />
         </>
       )
@@ -26,24 +27,28 @@ export default function Auth({authType} : any) {
 
   return (
     <section className={styles.authContainer}>
-      <label>Email</label>
+      <label className={styles.authLabel}>Email</label>
       <input 
         type="text"
         value={email}
         onChange={e => setEmail(e.target.value)}
+        className={styles.authInput}
       />
       {showSignUp()}
-      <label>Password</label>
+      <label className={styles.authLabel}>Password</label>
       <input 
         type="password"
         value={password}
         onChange={e => setPassword(e.target.value)}
+        className={styles.authInput}
       />
       <button
         onClick={() => createUserEP(email,password)}
+        className={styles.authButton}
       >Login</button>
       <button
         onClick={() => signupWithGoogle()}
+        className={styles.authButton}
       >Signup with Google</button>
     </section>
   )

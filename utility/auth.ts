@@ -2,7 +2,6 @@ import {
   getAuth, 
   createUserWithEmailAndPassword, 
   GoogleAuthProvider,
-  signInWithRedirect,
   signInWithPopup
 } from 'firebase/auth'
 
