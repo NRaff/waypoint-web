@@ -5,12 +5,14 @@ import {
   signInWithPopup,
   updateProfile
 } from 'firebase/auth'
-import { NewAuth } from './types';
+import { Dispatch } from 'redux';
+import { NewAuth, Session } from './types';
+import { signupUser } from 'redux/actions/actions';
 
 const auth = getAuth();
 auth.useDeviceLanguage()
 
-export function createUserEP(payload: NewAuth) {
+export function createUserEP(payload: NewAuth, dispatch: Dispatch) {
   const {email, password, displayName} = payload
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -33,11 +35,16 @@ export function createUserEP(payload: NewAuth) {
     });
 }
 
-export function signupWithGoogle() {
+export function signupWithGoogle(dispatch: Dispatch) {
   const provider = new GoogleAuthProvider();
   signInWithPopup(auth, provider)
   .then(res => {
+    const payload = {
+      uid: res.user.uid,
+      displayName: res.user.displayName
+    } as Session
     console.log(res.user)
+    dispatch(signupUser(payload))
   })
   .catch(error => {
     console.log(error)
