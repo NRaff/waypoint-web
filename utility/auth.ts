@@ -8,21 +8,9 @@ import {
 import { Dispatch } from 'redux';
 import { NewAuth, Session } from './types';
 import { signupUser } from 'redux/actions/actions';
-import * as firebaseui from 'firebaseui';
-import firebase from 'firebase/compat/app'
 
 const auth = getAuth();
 auth.useDeviceLanguage()
-var ui = new firebaseui.auth.AuthUI(firebase.auth())
-
-export function signInOptions() {
-  ui.start('#firebaseui-auth-container', {
-    signInOptions: [
-      firebase.auth.EmailAuthProvider.PROVIDER_ID,
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID
-    ],
-  })
-}
 
 export function createUserEP(payload: NewAuth, dispatch: Dispatch) {
   const {email, password, displayName} = payload

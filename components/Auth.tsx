@@ -61,11 +61,6 @@ export default function Auth({authType} : any) {
         onClick={() => signupWithGoogle(dispatch)}
         className={styles.authButton}
       >Signup with Google</button>
-      <button
-        onClick={() => signInOptions()}
-        className={styles.authButton}
-      >Sign In Options</button>
-      <div id='firebaseui-auth-container'></div>
     </section>
   )
 }
