@@ -1,7 +1,7 @@
 import styles from '@/styles/modules/auth.module.css'
 import { useState } from "react"
 import { useDispatch } from 'react-redux'
-import { createUserEP, signupWithGoogle } from "utility/auth"
+import { createUserEP, signupWithGoogle, signInOptions } from "utility/auth"
 import { NewAuth } from 'utility/types'
 
 export default function Auth({authType} : any) {
@@ -61,6 +61,10 @@ export default function Auth({authType} : any) {
         onClick={() => signupWithGoogle(dispatch)}
         className={styles.authButton}
       >Signup with Google</button>
+      <button
+        onClick={() => signInOptions()}
+        className={styles.authButton}
+      >Sign In Options</button>
     </section>
   )
 }
