@@ -13,13 +13,13 @@ import firebase from 'firebase/compat/app'
 
 const auth = getAuth();
 auth.useDeviceLanguage()
-
+var ui = new firebaseui.auth.AuthUI(firebase.auth())
 
 export function signInOptions() {
-  const ui = new firebaseui.auth.AuthUI(firebase.auth())
   ui.start('#firebaseui-auth-container', {
     signInOptions: [
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID
     ],
   })
 }

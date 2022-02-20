@@ -65,6 +65,7 @@ export default function Auth({authType} : any) {
         onClick={() => signInOptions()}
         className={styles.authButton}
       >Sign In Options</button>
+      <div id='firebaseui-auth-container'></div>
     </section>
   )
 }
