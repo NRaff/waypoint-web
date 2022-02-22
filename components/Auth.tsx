@@ -58,10 +58,6 @@ export default function Auth({authType} : any) {
         onClick={() => createUserEP(payload(), dispatch)}
         className={styles.authButton}
       >Login</button>
-      <button
-        onClick={() => signupWithGoogle(dispatch)}
-        className={styles.authButton}
-      >Signup with Google</button>
       <BtnWithImg
         action={() => signupWithGoogle(dispatch)}
         img='/assets/btn_google_light_normal_ios.svg'

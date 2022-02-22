@@ -8,12 +8,16 @@ export default function BtnWithImg({action, img, title, style}: BtnWithImgProps)
       onClick={() => action()}
       className={`${styles.btnWithImg} ${style}`}
     >
-      <Image 
-        src={img}
-        height={24}
-        width={24}
+      <figure
         className={styles.btnImg}
-      />
+      >
+        <Image
+          src={img}
+          height={30}
+          width={30}
+          layout='responsive'
+        />
+      </figure>
       <h3 className={styles.btnTitle}>{title}</h3>
     </button>
   )
