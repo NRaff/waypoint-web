@@ -1,9 +1,10 @@
 import styles from '@/styles/modules/auth.module.css'
 import { useState } from "react"
 import { useDispatch } from 'react-redux'
-import { createUserEP, signupWithGoogle } from "utility/auth"
+import { createUserEP, signupWithFacebook, signupWithGoogle } from "utility/auth"
 import { NewAuth } from 'utility/types'
 import BtnWithImg from './BtnWithImg'
+import Script from 'next/script'
 
 export default function Auth({authType} : any) {
   const [email, setEmail] = useState('nick')
@@ -69,6 +70,12 @@ export default function Auth({authType} : any) {
           img='/assets/btn_google_light_normal_ios.svg'
           title='Sign in with Google'
           style='googleSignIn'
+        />
+        <BtnWithImg
+          action={() => signupWithFacebook(dispatch)}
+          img='/assets/f_logo_RGB-White_1024.png'
+          title='Login with Facebook'
+          style='facebookSignIn'
         />
       </section>
     </section>

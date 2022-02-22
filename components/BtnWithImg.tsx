@@ -6,7 +6,7 @@ export default function BtnWithImg({action, img, title, style}: BtnWithImgProps)
   return (
     <button
       onClick={() => action()}
-      className={`${styles.btnWithImg} ${style}`}
+      className={`${styles.btnWithImg} ${styles[style]}`}
     >
       <figure
         className={styles.btnImg}

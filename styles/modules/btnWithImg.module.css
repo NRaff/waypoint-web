@@ -6,11 +6,22 @@
   padding-right: .5rem;
   justify-content: flex-start;
   align-items: center;
-  background-color: #4285F4;
   width: 100%;
   height: 2.5rem;
   border: none;
   border-radius: .25rem;
+}
+
+.btnWithImg:nth-child(even) {
+  margin-top: .4rem;
+}
+
+.googleSignIn {
+  background-color: #4285F4;
+}
+
+.facebookSignIn {
+  background-color: #5890FF;
 }
 
 .btnImg {

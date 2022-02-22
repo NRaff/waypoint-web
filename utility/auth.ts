@@ -3,7 +3,8 @@ import {
   createUserWithEmailAndPassword, 
   GoogleAuthProvider,
   signInWithPopup,
-  updateProfile
+  updateProfile,
+  FacebookAuthProvider
 } from 'firebase/auth'
 import { Dispatch } from 'redux';
 import { NewAuth, Session } from './types';
@@ -42,6 +43,22 @@ export function createUserEP(payload: NewAuth, dispatch: Dispatch) {
 
 export function signupWithGoogle(dispatch: Dispatch) {
   const provider = new GoogleAuthProvider();
+  signInWithPopup(auth, provider)
+  .then(res => {
+    const payload = {
+      uid: res.user.uid,
+      displayName: res.user.displayName
+    } as Session
+    console.log(res.user)
+    dispatch(signupUser(payload))
+  })
+  .catch(error => {
+    console.log(error)
+  })
+}
+
+export function signupWithFacebook(dispatch: Dispatch) {
+  const provider = new FacebookAuthProvider()
   signInWithPopup(auth, provider)
   .then(res => {
     const payload = {
