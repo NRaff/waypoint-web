@@ -3,6 +3,7 @@ import { useState } from "react"
 import { useDispatch } from 'react-redux'
 import { createUserEP, signupWithGoogle } from "utility/auth"
 import { NewAuth } from 'utility/types'
+import BtnWithImg from './BtnWithImg'
 
 export default function Auth({authType} : any) {
   const [email, setEmail] = useState('nick')
@@ -61,6 +62,12 @@ export default function Auth({authType} : any) {
         onClick={() => signupWithGoogle(dispatch)}
         className={styles.authButton}
       >Signup with Google</button>
+      <BtnWithImg
+        action={() => signupWithGoogle(dispatch)}
+        img='/assets/btn_google_light_normal_ios.svg'
+        title='Sign in with Google'
+        style='googleSignIn'
+      />
     </section>
   )
 }

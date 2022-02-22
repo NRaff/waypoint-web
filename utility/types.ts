@@ -20,3 +20,10 @@ export interface SessionAction {
   type: string;
   payload: Session;
 }
+
+export interface BtnWithImgProps {
+  action: Function;
+  img: string;
+  title: string;
+  style: string;
+}

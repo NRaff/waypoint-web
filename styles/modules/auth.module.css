@@ -19,6 +19,8 @@
 .authInput {
   font-size: 2rem;
   margin-bottom: .5rem;
+  border-radius: .25rem;
+  padding: .25rem;
 }
 
 .authButton {
