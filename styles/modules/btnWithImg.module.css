@@ -10,22 +10,41 @@
   height: 2.5rem;
   border: none;
   border-radius: .25rem;
-}
-
-.btnWithImg:nth-child(even) {
-  margin-top: .4rem;
+  margin-top: .2rem;
+  margin-bottom: .2rem;
 }
 
 .googleSignIn {
   background-color: #4285F4;
 }
 
+.googleSignIn .btnImg {
+  width: 2.5rem;
+  margin-left: -.25rem;
+}
+
 .facebookSignIn {
   background-color: #5890FF;
 }
 
+.facebookSignIn .btnImg {
+  width: 1.75rem;
+}
+
+.appleSignIn {
+  background-color: black;
+}
+
+.appleSignIn .btnImg {
+  width: 3rem;
+  margin-left: -.5rem;
+}
+
+.appleSignIn .btnTitle {
+  margin-left: 0rem;
+}
+
 .btnImg {
-  width: 2rem;
   aspect-ratio: 1;
 }
 
@@ -42,4 +61,8 @@
 .btnWithImg:hover {
   cursor: pointer;
   transform: scale(1.01) perspective(1px);
+}
+
+.hideImg {
+  display: none;
 }

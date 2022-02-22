@@ -1,13 +1,13 @@
 import styles from '@/styles/modules/auth.module.css'
 import { useState } from "react"
 import { useDispatch } from 'react-redux'
-import { createUserEP, signupWithFacebook, signupWithGoogle } from "utility/auth"
+import { createUserEP, signupWithFacebook, signupWithGoogle, signupWithApple } from "utility/auth"
 import { NewAuth } from 'utility/types'
 import BtnWithImg from './BtnWithImg'
 import Script from 'next/script'
 
 export default function Auth({authType} : any) {
-  const [email, setEmail] = useState('nick')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [displayName, setDisplayName] = useState('')
   const dispatch = useDispatch()
@@ -74,8 +74,14 @@ export default function Auth({authType} : any) {
         <BtnWithImg
           action={() => signupWithFacebook(dispatch)}
           img='/assets/f_logo_RGB-White_1024.png'
-          title='Login with Facebook'
+          title='Sign in with Facebook'
           style='facebookSignIn'
+        />
+        <BtnWithImg
+          action={() => signupWithApple(dispatch)}
+          img='/assets/Logo - SIWA - Logo-only - White.svg'
+          title='Sign in with Apple'
+          style='appleSignIn'
         />
       </section>
     </section>

@@ -23,7 +23,7 @@ export interface SessionAction {
 
 export interface BtnWithImgProps {
   action: Function;
-  img: string;
+  img?: string;
   title: string;
   style: string;
 }
