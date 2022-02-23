@@ -13,16 +13,6 @@ export default function BtnWithImg({action, img='', title, style}: BtnWithImgPro
           src={img}
           className={styles.btnImg}
         />
-        // <figure
-        //   className={styles.btnImg}
-        // >
-        //   <Image
-        //     src={img}
-        //     height={30}
-        //     width={30}
-        //     layout='responsive'
-        //   />
-        // </figure> 
         : null
       }
       <h3 className={styles.btnTitle}>{title}</h3>

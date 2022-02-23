@@ -17,7 +17,8 @@ export const uiReducer = (state: any={}, {type}:any) => {
 const { SESSION } = UX_TYPES
 const defaultSession = {
   uid: '',
-  displayName: ''
+  displayName: '',
+  photoUrl: ''
 } as Session
 export const sessionReducer = (
   state: Session = defaultSession, 

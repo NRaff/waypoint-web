@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Logo from "./Logo";
 import styles from '@/styles/modules/waypointNav.module.css'
+import ProfileNavItem from "./ProfileNavItem";
 
 export default function WaypointNav({type}: any) {
   function displayNavOptions() {
@@ -21,6 +22,8 @@ export default function WaypointNav({type}: any) {
             </Link>
           </menu>
         )
+      case 'loggedIn':
+        return <ProfileNavItem />
       default:
         return (
           <menu className={styles.authOptions}>

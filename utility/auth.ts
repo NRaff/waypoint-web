@@ -33,7 +33,8 @@ export function createUserEP(payload: NewAuth, dispatch: Dispatch, router: NextR
         console.log('Display name updated.')
         const payload = {
           uid: user.uid,
-          displayName: user.displayName
+          displayName: user.displayName,
+          photoUrl: user.photoURL
         } as Session
         dispatch(signupUser(payload))
         router.push('/home')
@@ -59,6 +60,7 @@ export function signupWithService(
       const payload = {
         uid: res.user.uid,
         displayName: res.user.displayName,
+        photoUrl: res.user.photoURL
       } as Session
       dispatch(signupUser(payload))
       router.push('/home')

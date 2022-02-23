@@ -2,6 +2,7 @@
 export interface Session {
   uid: string;
   displayName: string;
+  photoUrl?: string;
 }
 
 export interface NewAuth {

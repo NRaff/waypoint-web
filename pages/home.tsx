@@ -1,8 +1,8 @@
 import Link from "next/link";
 import WaypointHead from "@/components/WaypointHead";
-import { useSelector } from "react-redux";
 import WaypointWrapper from "@/components/WaypointWrapper";
 import { useSession } from "utility/selectors";
+import WaypointNav from "@/components/WaypointNav";
 
 export default function Home() {
   const session = useSession()
@@ -10,6 +10,7 @@ export default function Home() {
   return (
     <WaypointWrapper>
       <WaypointHead siteTitle='Waypoint Home' />
+      <WaypointNav type='loggedIn'/>
     </WaypointWrapper>
   )
 }
