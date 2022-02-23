@@ -1,10 +1,10 @@
-import Landing from '@/components/Landing'
+import WaypointWrapper from '@/components/WaypointWrapper'
 import WaypointNav from '@/components/WaypointNav'
 
-export default function Home() {
+export default function Start() {
   return (
-    <Landing home>
+    <WaypointWrapper home>
       <WaypointNav />
-    </Landing>
+    </WaypointWrapper>
   )
 }

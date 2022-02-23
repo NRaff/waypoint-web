@@ -4,13 +4,14 @@ import { useDispatch } from 'react-redux'
 import { createUserEP, signupWithFacebook, signupWithGoogle, signupWithApple } from "utility/auth"
 import { NewAuth } from 'utility/types'
 import BtnWithImg from './BtnWithImg'
-import Script from 'next/script'
+import { useRouter } from 'next/router'
 
 export default function Auth({authType} : any) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [displayName, setDisplayName] = useState('')
   const dispatch = useDispatch()
+  const router = useRouter()
 
   function showSignUp() {
     if (authType === 'login') {
@@ -59,26 +60,26 @@ export default function Auth({authType} : any) {
           placeholder='password'
         />
         <button
-          onClick={() => createUserEP(payload(), dispatch)}
+          onClick={() => createUserEP(payload(), dispatch, router)}
           className={styles.authButton}
         >Login</button>
       </section>
       <hr className={styles.authDivider}></hr>
       <section className={styles.withServices}>
         <BtnWithImg
-          action={() => signupWithGoogle(dispatch)}
+          action={() => signupWithGoogle(dispatch, router)}
           img='/assets/btn_google_light_normal_ios.svg'
           title='Sign in with Google'
           style='googleSignIn'
         />
         <BtnWithImg
-          action={() => signupWithFacebook(dispatch)}
+          action={() => signupWithFacebook(dispatch, router)}
           img='/assets/f_logo_RGB-White_1024.png'
           title='Sign in with Facebook'
           style='facebookSignIn'
         />
         <BtnWithImg
-          action={() => signupWithApple(dispatch)}
+          action={() => signupWithApple(dispatch, router)}
           img='/assets/Logo - SIWA - Logo-only - White.svg'
           title='Sign in with Apple'
           style='appleSignIn'

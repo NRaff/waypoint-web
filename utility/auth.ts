@@ -15,6 +15,7 @@ import { Dispatch } from 'redux';
 import { NewAuth, Session } from './types';
 import { signupUser } from 'redux/actions/actions';
 import { setupFirebase } from 'firebaseUtil/setup_firebase';
+import { NextRouter } from 'next/router';
 
 if (getApps().length === 0) {
   setupFirebase()
@@ -22,7 +23,7 @@ if (getApps().length === 0) {
 const auth = getAuth();
 auth.useDeviceLanguage()
 
-export function createUserEP(payload: NewAuth, dispatch: Dispatch) {
+export function createUserEP(payload: NewAuth, dispatch: Dispatch, router: NextRouter) {
   const {email, password, displayName} = payload
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -38,6 +39,7 @@ export function createUserEP(payload: NewAuth, dispatch: Dispatch) {
           displayName: user.displayName
         } as Session
         dispatch(signupUser(payload))
+        router.push('/home')
       })
       .catch( () => {
         console.log('there was an issue updating display name')
@@ -50,7 +52,7 @@ export function createUserEP(payload: NewAuth, dispatch: Dispatch) {
     });
 }
 
-export function signupWithGoogle(dispatch: Dispatch) {
+export function signupWithGoogle(dispatch: Dispatch, router: NextRouter) {
   const provider = new GoogleAuthProvider();
   signInWithPopup(auth, provider)
   .then(res => {
@@ -66,7 +68,7 @@ export function signupWithGoogle(dispatch: Dispatch) {
   })
 }
 
-export function signupWithFacebook(dispatch: Dispatch) {
+export function signupWithFacebook(dispatch: Dispatch, router: NextRouter) {
   const provider = new FacebookAuthProvider()
   signInWithPopup(auth, provider)
   .then(res => {
@@ -82,7 +84,7 @@ export function signupWithFacebook(dispatch: Dispatch) {
   })
 }
 
-export function signupWithApple(dispatch: Dispatch) {
+export function signupWithApple(dispatch: Dispatch, router: NextRouter) {
   const provider = new OAuthProvider('apple.com')
   signInWithPopup(auth, provider)
   .then(res => {
