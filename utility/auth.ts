@@ -5,12 +5,20 @@ import {
   signInWithPopup,
   updateProfile,
   FacebookAuthProvider,
-  OAuthProvider
+  OAuthProvider,
+  Auth
 } from 'firebase/auth'
+import {
+  getApps,
+} from 'firebase/app'
 import { Dispatch } from 'redux';
 import { NewAuth, Session } from './types';
 import { signupUser } from 'redux/actions/actions';
+import { setupFirebase } from 'firebaseUtil/setup_firebase';
 
+if (getApps().length === 0) {
+  setupFirebase()
+}
 const auth = getAuth();
 auth.useDeviceLanguage()
 
