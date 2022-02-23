@@ -17,8 +17,12 @@ import { setProvider } from './authTypes';
 if (getApps().length === 0) {
   setupFirebase()
 }
+
 const auth = getAuth();
 auth.useDeviceLanguage()
+// TODO: Start watching auth status
+  // redirect to home if user exists, plus update session state in redux
+  // redirect to landing otherwise
 
 export function createUserEP(payload: NewAuth, dispatch: Dispatch, router: NextRouter) {
   const {email, password, displayName} = payload
