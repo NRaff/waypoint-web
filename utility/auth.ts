@@ -6,7 +6,6 @@ import {
   updateProfile,
   FacebookAuthProvider,
   OAuthProvider,
-  Auth
 } from 'firebase/auth'
 import {
   getApps,
@@ -16,6 +15,7 @@ import { NewAuth, Session } from './types';
 import { signupUser } from 'redux/actions/actions';
 import { setupFirebase } from 'firebaseUtil/setup_firebase';
 import { NextRouter } from 'next/router';
+import { setProvider } from './authTypes';
 
 if (getApps().length === 0) {
   setupFirebase()
@@ -52,50 +52,21 @@ export function createUserEP(payload: NewAuth, dispatch: Dispatch, router: NextR
     });
 }
 
-export function signupWithGoogle(dispatch: Dispatch, router: NextRouter) {
-  const provider = new GoogleAuthProvider();
-  signInWithPopup(auth, provider)
-  .then(res => {
-    const payload = {
-      uid: res.user.uid,
-      displayName: res.user.displayName
-    } as Session
-    console.log(res.user)
-    dispatch(signupUser(payload))
-  })
-  .catch(error => {
-    console.log(error)
-  })
-}
-
-export function signupWithFacebook(dispatch: Dispatch, router: NextRouter) {
-  const provider = new FacebookAuthProvider()
-  signInWithPopup(auth, provider)
-  .then(res => {
-    const payload = {
-      uid: res.user.uid,
-      displayName: res.user.displayName
-    } as Session
-    console.log(res.user)
-    dispatch(signupUser(payload))
-  })
-  .catch(error => {
-    console.log(error)
-  })
-}
-
-export function signupWithApple(dispatch: Dispatch, router: NextRouter) {
-  const provider = new OAuthProvider('apple.com')
-  signInWithPopup(auth, provider)
-  .then(res => {
-    const payload = {
-      uid: res.user.uid,
-      displayName: res.user.displayName
-    } as Session
-    console.log(res.user)
-    dispatch(signupUser(payload))
-  })
-  .catch(error => {
-    console.log(error)
-  })
+export function signupWithService(
+  service: string, 
+  dispatch: Dispatch, 
+  router: NextRouter) {
+    const provider = setProvider(service)()
+    signInWithPopup(auth, provider)
+    .then(res => {
+      const payload = {
+        uid: res.user.uid,
+        displayName: res.user.displayName,
+      } as Session
+      dispatch(signupUser(payload))
+      router.push('/home')
+    })
+    .catch(error => {
+      console.log(error)
+    })
 }

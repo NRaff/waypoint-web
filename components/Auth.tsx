@@ -1,7 +1,7 @@
 import styles from '@/styles/modules/auth.module.css'
 import { useState } from "react"
 import { useDispatch } from 'react-redux'
-import { createUserEP, signupWithFacebook, signupWithGoogle, signupWithApple } from "utility/auth"
+import { createUserEP, signupWithFacebook, signupWithGoogle, signupWithApple, signupWithService } from "utility/auth"
 import { NewAuth } from 'utility/types'
 import BtnWithImg from './BtnWithImg'
 import { useRouter } from 'next/router'
@@ -39,6 +39,10 @@ export default function Auth({authType} : any) {
     }) as NewAuth
   }
 
+  function signup(service: string) {
+    signupWithService(service, dispatch, router)
+  }
+
   return (
     <section className={styles.authContainer}>
       <section className={styles.withEmail}>
@@ -67,19 +71,19 @@ export default function Auth({authType} : any) {
       <hr className={styles.authDivider}></hr>
       <section className={styles.withServices}>
         <BtnWithImg
-          action={() => signupWithGoogle(dispatch, router)}
+          action={() => signup('Google')}
           img='/assets/btn_google_light_normal_ios.svg'
           title='Sign in with Google'
           style='googleSignIn'
         />
         <BtnWithImg
-          action={() => signupWithFacebook(dispatch, router)}
+          action={() => signup('Facebook')}
           img='/assets/f_logo_RGB-White_1024.png'
           title='Sign in with Facebook'
           style='facebookSignIn'
         />
         <BtnWithImg
-          action={() => signupWithApple(dispatch, router)}
+          action={() => signup('Apple')}
           img='/assets/Logo - SIWA - Logo-only - White.svg'
           title='Sign in with Apple'
           style='appleSignIn'
