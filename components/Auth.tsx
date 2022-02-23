@@ -1,7 +1,7 @@
 import styles from '@/styles/modules/auth.module.css'
 import { useState } from "react"
 import { useDispatch } from 'react-redux'
-import { createUserEP, signupWithFacebook, signupWithGoogle, signupWithApple, signupWithService } from "utility/auth"
+import { createUserEP, signupWithService } from "utility/auth"
 import { NewAuth } from 'utility/types'
 import BtnWithImg from './BtnWithImg'
 import { useRouter } from 'next/router'

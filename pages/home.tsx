@@ -2,11 +2,11 @@ import Link from "next/link";
 import WaypointHead from "@/components/WaypointHead";
 import { useSelector } from "react-redux";
 import WaypointWrapper from "@/components/WaypointWrapper";
-import { useStore } from "redux/store";
+import { useSession } from "utility/selectors";
 
 export default function Home() {
-  const {displayName} = useSelector((state: any) => state.session)
-  console.log(displayName)
+  const session = useSession()
+  console.log(session)
   return (
     <WaypointWrapper>
       <WaypointHead siteTitle='Waypoint Home' />

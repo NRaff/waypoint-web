@@ -1,11 +1,8 @@
 import { 
   getAuth, 
   createUserWithEmailAndPassword, 
-  GoogleAuthProvider,
   signInWithPopup,
   updateProfile,
-  FacebookAuthProvider,
-  OAuthProvider,
 } from 'firebase/auth'
 import {
   getApps,
