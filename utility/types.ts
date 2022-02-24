@@ -28,3 +28,19 @@ export interface BtnWithImgProps {
   title: string;
   style: string;
 }
+
+export interface ActivityListProps {
+  type: 'Races' | 'Courses'
+}
+
+export interface ActivityHeaderProps {
+  curType: string;
+  setType: Function;
+}
+
+export interface Activity {
+  type: string;
+  name: string;
+  status: string;
+  visibility: string;
+}
