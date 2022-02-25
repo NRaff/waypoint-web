@@ -1,0 +1,9 @@
+.waypointApp {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-grow: 1;
+  background-color: navajowhite;
+  position: relative;
+  height: 100%;
+}
