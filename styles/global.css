@@ -60,6 +60,11 @@ body {
   bottom: 0;
   right: 0;
   left: 0;
+  height: 100vh;
+}
+
+.app {
+  height: 100vh;
 }
 
 main {
@@ -68,9 +73,9 @@ main {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  height: 100vh;
+  height: 100%;
 }
 
 a {
