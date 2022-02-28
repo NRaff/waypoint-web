@@ -25,6 +25,7 @@ export default function Auth({authType} : any) {
             value={displayName}
             onChange={e => setDisplayName(e.target.value)}
             className={styles.authInput}
+            placeholder='nick'
           />
         </>
       )
@@ -68,7 +69,6 @@ export default function Auth({authType} : any) {
           className={styles.authButton}
         >Login</button>
       </section>
-      <hr className={styles.authDivider}></hr>
       <section className={styles.withServices}>
         <BtnWithImg
           action={() => signup('Google')}
