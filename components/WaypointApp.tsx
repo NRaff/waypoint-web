@@ -6,6 +6,7 @@ export function WaypointApp() {
   return (
     <div className={styles.waypointApp}>
       <ActivitiesSidebar />
+      <h1>test content</h1>
       {/* main content */}
     </div>
   )

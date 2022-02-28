@@ -4,6 +4,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   width: 30%;
+  max-width: 25rem;
   background-color: antiquewhite;
   border-top-left-radius: .25rem;
   border-bottom-left-radius: .25rem;

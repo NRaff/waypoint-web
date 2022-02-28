@@ -9,7 +9,6 @@ export default function Start() {
   return (
     <WaypointWrapper home>
       <WaypointNav />
-      <WaypointApp />
     </WaypointWrapper>
   )
 }
