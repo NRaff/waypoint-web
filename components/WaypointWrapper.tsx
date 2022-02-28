@@ -4,9 +4,9 @@ import WaypointHead from './WaypointHead'
 export const siteTitle = 'Waypoint'
 export default function WaypointWrapper({children}: any) {
   return (
-    <div>
+    <>
       <WaypointHead siteTitle={siteTitle} />
       <main>{children}</main>
-    </div>
+    </>
   )
 }

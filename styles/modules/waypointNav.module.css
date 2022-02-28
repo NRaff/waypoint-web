@@ -18,7 +18,6 @@
   padding: .5rem;
   border-radius: .25rem;
   background-color: whitesmoke;
-  height: 100%;
 }
 
 .authOptions a:nth-child(even) {
@@ -28,5 +27,4 @@
 .authOptions a:hover {
   cursor: pointer;
   transform: scale(1.01) perspective(1px);
-  box-sizing: border-box;
 }
