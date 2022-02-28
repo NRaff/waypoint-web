@@ -1,22 +1,24 @@
 import { useState } from "react"
 import { ActivityHeaderProps } from "utility/types"
-import BtnWithImg from "./BtnWithImg"
 import styles from '@/styles/modules/activityListHeader.module.css'
+import SidebarNavItem from "./SidebarNavItem"
+
+const ACTIVITIES_SELECTED = 'activitiesSelected'
 
 export default function ActivityListHeader({curType, setType}:ActivityHeaderProps) {
+  console.log(curType === 'Races' ? styles.activitiesSelected : '')
+  console.log(curType === 'Courses' ? styles.activitiesSelected : '')
   return (
     <header className={styles.activitiesHeader}>
-      <BtnWithImg 
+      <SidebarNavItem 
         title='Races'
         action={() => setType('Races')}
-        img=''
-        style={curType === 'Races' ? styles.activitiesSelected : ''}
+        style={curType === 'Races' ? ACTIVITIES_SELECTED : ''}
       />
-      <BtnWithImg
+      <SidebarNavItem
         title='Courses'
         action={() => setType('Courses')}
-        img=''
-        style={curType==='Races' ? '' : styles.activitiesSelected}
+        style={curType==='Races' ? '' : ACTIVITIES_SELECTED}
       />
     </header>
   )

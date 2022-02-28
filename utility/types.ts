@@ -29,6 +29,12 @@ export interface BtnWithImgProps {
   style: string;
 }
 
+export interface NavItemProps {
+  action: Function;
+  title: string;
+  style: string;
+}
+
 export interface ActivityListProps {
   type: 'Races' | 'Courses'
 }
