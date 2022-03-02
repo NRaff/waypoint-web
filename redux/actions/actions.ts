@@ -8,3 +8,8 @@ export const signupUser = (payload: Session) => ({
   type: SESSION.SIGN_UP,
   payload
 })
+
+export const loginUser = (payload: Session) => ({
+  type: SESSION.LOGIN,
+  payload
+})

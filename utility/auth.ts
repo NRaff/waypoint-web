@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword, 
   signInWithPopup,
   updateProfile,
+  User,
 } from 'firebase/auth'
 import {
   getApps,
@@ -72,4 +73,13 @@ export function signupWithService(
     .catch(error => {
       console.log(error)
     })
+}
+
+export function getSession(user: User) {
+  const {uid, displayName, photoURL} = user
+  return {
+    uid,
+    displayName,
+    photoUrl: photoURL
+  }
 }

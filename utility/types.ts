@@ -1,8 +1,8 @@
 
 export interface Session {
   uid: string;
-  displayName: string;
-  photoUrl?: string;
+  displayName: string | null;
+  photoUrl: string | null;
 }
 
 export interface NewAuth {

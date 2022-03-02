@@ -29,6 +29,8 @@ export const sessionReducer = (
   switch(type) {
     case SESSION.SIGN_UP:
       return payload
+    case SESSION.LOGIN:
+      return payload
     default:
       return nextState
   }
