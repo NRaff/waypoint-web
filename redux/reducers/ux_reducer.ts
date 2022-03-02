@@ -20,6 +20,7 @@ const defaultSession = {
   displayName: '',
   photoUrl: ''
 } as Session
+
 export const sessionReducer = (
   state: Session = defaultSession, 
   {type, payload}: SessionAction) => {
