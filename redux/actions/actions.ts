@@ -13,3 +13,7 @@ export const loginUser = (payload: Session) => ({
   type: SESSION.LOGIN,
   payload
 })
+
+export const logoutUser = () => ({
+  type: SESSION.LOGOUT
+})

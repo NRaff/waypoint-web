@@ -75,6 +75,10 @@ export function signupWithService(
     })
 }
 
+export function signOut() {
+  auth.signOut()
+}
+
 export function getSession(user: User) {
   const {uid, displayName, photoURL} = user
   return {

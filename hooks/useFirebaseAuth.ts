@@ -1,15 +1,17 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginUser } from "redux/actions/actions";
+import { loginUser, logoutUser } from "redux/actions/actions";
 import { getSession } from "utility/auth";
 import { Session } from "utility/types";
+import { useRouter } from "next/router";
 
 
 export default function useFirebaseAuth() {
   const dispatch = useDispatch()
   const auth = getAuth();
   const [authStatus, setAuthStatus] = useState(false)
+  const router = useRouter()
   useEffect(watchAuth, [])
 
   function watchAuth() {
@@ -24,6 +26,8 @@ export default function useFirebaseAuth() {
         // User is signed out
         // ...
         setAuthStatus(false)
+        dispatch(logoutUser())
+        router.push('/')
       }
     });
   }

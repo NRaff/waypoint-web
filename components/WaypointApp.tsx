@@ -4,7 +4,6 @@ import useFirebaseAuth from "hooks/useFirebaseAuth";
 
 export function WaypointApp() {
   const authStatus = useFirebaseAuth()
-  console.log(authStatus)
   return (
     <div className={styles.waypointApp}>
       <ActivitiesSidebar />
