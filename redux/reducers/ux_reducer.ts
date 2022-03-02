@@ -32,6 +32,8 @@ export const sessionReducer = (
       return payload
     case SESSION.LOGIN:
       return payload
+    case SESSION.LOGOUT:
+      return defaultSession
     default:
       return nextState
   }

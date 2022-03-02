@@ -81,5 +81,5 @@ export function getSession(user: User) {
     uid,
     displayName,
     photoUrl: photoURL
-  }
+  } as Session
 }
