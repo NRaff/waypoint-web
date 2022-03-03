@@ -5,6 +5,7 @@ import { createUserEP, signupWithService } from "utility/auth"
 import { NewAuth } from 'utility/types'
 import BtnWithImg from './BtnWithImg'
 import { useRouter } from 'next/router'
+import useFirebaseAuth from 'hooks/useFirebaseAuth'
 
 export default function Auth({authType} : any) {
   const [email, setEmail] = useState('')
