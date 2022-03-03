@@ -5,15 +5,13 @@ import { useRouter } from 'next/router'
 
 export default function Start() {
   const authStatus = useFirebaseAuth()
-  if(authStatus) {
-    const router = useRouter()
-    router.push('/home')
-    return null
-  } else {
+  // if(authStatus) {
+  //   return null
+  // } else {
     return (
       <WaypointWrapper home>
         <WaypointNav />
       </WaypointWrapper>
     )
-  }
+  // }
 }

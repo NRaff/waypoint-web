@@ -10,7 +10,7 @@ import {
 } from 'firebase/app'
 import { Dispatch } from 'redux';
 import { NewAuth, Session } from './types';
-import { signupUser } from 'redux/actions/actions';
+import { logoutUser, signupUser } from 'redux/actions/actions';
 import { setupFirebase } from 'firebaseUtil/setup_firebase';
 import { NextRouter } from 'next/router';
 import { setProvider } from './authTypes';
@@ -75,8 +75,10 @@ export function signupWithService(
     })
 }
 
-export function signOut() {
+export function signOut(dispatch: Dispatch, router: NextRouter) {
+  dispatch(logoutUser())
   auth.signOut()
+  router.push('/')
 }
 
 export function getSession(user: User) {

@@ -15,12 +15,23 @@ export default function useFirebaseAuth() {
   useEffect(watchAuth, [])
 
   function watchAuth() {
+    // const user = auth.currentUser
+    // console.log(user)
+    // if(user !== null) {
+    //   setAuthStatus(true)
+    //   dispatch(loginUser(getSession(user)))
+    //   router.push('/home')
+    // } else {
+    //   setAuthStatus(false)
+    //   router.push('/')
+    // }
     onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
         setAuthStatus(true)
         dispatch(loginUser(getSession(user)))
+        router.push('/home')
         // ...
       } else {
         // User is signed out
