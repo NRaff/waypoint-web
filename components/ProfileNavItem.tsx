@@ -11,7 +11,7 @@ export default function ProfileNavItem() {
   return (
     <menu 
       className={styles.profileMenu}
-      onClick={() => signOut(dispatch, router)}
+      onClick={() => signOut()}
     >
       <h1>{displayName || 'User'}</h1>
       {photoUrl ?

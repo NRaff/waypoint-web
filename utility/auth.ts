@@ -75,10 +75,8 @@ export function signupWithService(
     })
 }
 
-export function signOut(dispatch: Dispatch, router: NextRouter) {
-  dispatch(logoutUser())
+export function signOut() {
   auth.signOut()
-  router.push('/')
 }
 
 export function getSession(user: User) {

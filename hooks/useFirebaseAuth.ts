@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser, logoutUser } from "redux/actions/actions";
 import { getSession } from "utility/auth";
-import { Session } from "utility/types";
 import { useRouter } from "next/router";
 
 
