@@ -4,13 +4,14 @@ import {
   signInWithPopup,
   updateProfile,
   User,
+  signInWithEmailAndPassword
 } from 'firebase/auth'
 import {
   getApps,
 } from 'firebase/app'
 import { Dispatch } from 'redux';
-import { NewAuth, Session } from './types';
-import { logoutUser, signupUser } from 'redux/actions/actions';
+import { NewAuth, Session, SignInAuth } from './types';
+import { signupUser } from 'redux/actions/actions';
 import { setupFirebase } from 'firebaseUtil/setup_firebase';
 import { NextRouter } from 'next/router';
 import { setProvider } from './authTypes';
@@ -25,8 +26,27 @@ auth.useDeviceLanguage()
   // redirect to home if user exists, plus update session state in redux
   // redirect to landing otherwise
 
-export function createUserEP(payload: NewAuth, dispatch: Dispatch, router: NextRouter) {
-  const {email, password, displayName} = payload
+export function signInEP({email, password}: SignInAuth, router: NextRouter) {
+  console.log(email)
+  console.log(password)
+  signInWithEmailAndPassword(auth, email, password)
+  .then(credential => {
+    console.log('Supposed Success')
+    console.log(credential.user)
+    router.push('/home')
+  })
+  .catch(err => {
+    console.log(err)
+    console.log('There was an issue logging in')
+    //pass some errors up to ux state
+  })
+}
+
+export function createUserEP(
+    {email, displayName, password}: NewAuth, 
+    dispatch: Dispatch, 
+    router: NextRouter
+  ) {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 

@@ -1,8 +1,8 @@
 import styles from '@/styles/modules/auth.module.css'
 import { useState } from "react"
 import { useDispatch } from 'react-redux'
-import { createUserEP, signupWithService } from "utility/auth"
-import { NewAuth } from 'utility/types'
+import { createUserEP, signInEP, signupWithService } from "utility/auth"
+import { NewAuth, SignInAuth } from 'utility/types'
 import BtnWithImg from './BtnWithImg'
 import { useRouter } from 'next/router'
 import useFirebaseAuth from 'hooks/useFirebaseAuth'
@@ -33,14 +33,14 @@ export default function Auth({authType} : any) {
     }
   }
 
-  function payload() {
-    return({
-      email,
-      displayName,
-      password
-    }) as NewAuth
+  function emailAuth() {
+    if (authType === 'login') {
+      signInEP({email, password} as SignInAuth, router)
+    } else {
+      createUserEP({ email, displayName, password } as NewAuth, dispatch, router)
+    }
   }
-
+  
   function signup(service: string) {
     signupWithService(service, dispatch, router)
   }
@@ -66,9 +66,9 @@ export default function Auth({authType} : any) {
           placeholder='password'
         />
         <button
-          onClick={() => createUserEP(payload(), dispatch, router)}
+          onClick={emailAuth}
           className={styles.authButton}
-        >Login</button>
+        >{authType === 'login' ? 'Login': 'Sign Up'}</button>
       </section>
       <section className={styles.withServices}>
         <BtnWithImg

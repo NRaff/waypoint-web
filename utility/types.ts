@@ -11,6 +11,11 @@ export interface NewAuth {
   password: string;
 }
 
+export interface SignInAuth {
+  email: string;
+  password: string;
+}
+
 export interface User {
   id: string;
   displayName: string;
