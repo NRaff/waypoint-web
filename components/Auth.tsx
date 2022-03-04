@@ -6,6 +6,7 @@ import { NewAuth, SignInAuth } from 'utility/types'
 import BtnWithImg from './BtnWithImg'
 import { useRouter } from 'next/router'
 import useFirebaseAuth from 'hooks/useFirebaseAuth'
+import ErrorMessage from './ErrorMessages'
 
 export default function Auth({authType} : any) {
   const authStatus = useFirebaseAuth()
@@ -48,6 +49,7 @@ export default function Auth({authType} : any) {
 
   return (
     <section className={styles.authContainer}>
+      <ErrorMessage />
       <section className={styles.withEmail}>
         <label className={styles.authLabel}>Email</label>
         <input

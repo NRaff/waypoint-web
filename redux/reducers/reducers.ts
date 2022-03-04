@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { uiReducer, sessionReducer, errorsReducer } from "./ux_reducer";
+import { uiReducer, sessionReducer, authErrorsReducer } from "./ux_reducer";
 import { usersReducer } from "./users_reducer";
 import { coursesReducer } from "./courses_reducer";
 import { racesReducer } from "./races_reducer";
@@ -9,7 +9,9 @@ import { waypointsReducer } from "./waypoints_reducer";
 export default combineReducers({
   ui: uiReducer,
   session: sessionReducer,
-  errors: errorsReducer,
+  errors: combineReducers({
+    auth: authErrorsReducer
+  }),
   users: usersReducer,
   courses: coursesReducer,
   races: racesReducer,

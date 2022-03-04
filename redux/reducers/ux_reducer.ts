@@ -42,30 +42,32 @@ export const sessionReducer = (
 
 // TODO: Add session selectors
 
-export const errorsReducer = (state: any={}, {type}: any) => {
+const {AUTH} = ERRORS
+export const authErrorsReducer = (state: any={}, {type}: any) => {
   Object.freeze(state)
   const nextState = Object.assign({}, state)
-
+  // console.log(type)
   switch(type) {
-    case ERRORS.INVALID_EMAIL:
+    case AUTH.INVALID_EMAIL:
       nextState['email'] = AUTH_ERRORS.Email
       return nextState
-    case ERRORS.INVALID_PASSWORD:
+    case AUTH.INVALID_PASSWORD:
       nextState['password'] = AUTH_ERRORS.Password
       return nextState
-    case ERRORS.BOTH:
+    case AUTH.BOTH:
       nextState['both credentials'] = AUTH_ERRORS.Both
       return nextState
-    case ERRORS.INVALID_CREDENTIALS:
+    case AUTH.INVALID_CREDENTIALS:
       nextState['invalid'] = AUTH_ERRORS.Credentials
       return nextState
-    case ERRORS.USER_DOES_NOT_EXIST:
+    case AUTH.USER_DOES_NOT_EXIST:
       nextState['no user'] = AUTH_ERRORS.NoUser
       return nextState
-    case ERRORS.SOMETHING_WRONG:
+    case AUTH.SOMETHING_WRONG:
       nextState['default'] = AUTH_ERRORS.Default
       return nextState
-    case ERRORS.CLEAR_ERRORS:
+    case AUTH.CLEAR_ERRORS:
+      console.log('clear errors hit')
       return {}
     default:
       return nextState

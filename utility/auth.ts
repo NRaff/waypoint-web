@@ -23,6 +23,7 @@ if (getApps().length === 0) {
 }
 
 const {ERRORS} = UX_TYPES
+const {AUTH} = ERRORS
 const auth = getAuth();
 auth.useDeviceLanguage()
 // TODO: Start watching auth status
@@ -31,24 +32,23 @@ auth.useDeviceLanguage()
 
 function validateCredentials(email: string, password: string): [boolean, string] {
   const validatedEmail = isValidEmail(email)
-  console.log(validatedEmail)
   const validatedPassword = isValidPassword(password)
   switch (true) {
     case !validatedEmail && !validatedPassword:
-      return [false, ERRORS.BOTH]
+      return [false, AUTH.BOTH]
     case !validatedEmail:
-      return [false, ERRORS.INVALID_EMAIL]
+      return [false, AUTH.INVALID_EMAIL]
     case !validatedPassword:
-      return [false, ERRORS.INVALID_PASSWORD]
+      return [false, AUTH.INVALID_PASSWORD]
     default:
-      return [true, ERRORS.SOMETHING_WRONG]
+      return [true, AUTH.SOMETHING_WRONG]
   }
 }
 
 function isValidEmail(email: string) {
   const lemail = email.toLowerCase()
   const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-  return lemail.match(validRegex)
+  return validRegex.test(lemail)
 }
 
 function isValidPassword(password: string) {
@@ -60,25 +60,26 @@ function isValidPassword(password: string) {
 function mapFirebaseError(error: string) {
   switch(error) {
     case AuthErrorCodes.USER_DELETED:
-      return ERRORS.USER_DOES_NOT_EXIST
+      return AUTH.USER_DOES_NOT_EXIST
     default:
-      return ERRORS.SOMETHING_WRONG
+      return AUTH.SOMETHING_WRONG
   }
 }
 
 export function signInEP({email, password}: SignInAuth, dispatch: Dispatch, router: NextRouter) {
   const [hasValidCredentials, type] = validateCredentials(email, password)
   if(!hasValidCredentials) {
+    dispatch(setAuthError(AUTH.CLEAR_ERRORS))
     dispatch(setAuthError(type))
   } else {
     signInWithEmailAndPassword(auth, email, password)
       .then(credential => {
-        console.log('Supposed Success')
-        console.log(credential.user)
+        dispatch(setAuthError(AUTH.CLEAR_ERRORS))
         router.push('/home')
       })
       .catch(({code}) => {
         //pass some errors up to ux state
+        dispatch(setAuthError(AUTH.CLEAR_ERRORS))
         dispatch(setAuthError(mapFirebaseError(code)))
       })
   }
@@ -91,7 +92,8 @@ export function createUserEP(
   ) {
     const [hasValidCredentials, type] = validateCredentials(email, password)
     if(!hasValidCredentials) {
-      // pass errors to session handler
+      dispatch(setAuthError(AUTH.CLEAR_ERRORS))
+      dispatch(setAuthError(type))
     } else {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -108,6 +110,7 @@ export function createUserEP(
                 photoUrl: user.photoURL
               } as Session
               dispatch(signupUser(payload))
+              dispatch(setAuthError(AUTH.CLEAR_ERRORS))
               router.push('/home')
             })
             .catch(() => {
@@ -115,6 +118,7 @@ export function createUserEP(
             })
         })
         .catch(({code}) => {
+          dispatch(setAuthError(AUTH.CLEAR_ERRORS))
           dispatch(setAuthError(mapFirebaseError(code)))
         });
     }
@@ -133,9 +137,11 @@ export function signupWithService(
         photoUrl: res.user.photoURL
       } as Session
       dispatch(signupUser(payload))
+      dispatch(setAuthError(AUTH.CLEAR_ERRORS))
       router.push('/home')
     })
     .catch(({code}) => {
+      dispatch(setAuthError(AUTH.CLEAR_ERRORS))
       dispatch(setAuthError(mapFirebaseError(code)))
     })
 }
