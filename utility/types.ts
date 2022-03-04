@@ -55,3 +55,8 @@ export interface Activity {
   status: string;
   visibility: string;
 }
+
+export enum CoursePermission {
+  Private,
+  Public,
+}
