@@ -6,6 +6,7 @@ import {
   User,
   signInWithEmailAndPassword
 } from 'firebase/auth'
+import { AuthErrorCodes } from 'firebase/auth';
 import {
   getApps,
 } from 'firebase/app'
@@ -56,6 +57,15 @@ function isValidPassword(password: string) {
   return password.length >= 7 && lettersReg.test(password) && numbersReg.test(password)
 }
 
+function mapFirebaseError(error: string) {
+  switch(error) {
+    case AuthErrorCodes.USER_DELETED:
+      return ERRORS.USER_DOES_NOT_EXIST
+    default:
+      return ERRORS.SOMETHING_WRONG
+  }
+}
+
 export function signInEP({email, password}: SignInAuth, dispatch: Dispatch, router: NextRouter) {
   const [hasValidCredentials, type] = validateCredentials(email, password)
   if(!hasValidCredentials) {
@@ -67,10 +77,9 @@ export function signInEP({email, password}: SignInAuth, dispatch: Dispatch, rout
         console.log(credential.user)
         router.push('/home')
       })
-      .catch(err => {
-        console.log(err)
-        console.log('There was an issue logging in')
+      .catch(({code}) => {
         //pass some errors up to ux state
+        dispatch(setAuthError(mapFirebaseError(code)))
       })
   }
 }
@@ -105,10 +114,8 @@ export function createUserEP(
               console.log('there was an issue updating display name')
             })
         })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // ..
+        .catch(({code}) => {
+          dispatch(setAuthError(mapFirebaseError(code)))
         });
     }
 }
@@ -128,8 +135,8 @@ export function signupWithService(
       dispatch(signupUser(payload))
       router.push('/home')
     })
-    .catch(error => {
-      console.log(error)
+    .catch(({code}) => {
+      dispatch(setAuthError(mapFirebaseError(code)))
     })
 }
 

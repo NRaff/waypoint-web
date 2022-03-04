@@ -59,6 +59,9 @@ export const errorsReducer = (state: any={}, {type}: any) => {
     case ERRORS.INVALID_CREDENTIALS:
       nextState['invalid'] = AUTH_ERRORS.Credentials
       return nextState
+    case ERRORS.USER_DOES_NOT_EXIST:
+      nextState['no user'] = AUTH_ERRORS.NoUser
+      return nextState
     case ERRORS.SOMETHING_WRONG:
       nextState['default'] = AUTH_ERRORS.Default
       return nextState
