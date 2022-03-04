@@ -68,6 +68,7 @@ function mapFirebaseError(error: string) {
 
 export function signInEP({email, password}: SignInAuth, dispatch: Dispatch, router: NextRouter) {
   const [hasValidCredentials, type] = validateCredentials(email, password)
+  console.log(type)
   if(!hasValidCredentials) {
     dispatch(setAuthError(AUTH.CLEAR_ERRORS))
     dispatch(setAuthError(type))
