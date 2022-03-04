@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import useFirebaseAuth from 'hooks/useFirebaseAuth'
 
 export default function Auth({authType} : any) {
+  const authStatus = useFirebaseAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [displayName, setDisplayName] = useState('')
@@ -35,12 +36,12 @@ export default function Auth({authType} : any) {
 
   function emailAuth() {
     if (authType === 'login') {
-      signInEP({email, password} as SignInAuth, router)
+      signInEP({email, password} as SignInAuth, dispatch, router)
     } else {
       createUserEP({ email, displayName, password } as NewAuth, dispatch, router)
     }
   }
-  
+
   function signup(service: string) {
     signupWithService(service, dispatch, router)
   }

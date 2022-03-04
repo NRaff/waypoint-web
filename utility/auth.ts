@@ -11,35 +11,68 @@ import {
 } from 'firebase/app'
 import { Dispatch } from 'redux';
 import { NewAuth, Session, SignInAuth } from './types';
-import { signupUser } from 'redux/actions/actions';
+import { setAuthError, signupUser } from 'redux/actions/actions';
 import { setupFirebase } from 'firebaseUtil/setup_firebase';
 import { NextRouter } from 'next/router';
 import { setProvider } from './authTypes';
+import { UX_TYPES } from 'redux/redux_types';
 
 if (getApps().length === 0) {
   setupFirebase()
 }
 
+const {ERRORS} = UX_TYPES
 const auth = getAuth();
 auth.useDeviceLanguage()
 // TODO: Start watching auth status
   // redirect to home if user exists, plus update session state in redux
   // redirect to landing otherwise
 
-export function signInEP({email, password}: SignInAuth, router: NextRouter) {
-  console.log(email)
-  console.log(password)
-  signInWithEmailAndPassword(auth, email, password)
-  .then(credential => {
-    console.log('Supposed Success')
-    console.log(credential.user)
-    router.push('/home')
-  })
-  .catch(err => {
-    console.log(err)
-    console.log('There was an issue logging in')
-    //pass some errors up to ux state
-  })
+function validateCredentials(email: string, password: string): [boolean, string] {
+  const validatedEmail = isValidEmail(email)
+  console.log(validatedEmail)
+  const validatedPassword = isValidPassword(password)
+  switch (true) {
+    case !validatedEmail && !validatedPassword:
+      return [false, ERRORS.BOTH]
+    case !validatedEmail:
+      return [false, ERRORS.INVALID_EMAIL]
+    case !validatedPassword:
+      return [false, ERRORS.INVALID_PASSWORD]
+    default:
+      return [true, ERRORS.SOMETHING_WRONG]
+  }
+}
+
+function isValidEmail(email: string) {
+  const lemail = email.toLowerCase()
+  const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+  return lemail.match(validRegex)
+}
+
+function isValidPassword(password: string) {
+  const lettersReg = /[a-zA-Z]/
+  const numbersReg = /[0-9]/
+  return password.length >= 7 && lettersReg.test(password) && numbersReg.test(password)
+}
+
+export function signInEP({email, password}: SignInAuth, dispatch: Dispatch, router: NextRouter) {
+  const [hasValidCredentials, type] = validateCredentials(email, password)
+  if(!hasValidCredentials) {
+    dispatch(setAuthError(type))
+  } else {
+    signInWithEmailAndPassword(auth, email, password)
+      .then(credential => {
+        console.log('Supposed Success')
+        console.log(credential.user)
+        router.push('/home')
+      })
+      .catch(err => {
+        console.log(err)
+        console.log('There was an issue logging in')
+        //pass some errors up to ux state
+      })
+  }
 }
 
 export function createUserEP(
@@ -47,32 +80,37 @@ export function createUserEP(
     dispatch: Dispatch, 
     router: NextRouter
   ) {
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      updateProfile(user, {
-        displayName: displayName
-      })
-      .then( () => {
-        console.log('Display name updated.')
-        const payload = {
-          uid: user.uid,
-          displayName: user.displayName,
-          photoUrl: user.photoURL
-        } as Session
-        dispatch(signupUser(payload))
-        router.push('/home')
-      })
-      .catch( () => {
-        console.log('there was an issue updating display name')
-      })
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
-    });
+    const [hasValidCredentials, type] = validateCredentials(email, password)
+    if(!hasValidCredentials) {
+      // pass errors to session handler
+    } else {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          updateProfile(user, {
+            displayName: displayName
+          })
+            .then(() => {
+              console.log('Display name updated.')
+              const payload = {
+                uid: user.uid,
+                displayName: user.displayName,
+                photoUrl: user.photoURL
+              } as Session
+              dispatch(signupUser(payload))
+              router.push('/home')
+            })
+            .catch(() => {
+              console.log('there was an issue updating display name')
+            })
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+        });
+    }
 }
 
 export function signupWithService(
