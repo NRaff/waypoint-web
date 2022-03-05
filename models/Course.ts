@@ -1,3 +1,4 @@
+import { Dispatch } from "redux";
 import { ActivityType } from "utility/types";
 import { FirebaseObject } from "./FirebaseObject";
 
@@ -7,8 +8,8 @@ export class Course extends FirebaseObject {
     super(ActivityType.Courses, currentUserId)
   }
 
-  static listCourses(){
-    FirebaseObject.getObjectsInList(ActivityType.Courses)
+  static listCourses(dispatch: Dispatch){
+    FirebaseObject.getObjectsInList(ActivityType.Courses, dispatch)
   }
 
 }

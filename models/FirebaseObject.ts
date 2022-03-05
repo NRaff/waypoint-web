@@ -9,6 +9,8 @@ import {
   onChildRemoved,
   off,
 } from "firebase/database";
+import { Dispatch } from "redux";
+import { noCoursesFound, receiveAllCourses } from "redux/actions/actions";
 import { ActivityType, CoursePermission } from "utility/types";
 
 const db = getDatabase()
@@ -53,13 +55,15 @@ export class FirebaseObject {
 
   }
 
-  static getObjectsInList(type: ActivityType){
+  // add dispatch as param
+  static getObjectsInList(type: ActivityType, dispatch: Dispatch){
     const objectsRef = ref(db, type)
     const objectListener = onValue(objectsRef, (snapshot) => {
       if (snapshot.exists()) {
         console.log(snapshot.val())
+        dispatch(receiveAllCourses(snapshot.val()))
       } else {
-        console.log('no data found')
+        dispatch(noCoursesFound())
       }
     })
   }

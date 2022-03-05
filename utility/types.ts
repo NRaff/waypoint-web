@@ -22,7 +22,7 @@ export interface User {
   profileImgUrl: string;
 }
 
-export interface SessionAction {
+export interface ReduxAction {
   type: string;
   payload: Session;
 }

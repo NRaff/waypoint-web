@@ -1,8 +1,8 @@
 import { UX_TYPES } from "redux/redux_types"
 import { AUTH_ERRORS } from "utility/errorMessages"
-import { Session, SessionAction } from "utility/types"
+import { Session, ReduxAction } from "utility/types"
 
-export const uiReducer = (state: any={}, {type}:any) => {
+export const uiReducer = (state: any={}, {type, payload}:ReduxAction) => {
   Object.freeze(state)
   const nextState = Object.assign({}, state)
 
@@ -24,7 +24,7 @@ const defaultSession = {
 
 export const sessionReducer = (
   state: Session = defaultSession, 
-  {type, payload}: SessionAction) => {
+  {type, payload}: ReduxAction) => {
   Object.freeze(state)
   const nextState = Object.assign({}, state)
 
@@ -42,8 +42,8 @@ export const sessionReducer = (
 
 // TODO: Add session selectors
 
-const {AUTH} = ERRORS
-export const authErrorsReducer = (state: any={}, {type}: any) => {
+const {AUTH, COURSE_ERR} = ERRORS
+export const authErrorsReducer = (state: any={}, {type, payload}: ReduxAction) => {
   Object.freeze(state)
   const nextState = Object.assign({}, state)
   // console.log(type)
@@ -69,6 +69,18 @@ export const authErrorsReducer = (state: any={}, {type}: any) => {
     case AUTH.CLEAR_ERRORS:
       console.log('clear errors hit')
       return {}
+    default:
+      return nextState
+  }
+}
+
+export const courseErrorsReducer = (state: any={}, {type, payload}: ReduxAction) => {
+  Object.freeze(state)
+  const nextState = Object.assign({}, state)
+  switch(type) {
+    case COURSE_ERR.NO_COURSES:
+      nextState['No Courses'] = 'No courses were found.'
+      return nextState
     default:
       return nextState
   }

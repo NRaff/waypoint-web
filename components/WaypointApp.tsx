@@ -4,14 +4,16 @@ import { useSession } from "utility/selectors";
 import { Course } from "models/Course";
 import { useEffect } from "react";
 import useFirebaseAuth from "hooks/useFirebaseAuth";
+import { useDispatch } from "react-redux";
 
 // TODO: catch listeners to turn them off on dismount
 export function WaypointApp() {
   const authStatus = useFirebaseAuth()
   const { uid } = useSession()
   const course = new Course(uid)
+  const dispatch = useDispatch()
   useEffect(() => {
-    Course.listCourses()
+    Course.listCourses(dispatch)
   }, [])  
 
   function createCourse() {
