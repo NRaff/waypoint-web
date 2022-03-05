@@ -43,7 +43,8 @@ export class FirebaseObject {
       length: 12,
       duration: 2.5,
       type: CoursePermission.Public,
-      created_by: this.currentUserId
+      created_by: this.currentUserId,
+      id: newObjectRef.key
     })
     .then(() => {
       const newUserObjectRef = ref(db, `${this.usersObjectsPath}/${newObjectRef.key}`)

@@ -7,3 +7,7 @@ export function useSession() {
 export function useAuthErrors() {
   return useSelector((state: any) => state.errors.auth)
 }
+
+export function useCourses() {
+  return useSelector((state: any) => Object.values(state.courses))
+}

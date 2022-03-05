@@ -56,6 +56,16 @@ export interface Activity {
   visibility: string;
 }
 
+export interface Course {
+  name: string;
+  length: number;
+  duration: number;
+  type: CoursePermission;
+  created_by: string;
+  id: string;
+  waypoints: Array<string>;
+}
+
 export enum CoursePermission {
   Private,
   Public,
