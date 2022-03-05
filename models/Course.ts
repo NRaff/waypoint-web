@@ -2,7 +2,7 @@ import { ActivityType } from "utility/types";
 import { FirebaseObject } from "./FirebaseObject";
 
 
-export class Courses extends FirebaseObject {
+export class Course extends FirebaseObject {
   constructor(currentUserId: string) {
     super(ActivityType.Courses, currentUserId)
   }
