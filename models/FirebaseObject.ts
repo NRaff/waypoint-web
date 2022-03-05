@@ -7,6 +7,7 @@ import {
   onChildAdded,
   onChildChanged,
   onChildRemoved,
+  off,
 } from "firebase/database";
 import { ActivityType, CoursePermission } from "utility/types";
 
@@ -54,7 +55,7 @@ export class FirebaseObject {
 
   static getObjectsInList(type: ActivityType){
     const objectsRef = ref(db, type)
-    onValue(objectsRef, (snapshot) => {
+    const objectListener = onValue(objectsRef, (snapshot) => {
       if (snapshot.exists()) {
         console.log(snapshot.val())
       } else {
