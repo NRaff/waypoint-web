@@ -60,3 +60,8 @@ export enum CoursePermission {
   Private,
   Public,
 }
+
+export enum ActivityType {
+  Races = 'races',
+  Courses = 'courses'
+}
