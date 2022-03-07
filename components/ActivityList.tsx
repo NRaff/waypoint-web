@@ -6,7 +6,7 @@ import CourseCard from "./CourseCard";
 
 export default function ActivityList({type}: ActivityListProps) {
   // select data from store based on type
-  const courses = useCourses()
+  const courses = useCourses() as Array<Course>
   return (
     <div className={styles.activityList}>
       <BtnWithImg

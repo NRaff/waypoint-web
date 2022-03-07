@@ -1,6 +1,7 @@
 import { Course } from "utility/types"
 
-export default function CourseCard(course: Course) {
+export default function CourseCard(props: any) {
+  const {course} = props
   const {
     name,
     length,
