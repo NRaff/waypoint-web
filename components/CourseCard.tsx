@@ -1,4 +1,5 @@
 import { Course } from "utility/types"
+import styles from '@/styles/modules/courseCard.module.css'
 
 export default function CourseCard(props: any) {
   const {course} = props
@@ -10,7 +11,9 @@ export default function CourseCard(props: any) {
   } = course
 
   return (
-    <div>
+    <div 
+      className={styles.card}
+    >
       <h1>{name}</h1>
       <aside>
         <p>{length}</p>

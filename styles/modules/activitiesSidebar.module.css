@@ -5,9 +5,10 @@
   justify-content: flex-start;
   width: 30%;
   max-width: 25rem;
-  background-color: antiquewhite;
+  background-color: #3E418B;
   border-top-left-radius: .25rem;
   border-bottom-left-radius: .25rem;
-  padding: .25rem;
-  height: 80vh;
+  height: 96%;
+  color: whitesmoke;
+  flex-grow: 1;
 }
