@@ -9,12 +9,12 @@ export default function ActivitiesSidebar() {
   const [listType, setListType] = useState('Races')
   return (
     <div className={styles.activitiesSidebar}>
-      <ActivityListHeader curType={listType} setType={setListType}/>
       <BtnWithImg
         action={() => console.log('create pressed')}
         title={`Create ${listType.substring(0, listType.length - 1)}`}
-        style={''}
+        style='addActivityBtn'
       />
+      <ActivityListHeader curType={listType} setType={setListType}/>
       <ActivityList type={listType as ActivityListProps["type"]}/>
     </div>
   )

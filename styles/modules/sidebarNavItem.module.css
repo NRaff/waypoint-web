@@ -2,11 +2,11 @@
   font-size: 1.5rem;
   width: 50%;
   padding: .25rem;
-  border-radius: .25rem;
+  box-sizing: border-box;
 }
 
 .sidebarNavItem:hover {
-  box-shadow: 0px 2px 6px 2px #0000001A;
+  border-bottom: solid .25rem #173E59;
 }
 
 .sidebarNavItem h3 {
@@ -18,14 +18,19 @@
 
 .sidebarNavItem:hover h3 {
   box-shadow: none;
+  border-bottom: none;
 }
 
 .sidebarNavItem span {
   width: 100%;
 }
 
+.sidebarNavItem:nth-child(1) {
+  border-top-left-radius: .25rem;
+}
+
 .sidebarNavItem:nth-child(2) {
-  margin-left: .25rem;
+  border-top-right-radius: .25rem;
 }
 
 .activitiesSelected {
