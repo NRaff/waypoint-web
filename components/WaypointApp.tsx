@@ -21,6 +21,9 @@ export function WaypointApp() {
   }
   return (
     <div className={styles.waypointApp}>
+      {/* Add Nav Sidebar with nav buttons for waypoint, races, courses, profile (on very bottom) */}
+      {/* Remove waypoint nav */}
+      {/* float the waypoint logo to the top right */}
       <ActivitiesSidebar />
       <h1>test content</h1>
       <button
