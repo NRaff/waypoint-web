@@ -3,6 +3,7 @@
   width: 100%;
   padding: .25rem;
   box-sizing: border-box;
+  position: relative;
 }
 
 .sidebarNavItem:hover {
@@ -35,4 +36,22 @@
 
 .activitiesSelected {
   border-bottom: solid .25rem black;
+}
+
+.tooltip {
+  display: none;
+  border-radius: .25rem;
+  background-color: lightblue;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: fit-content;
+  height: 80%;
+  font-size: small;
+}
+
+
+.sidebarNavItem:hover .tooltip {
+  display: block;
+  z-index: 1;
 }

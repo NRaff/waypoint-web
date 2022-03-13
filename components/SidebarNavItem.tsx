@@ -8,6 +8,7 @@ export default function SidebarNavItem({ action, title, style }: NavItemProps) {
       className={`${styles.sidebarNavItem} ${styles[style]}`}
     >
       <h3 className={styles.sidebarNavItem}><span>{title}</span></h3>
+      <p className={styles.tooltip}>This is a tooltip</p>
     </button>
   )
 }
