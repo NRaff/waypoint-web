@@ -2,9 +2,12 @@ import ActivitiesSidebar from "./ActivitiesSidebar";
 import styles from '@/styles/modules/waypointApp.module.css'
 import { useSession } from "utility/selectors";
 import { Course } from "models/Course";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useFirebaseAuth from "hooks/useFirebaseAuth";
 import { useDispatch } from "react-redux";
+import InAppNav from "./InAppNav";
+import ActivityList from "./ActivityList";
+import { ActivityType } from "utility/types";
 
 // TODO: catch listeners to turn them off on dismount
 export function WaypointApp() {
@@ -12,9 +15,14 @@ export function WaypointApp() {
   const { uid } = useSession()
   const course = new Course(uid)
   const dispatch = useDispatch()
+
+  const [listType, setListType] = useState('Races')
+
   useEffect(() => {
     Course.listCourses(dispatch)
   }, [])  
+
+
 
   function createCourse() {
     course.addToList()
@@ -24,14 +32,13 @@ export function WaypointApp() {
       {/* Add Nav Sidebar with nav buttons for waypoint, races, courses, profile (on very bottom) */}
       {/* Remove waypoint nav */}
       {/* float the waypoint logo to the top right */}
-      <ActivitiesSidebar />
-      <h1>test content</h1>
+      <InAppNav curType={listType} setType={setListType}/>
+      <ActivityList type={listType as any}/>
       <button
         onClick={createCourse}
       >
         Add user
       </button>
-      {/* main content */}
     </div>
   )
 }

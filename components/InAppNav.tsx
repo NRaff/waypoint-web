@@ -1,13 +1,14 @@
 import { useState } from "react"
 import { ActivityHeaderProps } from "utility/types"
-import styles from '@/styles/modules/activityListHeader.module.css'
+import styles from '@/styles/modules/inAppNav.module.css'
 import SidebarNavItem from "./SidebarNavItem"
+import ProfileNavItem from "./ProfileNavItem"
 
 const ACTIVITIES_SELECTED = 'activitiesSelected'
 
-export default function ActivityListHeader({curType, setType}:ActivityHeaderProps) {
+export default function InAppNav({curType, setType}:ActivityHeaderProps) {
   return (
-    <header className={styles.activitiesHeader}>
+    <nav className={styles.inAppNav}>
       <SidebarNavItem 
         title='Races'
         action={() => setType('Races')}
@@ -18,6 +19,7 @@ export default function ActivityListHeader({curType, setType}:ActivityHeaderProp
         action={() => setType('Courses')}
         style={curType==='Races' ? '' : ACTIVITIES_SELECTED}
       />
-    </header>
+      <ProfileNavItem />
+    </nav>
   )
 }

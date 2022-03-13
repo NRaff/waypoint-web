@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ActivityListProps } from "utility/types";
 import BtnWithImg from "./BtnWithImg";
 import ActivityList from "./ActivityList";
-import ActivityListHeader from "./ActivityListHeader";
+import ActivityListHeader from "./InAppNav";
 import styles from "@/styles/modules/activitiesSidebar.module.css"
 
 export default function ActivitiesSidebar() {
