@@ -1,11 +1,26 @@
 .inAppNav {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
   position: relative;
-  width: 10%;
-  margin-right: .25rem;
+  width: 6rem;
+  margin-right: .5rem;
   border-top-left-radius: .25rem;
   border-top-right-radius: .25rem;
+}
+
+.activitySelection {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.accountSettings {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.sectionDivider {
+  border: solid .1rem whitesmoke;
+  margin: 0;
 }

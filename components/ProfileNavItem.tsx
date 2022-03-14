@@ -2,14 +2,21 @@ import { useSession } from "utility/selectors";
 import styles from '@/styles/modules/profileNavItem.module.css'
 import { signOut } from "utility/auth";
 
-export default function ProfileNavItem() {
+export default function ProfileNavItem({type}:any) {
   const { displayName, photoUrl } = useSession()
+
+  function initials() {
+    const parts = displayName.split(' ')
+    const letters = parts.map((part: string) => part[0])
+    return letters.join('')
+  }
+
   return (
     <menu 
       className={styles.profileMenu}
       onClick={() => signOut()}
     >
-      <h1>{displayName || 'User'}</h1>
+      {type === 'Full' ? <h1>{displayName || 'User'}</h1> : null}
       {photoUrl ?
         // 
         <img
@@ -17,7 +24,7 @@ export default function ProfileNavItem() {
           alt="profileImage"
           className={styles.profileImage}
         />
-        : null
+        : <h1>{initials()}</h1>
       }
     </menu>
   )

@@ -7,7 +7,7 @@
 }
 
 .sidebarNavItem:hover {
-  border-bottom: solid .25rem #173E59;
+  border-right: solid .25rem #173E59;
 }
 
 .sidebarNavItem h3 {
@@ -19,23 +19,15 @@
 
 .sidebarNavItem:hover h3 {
   box-shadow: none;
-  border-bottom: none;
+  border-right: none;
 }
 
 .sidebarNavItem span {
   width: 100%;
 }
 
-.sidebarNavItem:nth-child(1) {
-  border-top-left-radius: .25rem;
-}
-
-.sidebarNavItem:nth-child(2) {
-  border-top-right-radius: .25rem;
-}
-
 .activitiesSelected {
-  border-bottom: solid .25rem black;
+  border-right: solid .25rem black;
 }
 
 .tooltip {
@@ -44,7 +36,7 @@
   background-color: lightblue;
   position: absolute;
   top: 0;
-  left: 100%;
+  left: 105%;
   width: fit-content;
   height: 80%;
   font-size: small;
@@ -54,4 +46,12 @@
 .sidebarNavItem:hover .tooltip {
   display: block;
   z-index: 1;
+}
+
+.addActivityButton {
+
+}
+
+.addActivityButton:hover {
+  background-color: #173E59;
 }

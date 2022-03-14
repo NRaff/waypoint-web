@@ -18,22 +18,29 @@ export default function InAppNav({curType, setType}:ActivityHeaderProps) {
 
   return (
     <nav className={styles.inAppNav}>
-      <SidebarNavItem 
-        title='Races'
-        action={() => setType('Races')}
-        style={curType === 'Races' ? ACTIVITIES_SELECTED : ''}
-      />
-      <SidebarNavItem
-        title='Courses'
-        action={() => setType('Courses')}
-        style={curType==='Races' ? '' : ACTIVITIES_SELECTED}
-      />
-      <SidebarNavItem
-        title='Create New'
-        action={createCourse}
-        style=''
-      />
-      <ProfileNavItem />
+      <section className={styles.activitySelection}>
+        <SidebarNavItem
+          title='🏁'
+          action={() => setType('Races')}
+          style={curType === 'Races' ? ACTIVITIES_SELECTED : ''}
+        />
+        <SidebarNavItem
+          title='🧭'
+          action={() => setType('Courses')}
+          style={curType === 'Races' ? '' : ACTIVITIES_SELECTED}
+        />
+        <hr 
+          className={styles.sectionDivider}
+        />
+        <SidebarNavItem
+          title='+'
+          action={createCourse}
+          style='addActivityButton'
+        />
+      </section>
+      <section className={styles.accountSettings}>
+        <ProfileNavItem type={'Image'} />
+      </section>
     </nav>
   )
 }

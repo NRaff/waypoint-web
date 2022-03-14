@@ -10,14 +10,14 @@
 
 .profileImage {
   aspect-ratio: 1;
-  height: 2rem;
+  width: 100%;
   border-radius: .25rem;
   margin-right: .1rem;
-  margin-left: .25rem;
 }
 
 .profileName {
   font-size: 2rem;
+  margin-right: .25rem;
 }
 
 .profileMenu:hover {
