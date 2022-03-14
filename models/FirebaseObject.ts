@@ -9,10 +9,12 @@ import {
   onChildRemoved,
   off,
 } from "firebase/database";
+import { setupFirebase } from "firebaseUtil/setup_firebase";
 import { Dispatch } from "redux";
 import { noCoursesFound, receiveAllCourses } from "redux/actions/actions";
 import { ActivityType, CoursePermission } from "utility/types";
 
+setupFirebase()
 const db = getDatabase()
 
 export class FirebaseObject {

@@ -20,11 +20,10 @@ export function WaypointApp() {
   useEffect(() => {
     Course.listCourses(dispatch)
   }, [])
-
   return (
     <div className={styles.waypointApp}>
-      <InAppNav curType={listType} setType={setListType}/>
-      <ActivityList type={listType as any}/>
+      <InAppNav curType={listType} setType={setListType} />
+      <ActivityList type={listType as any} />
     </div>
   )
 }
