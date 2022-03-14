@@ -23,11 +23,13 @@ export default function InAppNav({curType, setType}:ActivityHeaderProps) {
           title='🏁'
           action={() => setType('Races')}
           style={curType === 'Races' ? ACTIVITIES_SELECTED : ''}
+          tooltip='View Races'
         />
         <SidebarNavItem
           title='🧭'
           action={() => setType('Courses')}
           style={curType === 'Races' ? '' : ACTIVITIES_SELECTED}
+          tooltip='View Courses'
         />
         <hr 
           className={styles.sectionDivider}
@@ -36,6 +38,7 @@ export default function InAppNav({curType, setType}:ActivityHeaderProps) {
           title='+'
           action={createCourse}
           style='addActivityButton'
+          tooltip='New Activity'
         />
       </section>
       <section className={styles.accountSettings}>

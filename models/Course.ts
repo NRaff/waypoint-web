@@ -9,7 +9,7 @@ export class Course extends FirebaseObject {
   }
 
   static listCourses(dispatch: Dispatch){
-    FirebaseObject.getObjectsInList(ActivityType.Courses, dispatch)
+    return FirebaseObject.getObjectsInList(ActivityType.Courses, dispatch)
   }
 
 }

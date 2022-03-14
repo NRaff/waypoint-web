@@ -1,14 +1,14 @@
 import { NavItemProps } from "utility/types"
 import styles from "../styles/modules/sidebarNavItem.module.css"
 
-export default function SidebarNavItem({ action, title, style }: NavItemProps) {
+export default function SidebarNavItem({ action, title, style, tooltip }: NavItemProps) {
   return (
     <button
       onClick={() => action()}
       className={`${styles.sidebarNavItem} ${styles[style]}`}
     >
       <h3 className={styles.sidebarNavItem}><span>{title}</span></h3>
-      <p className={styles.tooltip}>This is a tooltip</p>
+      <p className={styles.tooltip}>{tooltip}</p>
     </button>
   )
 }

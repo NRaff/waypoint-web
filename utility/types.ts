@@ -38,6 +38,7 @@ export interface NavItemProps {
   action: Function;
   title: string;
   style: string;
+  tooltip?: string;
 }
 
 export interface ActivityListProps {
@@ -74,4 +75,9 @@ export enum CoursePermission {
 export enum ActivityType {
   Races = 'races',
   Courses = 'courses'
+}
+
+export enum CourseDetailType {
+  New = 'New',
+  Selected = 'Selected',
 }

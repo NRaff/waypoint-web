@@ -58,7 +58,6 @@ export class FirebaseObject {
 
   }
 
-  // add dispatch as param
   static getObjectsInList(type: ActivityType, dispatch: Dispatch){
     const objectsRef = ref(db, type)
     const objectListener = onValue(objectsRef, (snapshot) => {
@@ -69,6 +68,11 @@ export class FirebaseObject {
         dispatch(noCoursesFound())
       }
     })
+    return objectListener
+  }
+
+  private static getAction(type: ActivityType, genericAction: string) {
+    // should return the correct action to use based on the type of entity
   }
 
 

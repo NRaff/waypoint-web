@@ -7,12 +7,14 @@ export default function CourseCard(props: any) {
     name,
     length,
     duration,
-    type
-  } = course
+    type,
+    id
+  } = course as Course
 
   return (
     <div 
       className={styles.card}
+      onClick={() => console.log('Course clicked')}//add id of selected course to ui selectors}
     >
       <h1>{name}</h1>
       <aside>
