@@ -5,6 +5,11 @@ export interface Session {
   photoUrl: string | null;
 }
 
+export interface Ui {
+  selectedCourse: string | null;
+  selectedRace: string | null;
+}
+
 export interface NewAuth {
   email: string;
   displayName: string;
@@ -24,7 +29,7 @@ export interface User {
 
 export interface ReduxAction {
   type: string;
-  payload: Session;
+  payload: any;
 }
 
 export interface BtnWithImgProps {

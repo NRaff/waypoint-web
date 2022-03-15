@@ -13,6 +13,9 @@ export function useCourses() {
   return useSelector((state: any) => Object.values(state.courses))
 }
 
-export function useCourse(courseId: string) {
-  return useSelector((state: any) => state.courses[courseId]) as Course
-}
+export function useCourse() {
+  const selectedCourse = useSelector((state: any) => state.ui.selectedCourse) as string
+  return useSelector(
+      (state: any) => state.courses[selectedCourse]
+      ) as Course | null
+  }

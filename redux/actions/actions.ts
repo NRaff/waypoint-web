@@ -4,7 +4,7 @@ import {
   UX_TYPES
 } from '../redux_types'
 
-const {SESSION, ERRORS} = UX_TYPES
+const {SESSION, ERRORS, UI} = UX_TYPES
 const {AUTH, COURSE_ERR} = ERRORS
 export const signupUser = (payload: Session) => ({
   type: SESSION.SIGN_UP,
@@ -22,6 +22,11 @@ export const logoutUser = () => ({
 
 export const setAuthError = (type: string) => ({
   type
+})
+
+export const setSelectedCourse = (payload: any) => ({
+  type: UI.SELECT_COURSE,
+  payload
 })
 
 export const receiveAllCourses = (payload: any) => ({

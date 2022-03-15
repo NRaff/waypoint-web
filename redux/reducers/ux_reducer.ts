@@ -1,21 +1,30 @@
 import { UX_TYPES } from "redux/redux_types"
 import { AUTH_ERRORS } from "utility/errorMessages"
-import { Session, ReduxAction } from "utility/types"
+import { Session, ReduxAction, Ui } from "utility/types"
 
-export const uiReducer = (state: any={}, {type, payload}:ReduxAction) => {
+const { SESSION, ERRORS, UI } = UX_TYPES
+
+const defaultUi = {
+  selectedCourse: null,
+  selectedRace: null,
+} as Ui
+
+export const uiReducer = (
+  state: Ui = defaultUi, 
+  {type, payload}: ReduxAction
+  ) => {
   Object.freeze(state)
   const nextState = Object.assign({}, state)
 
   switch(type) {
-    case UX_TYPES.UI:
+    case UI.SELECT_COURSE:
+      nextState.selectedCourse = payload.courseId
       return nextState
     default:
       return nextState
   }
 }
 
-// TODO: Add ui selectors
-const { SESSION, ERRORS } = UX_TYPES
 const defaultSession = {
   uid: '',
   displayName: '',

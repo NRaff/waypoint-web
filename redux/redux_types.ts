@@ -1,7 +1,10 @@
 export const BASE = 'BASE'
 
 export const UX_TYPES = {
-  UI: 'UI',
+  UI: {
+    SELECT_COURSE: 'SELECT_COURSE',
+    SELECT_RACE: 'SELECT_RACE',
+  },
   SESSION: {
     SIGN_UP: 'SIGN_UP',
     LOGIN: 'LOGIN',
