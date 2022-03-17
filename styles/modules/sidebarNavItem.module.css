@@ -8,6 +8,7 @@
 
 .sidebarNavItem:hover {
   border-right: solid .25rem #173E59;
+  cursor: pointer;
 }
 
 .sidebarNavItem h3 {

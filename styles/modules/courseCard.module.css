@@ -11,10 +11,10 @@
   border-left-style: solid;
   border-width: .25rem;
   border-left-color: #6ED6D7;
+  cursor: pointer;
 }
 
 .selectedCard {
-  background-color: #36397E;
   border-left: solid .25rem #6ED6D7;
   background: linear-gradient(to right top, #EF5D3E,50%, #F6A143);
   color: white;
