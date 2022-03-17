@@ -1,9 +1,10 @@
 .card {
-  background-color: #3C3F88;
-  /* border-radius: .25rem; */
+  background-color: white;
+  color: #202124;
+  border-radius: .25rem;
   padding: .5rem;
-  /* margin-top: .25rem;
-  margin-bottom: .25rem; */
+  margin-top: .25rem;
+  margin-bottom: .25rem;
 }
 
 .card:hover {
@@ -15,4 +16,6 @@
 .selectedCard {
   background-color: #36397E;
   border-left: solid .25rem #6ED6D7;
+  background: linear-gradient(to right top, #EF5D3E,50%, #F6A143);
+  color: white;
 }

@@ -2,8 +2,10 @@
   width: 30%;
   overflow-y: scroll;
   margin-bottom: 1rem;
-  /* height: 100%; */
   position: relative;
+  background-color: whitesmoke;
+  padding-left: .5rem;
+  padding-right: .5rem;
 }
 
 .listItems {
