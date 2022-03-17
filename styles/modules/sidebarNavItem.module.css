@@ -10,6 +10,7 @@
   justify-content: center;
 }
 
+/* change this to grow and rotate the icon inside when hovered */
 .sidebarNavItem:hover {
   border-right: solid .25rem #173E59;
   cursor: pointer;
