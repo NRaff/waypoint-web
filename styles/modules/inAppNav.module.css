@@ -13,6 +13,7 @@
 .activitySelection {
   margin-bottom: 1rem;
   width: 100%;
+  border-radius: .25rem;
 }
 
 .accountSettings {
@@ -21,6 +22,6 @@
 }
 
 .sectionDivider {
-  border: solid .1rem whitesmoke;
-  margin: 0;
+  border: solid .1rem white;
+  margin: .25rem;
 }

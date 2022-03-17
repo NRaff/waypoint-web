@@ -1,9 +1,13 @@
 .sidebarNavItem {
   font-size: 1.5rem;
   width: 100%;
+  aspect-ratio: 1;
   padding: .25rem;
   box-sizing: border-box;
   position: relative;
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
 
 .sidebarNavItem:hover {
@@ -28,28 +32,42 @@
 }
 
 .activitiesSelected {
-  border-right: solid .25rem black;
+  background: linear-gradient(to right top, #323576,5%, #31A2A5);
 }
 
 .tooltip {
   display: none;
   border-radius: .25rem;
-  background-color: lightblue;
+  background-color: #3D4043;
   position: absolute;
-  top: 0;
+  top: 30%;
   left: 105%;
   width: fit-content;
-  height: 80%;
+  height: 40%;
   font-size: small;
+  padding: .5rem;
+  color: white;
 }
 
+.sidebarNavItem:first-of-type {
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+}
+
+.sidebarNavItem:nth-child(2) {
+  border-bottom-left-radius: .25rem;
+  border-bottom-right-radius: .25rem;
+}
 
 .sidebarNavItem:hover .tooltip {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 1;
 }
 
 .addActivityButton {
+  border-radius: .25rem;
 
 }
 

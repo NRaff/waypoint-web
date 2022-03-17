@@ -66,13 +66,3 @@
 .hideImg {
   display: none;
 }
-
-.addActivityBtn {
-  position: absolute;
-  top: 0;
-  left: 90%;
-  width: 4rem;
-  height: 2rem;
-  background-color: red;
-  z-index: 1;
-}

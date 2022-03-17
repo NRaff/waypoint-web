@@ -8,7 +8,7 @@ export default function SidebarNavItem({ action, title, style, tooltip }: NavIte
       className={`${styles.sidebarNavItem} ${styles[style]}`}
     >
       <h3 className={styles.sidebarNavItem}><span>{title}</span></h3>
-      <p className={styles.tooltip}>{tooltip}</p>
+      <p className={styles.tooltip}><span>{tooltip}</span></p>
     </button>
   )
 }
