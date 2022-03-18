@@ -24,7 +24,7 @@ export function WaypointApp() {
     <div className={styles.waypointApp}>
       <InAppNav curType={listType} setType={setListType} />
       <ActivityList type={listType as any} />
-      <CourseDetail />
+      <CourseDetail type='NEW'/>
     </div>
   )
 }
