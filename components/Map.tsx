@@ -1,19 +1,20 @@
 import { useEffect } from "react"
-import { MapLoader } from "utility/maps"
+import { initMapWithHandler, MapLoader } from "utility/maps"
+import { Coordinates } from "utility/types"
 import styles from '../styles/modules/map.module.css'
 
 export default function Map() {
+  let map: google.maps.Map
   useEffect(() => {
-    MapLoader.load().then(() => {
-      const map = new google.maps.Map(document.getElementById('course-map') as HTMLElement, {
-        center: {
-          lat: -34.397,
-          lng: 150.644
-        },
-        zoom: 8
-      })
-    })
+    initMapWithHandler(map, 'course-map', 'click',placeMarker)
   }, [])
+
+  const placeMarker = (e: any) => {
+    const point: Coordinates = {}
+    point.lat = e.latLng.lat()
+    point.lng = e.latLng.lng()
+    console.log(point)
+  }
 
 
   return (

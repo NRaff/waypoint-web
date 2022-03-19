@@ -86,3 +86,8 @@ export enum CourseDetailType {
   New = 'New',
   Selected = 'Selected',
 }
+
+export interface Coordinates {
+  lat?: number;
+  lng?: number;
+}
