@@ -1,3 +1,4 @@
+import { Dispatch } from "redux";
 
 export interface Session {
   uid: string;
@@ -55,6 +56,11 @@ export interface ActivityHeaderProps {
   setType: Function;
 }
 
+// TODO: Fix the props
+export interface MapProps {
+  courseDispatch: any;
+}
+
 export interface Activity {
   type: string;
   name: string;
@@ -62,14 +68,45 @@ export interface Activity {
   visibility: string;
 }
 
-export interface Course {
+export interface Coordinates {
+  lat?: number;
+  lng?: number;
+}
+
+export enum WaypointType {
+  Start = 'Start',
+  Port = 'Port',
+  Starboard = 'Starboard',
+  Gate = 'Gate',
+  Finish = 'Finish'
+}
+
+export interface Waypoints {
+  waypointsList: Array<string>;
+  waypoints: {
+    [key: string]: Waypoint;
+  }
+}
+
+export interface Waypoint {
+  name: string;
+  course_id: string;
+  type: WaypointType;
+  point: Coordinates;
+}
+
+export interface Course extends Waypoints {
   name: string;
   length: number;
   duration: number;
   type: CoursePermission;
   created_by: string;
   id: string;
-  waypoints: Array<string>;
+
+}
+
+export interface NewCourse {
+
 }
 
 export enum CoursePermission {
@@ -85,9 +122,4 @@ export enum ActivityType {
 export enum CourseDetailType {
   New = 'New',
   Selected = 'Selected',
-}
-
-export interface Coordinates {
-  lat?: number;
-  lng?: number;
 }
