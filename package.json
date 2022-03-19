@@ -9,6 +9,7 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.13.9",
     "firebase": "^9.6.7",
     "next": "latest",
     "react": "^17.0.2",
@@ -22,6 +23,7 @@
     "@testing-library/jest-dom": "5.16.1",
     "@testing-library/react": "12.1.2",
     "@testing-library/user-event": "13.5.0",
+    "@types/google.maps": "^3.48.2",
     "@types/react": "17.0.38",
     "@types/redux-logger": "^3.0.9",
     "babel-jest": "27.4.5",

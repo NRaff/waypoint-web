@@ -1,8 +1,9 @@
+import Map from "./Map"
 
 export default function NewCourse() {
   return (
     <div>
-      <div>Map</div>
+      <Map />
       <section>
         <label>Course Name</label>
         <input type="text" />
