@@ -1,9 +1,10 @@
 import Map from "./Map"
 import styles from '../styles/modules/newCourse.module.css'
 import { useReducer, useState } from "react"
-import { Course as CourseType, CoursePermission, ReduxAction, Waypoint } from "utility/types"
+import { Course as CourseType, CoursePermission, ReduxAction, Waypoint as WaypointType } from "utility/types"
 import { useSession } from "utility/selectors"
 import { Course } from "models/Course"
+import { Waypoint } from "models/Waypoint"
 
 export default function NewCourse() {
   const { uid } = useSession()
@@ -60,6 +61,12 @@ export default function NewCourse() {
       created_by: course.created_by,
     } as CourseType
     const waypointsToSave = Object.assign({},course.waypoints)
+    Object.values(waypointsToSave).forEach((waypoint: WaypointType) => {
+      const wp = new Waypoint(uid, waypoint)
+      const wpId = wp.addToList()
+      // courseDetails.waypointsList.push(wpId)
+
+    })
     const courseToSave = new Course(uid, courseDetails)
     courseToSave.addToList()
   }
@@ -70,7 +77,7 @@ export default function NewCourse() {
     <div className={styles.newCourse}>
       <Map courseDispatch={courseDispatch} course={course}/>
       <ul className={styles.waypointsList}>
-        {Object.values(course.waypoints).map((waypoint: Waypoint) => {
+        {Object.values(course.waypoints).map((waypoint: WaypointType) => {
           return (
             <li>
               <h3>{waypoint.name}</h3>
@@ -97,6 +104,9 @@ export default function NewCourse() {
           <h1>{course.waypoints['test1'] ? course.waypoints['test1'].name : 'No Waypoint'}</h1>
         </section>
       </section>
+      <button
+        onClick={saveCourse}
+      >Save Course</button>
     </div>
   )
 }

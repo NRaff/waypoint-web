@@ -1,7 +1,7 @@
 import { useEffect, useReducer, useState } from "react"
 import { initMapWithHandlerAsync } from "utility/maps"
 import { useSession } from "utility/selectors"
-import { Coordinates, MapProps, Waypoint, WaypointType } from "utility/types"
+import { Coordinates, MapProps, Waypoint, PointType } from "utility/types"
 import styles from '../styles/modules/map.module.css'
 
 export default function Map({courseDispatch, course}: MapProps) {
@@ -27,7 +27,7 @@ export default function Map({courseDispatch, course}: MapProps) {
       name: 'test',
       waypoint_id: `${Object.keys(course.waypoints).length}`,
       course_id: 'test1',
-      type: WaypointType.Start,
+      type: PointType.Start,
       point: point
     }
     courseDispatch({type: 'ADD_WAYPOINT', payload: waypoint})

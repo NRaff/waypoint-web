@@ -74,7 +74,7 @@ export interface Coordinates {
   lng?: number;
 }
 
-export enum WaypointType {
+export enum PointType {
   Start = 'Start',
   Port = 'Port',
   Starboard = 'Starboard',
@@ -93,7 +93,7 @@ export interface Waypoint {
   name: string;
   course_id: string;
   waypoint_id: string;
-  type: WaypointType;
+  type: PointType;
   point: Coordinates;
 }
 
@@ -114,7 +114,8 @@ export enum CoursePermission {
 
 export enum ActivityType {
   Races = 'races',
-  Courses = 'courses'
+  Courses = 'courses',
+  Waypoint = 'waypoints'
 }
 
 export enum CourseDetailType {
