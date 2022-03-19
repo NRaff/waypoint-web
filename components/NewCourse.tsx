@@ -1,18 +1,24 @@
 import Map from "./Map"
+import styles from '../styles/modules/newCourse.module.css'
 
 export default function NewCourse() {
   return (
-    <div>
+    <div className={styles.newCourse}>
       <Map />
-      <section>
-        <label>Course Name</label>
+      <section className={styles.courseDetails}>
+        <label>Course Name
         <input type="text" />
-        <section>
+        </label>
+        <section className={styles.visibility}>
           <label>Visibility</label>
-          <input type="radio" id="Private" name='visibility' />
-          <label htmlFor="Private">Private</label>
-          <input type="radio" id="Public" name='visibility' />
-          <label htmlFor="Public">Public</label>
+          <label htmlFor="Private">
+            <input type="radio" id="Private" name='visibility' />
+            Private
+          </label>
+          <label htmlFor="Public">
+            <input type="radio" id="Public" name='visibility' />
+            Public
+          </label>
         </section>
       </section>
     </div>

@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { initMapWithHandler, initMapWithHandlerAsync, MapLoader, setMap } from "utility/maps"
+import { initMapWithHandlerAsync } from "utility/maps"
 import { Coordinates } from "utility/types"
 import styles from '../styles/modules/map.module.css'
 
