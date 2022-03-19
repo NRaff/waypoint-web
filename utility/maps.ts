@@ -7,13 +7,12 @@ export const MapLoader = new Loader({
 })
 
 export const initMapWithHandler = (
-  map: google.maps.Map,
   mapId: string,
   event: string,
   callback: Function,
 ) => {
   MapLoader.load().then(() => {
-    map = new google.maps.Map(document.getElementById(mapId) as HTMLElement, {
+    const map = new google.maps.Map(document.getElementById(mapId) as HTMLElement, {
       center: {
         lat: -34.397,
         lng: 150.644
@@ -26,4 +25,25 @@ export const initMapWithHandler = (
     })
     map.addListener(event, callback)
   })
+}
+
+export const initMapWithHandlerAsync = async (
+  mapId: string,
+  event: string,
+  callback: Function,
+) => {
+  const google = await MapLoader.load()
+  const map = new google.maps.Map(document.getElementById(mapId) as HTMLElement, {
+    center: {
+      lat: -34.397,
+      lng: 150.644
+    },
+    zoom: 8,
+    streetViewControl: false,
+    disableDoubleClickZoom: true,
+    fullscreenControl: false,
+    zoomControl: true,
+  })
+  map.addListener(event, callback)
+  return map
 }
