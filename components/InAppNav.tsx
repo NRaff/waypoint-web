@@ -10,10 +10,11 @@ const ACTIVITIES_SELECTED = 'activitiesSelected'
 
 export default function InAppNav({curType, setType}:ActivityHeaderProps) {
   const { uid } = useSession()
-  const course = new Course(uid)
+  // const course = new Course(uid)
 
   function createCourse() {
-    course.addToList()
+    // course.addToList()
+    console.log('Add course clicked')
   }
 
   return (

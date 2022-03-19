@@ -22,7 +22,7 @@ export class FirebaseObject {
   private objectRef: any;
   private usersObjectsPath: any;
   private currentUserId: string;
-  private listeners: Array<any>
+  private listeners: Array<any>;
 
   constructor(type: ActivityType, currentUserId: string) {
     this.type = type
@@ -38,20 +38,14 @@ export class FirebaseObject {
   }
 
   // to be used on objects with ids that should be auto generated
-  addToList() {
+  addToList(object: any) {
     const newObjectRef = push(this.objectRef)
-    set(newObjectRef, {
-      name: 'Test',
-      length: 12,
-      duration: 2.5,
-      type: CoursePermission.Public,
-      created_by: this.currentUserId,
-      id: newObjectRef.key
-    })
+    set(newObjectRef, object)
     .then(() => {
       const newUserObjectRef = ref(db, `${this.usersObjectsPath}/${newObjectRef.key}`)
       set(newUserObjectRef, true)
     })
+    return newObjectRef.key
   }
 
   static updateObject(key: string){

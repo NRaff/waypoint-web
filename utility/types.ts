@@ -59,6 +59,7 @@ export interface ActivityHeaderProps {
 // TODO: Fix the props
 export interface MapProps {
   courseDispatch: any;
+  course: Course;
 }
 
 export interface Activity {
@@ -91,6 +92,7 @@ export interface Waypoints {
 export interface Waypoint {
   name: string;
   course_id: string;
+  waypoint_id: string;
   type: WaypointType;
   point: Coordinates;
 }
@@ -102,10 +104,6 @@ export interface Course extends Waypoints {
   type: CoursePermission;
   created_by: string;
   id: string;
-
-}
-
-export interface NewCourse {
 
 }
 

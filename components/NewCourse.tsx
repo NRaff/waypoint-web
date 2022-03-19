@@ -1,13 +1,14 @@
 import Map from "./Map"
 import styles from '../styles/modules/newCourse.module.css'
-import { useReducer } from "react"
-import { Course, CoursePermission, ReduxAction } from "utility/types"
+import { useReducer, useState } from "react"
+import { Course as CourseType, CoursePermission, ReduxAction, Waypoint } from "utility/types"
 import { useSession } from "utility/selectors"
+import { Course } from "models/Course"
 
 export default function NewCourse() {
   const { uid } = useSession()
 
-  const defaultCourse: Course = {
+  const defaultCourse: CourseType = {
     name: '',
     length: 0,
     duration: 0,
@@ -18,7 +19,7 @@ export default function NewCourse() {
     waypoints: {}
   }
 
-  const singleCourseReducer = (state: Course, { type, payload }: ReduxAction) => {
+  const singleCourseReducer = (state: CourseType, { type, payload }: ReduxAction) => {
     Object.freeze(state)
     const nextState = Object.assign({}, state)
 
@@ -36,12 +37,11 @@ export default function NewCourse() {
         nextState.type = payload
         return nextState
       case 'ADD_WAYPOINT':
-        nextState.waypoints[payload.course_id] = payload
+        nextState.waypoints[payload.waypoint_id] = payload
         nextState.waypointsList = Object.keys(nextState.waypoints)
-        console.log('add waypoint')
         return nextState
       case 'REMOVE_WAYPOINT':
-        delete nextState.waypoints[payload.course_id]
+        delete nextState.waypoints[payload.waypoint_id]
         nextState.waypointsList = Object.keys(nextState.waypoints)
         return nextState
       default:
@@ -50,11 +50,36 @@ export default function NewCourse() {
   }
 
   const [course, courseDispatch] = useReducer(singleCourseReducer, defaultCourse)
-  console.log(course)
+  
+  const saveCourse = () => {
+    const courseDetails = {
+      name: course.name,
+      length: course.length,
+      duration: course.duration,
+      type: course.type,
+      created_by: course.created_by,
+    } as CourseType
+    const waypointsToSave = Object.assign({},course.waypoints)
+    const courseToSave = new Course(uid, courseDetails)
+    courseToSave.addToList()
+  }
+
+  console.log(course.waypoints)
 
   return (
     <div className={styles.newCourse}>
-      <Map courseDispatch={courseDispatch}/>
+      <Map courseDispatch={courseDispatch} course={course}/>
+      <ul className={styles.waypointsList}>
+        {Object.values(course.waypoints).map((waypoint: Waypoint) => {
+          return (
+            <li>
+              <h3>{waypoint.name}</h3>
+              <p>Lat: {waypoint.point.lat}</p>
+              <p>Lng: {waypoint.point.lng}</p>
+            </li>
+          )
+        })}
+      </ul>
       <section className={styles.courseDetails}>
         <label>Course Name
         <input type="text" />
