@@ -1,15 +1,19 @@
 import Map from "./Map"
 import styles from '../styles/modules/newCourse.module.css'
-import { useReducer, useState } from "react"
+import { useReducer } from "react"
 import { Course as CourseType, CoursePermission, ReduxAction, Waypoint as WaypointType } from "utility/types"
 import { useSession } from "utility/selectors"
 import { Course } from "models/Course"
 import { Waypoint } from "models/Waypoint"
-import WaypointCard from "./WaypointCard"
 import WaypointList from "./WaypointList"
 
 export default function NewCourse() {
   const { uid } = useSession()
+
+  //TODO: refactor:
+    // take reducer and helpers into separate utility
+    // change new course to actually create a placeholder in firebase (e.g. saved vs. published)
+    // change waypoints to save to firebase on each click (and delete accordingly as well)
 
   const defaultCourse: CourseType = {
     name: '',
