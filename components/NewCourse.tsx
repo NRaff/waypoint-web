@@ -5,6 +5,8 @@ import { Course as CourseType, CoursePermission, ReduxAction, Waypoint as Waypoi
 import { useSession } from "utility/selectors"
 import { Course } from "models/Course"
 import { Waypoint } from "models/Waypoint"
+import WaypointCard from "./WaypointCard"
+import WaypointList from "./WaypointList"
 
 export default function NewCourse() {
   const { uid } = useSession()
@@ -76,17 +78,7 @@ export default function NewCourse() {
   return (
     <div className={styles.newCourse}>
       <Map courseDispatch={courseDispatch} course={course}/>
-      <ul className={styles.waypointsList}>
-        {Object.values(course.waypoints).map((waypoint: WaypointType) => {
-          return (
-            <li>
-              <h3>{waypoint.name}</h3>
-              <p>Lat: {waypoint.point.lat}</p>
-              <p>Lng: {waypoint.point.lng}</p>
-            </li>
-          )
-        })}
-      </ul>
+      <WaypointList course={course} />
       <section className={styles.courseDetails}>
         <label>Course Name
         <input type="text" />

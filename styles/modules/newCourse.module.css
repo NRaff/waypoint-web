@@ -5,6 +5,7 @@
   margin-left: .5rem;
   border-radius: .25rem;
   height: 100%;
+  position: relative;
 }
 
 .courseDetails {
@@ -18,11 +19,5 @@
 
 .visibility {
   display: flex;
-  flex-direction: column;
-}
-
-.waypointsList {
-  display: flex;
-  position: absolute;
   flex-direction: column;
 }
