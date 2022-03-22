@@ -12,7 +12,8 @@
 
 /* change this to grow and rotate the icon inside when hovered */
 .sidebarNavItem:hover {
-  border-right: solid .25rem #173E59;
+  /* border-right: solid .25rem #173E59; */
+  color: whitesmoke;
   cursor: pointer;
 }
 
@@ -33,7 +34,8 @@
 }
 
 .activitiesSelected {
-  background: linear-gradient(to right top, #323576,5%, #31A2A5);
+  /* background: linear-gradient(to right top, #323576,5%, #31A2A5); */
+  background-color: #17181d;
 }
 
 .tooltip {
@@ -73,5 +75,5 @@
 }
 
 .addActivityButton:hover {
-  background-color: #173E59;
+  background-color: #17181d;
 }
