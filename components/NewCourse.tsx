@@ -6,12 +6,12 @@ import { useSession } from "utility/selectors"
 import { Course } from "models/Course"
 import { Waypoint } from "models/Waypoint"
 import WaypointList from "./WaypointList"
+import { CourseReducer } from "redux/reducers/course_reducer"
 
 export default function NewCourse() {
   const { uid } = useSession()
 
   //TODO: refactor:
-    // take reducer and helpers into separate utility
     // change new course to actually create a placeholder in firebase (e.g. saved vs. published)
     // change waypoints to save to firebase on each click (and delete accordingly as well)
 
@@ -26,37 +26,7 @@ export default function NewCourse() {
     waypoints: {}
   }
 
-  const singleCourseReducer = (state: CourseType, { type, payload }: ReduxAction) => {
-    Object.freeze(state)
-    const nextState = Object.assign({}, state)
-
-    switch (type) {
-      case 'UPDATE_NAME':
-        nextState.name = payload
-        return nextState
-      case 'UPDATE_LENGTH':
-        nextState.length = payload
-        return nextState
-      case 'UPDATE_DURATION':
-        nextState.duration = payload
-        return nextState
-      case 'UPDATE_TYPE':
-        nextState.type = payload
-        return nextState
-      case 'ADD_WAYPOINT':
-        nextState.waypoints[payload.waypoint_id] = payload
-        nextState.waypointsList = Object.keys(nextState.waypoints)
-        return nextState
-      case 'REMOVE_WAYPOINT':
-        delete nextState.waypoints[payload.waypoint_id]
-        nextState.waypointsList = Object.keys(nextState.waypoints)
-        return nextState
-      default:
-        return state
-    }
-  }
-
-  const [course, courseDispatch] = useReducer(singleCourseReducer, defaultCourse)
+  const [course, courseDispatch] = useReducer(CourseReducer, defaultCourse)
   
   const saveCourse = () => {
     const courseDetails = {
