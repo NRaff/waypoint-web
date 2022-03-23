@@ -14,6 +14,7 @@ export default function NewCourse() {
   //TODO: refactor:
     // change new course to actually create a placeholder in firebase (e.g. saved vs. published)
     // change waypoints to save to firebase on each click (and delete accordingly as well)
+    // update new course details to be inside the map (use the map as background)
 
   const defaultCourse: CourseType = {
     name: '',
