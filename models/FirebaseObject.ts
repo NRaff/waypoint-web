@@ -30,6 +30,7 @@ export class FirebaseObject {
     this.listeners = []
     this.currentUserId = currentUserId
     this.usersObjectsPath = `users/${currentUserId}/${type}`
+    // TODO: add parent object path, not just usersObjectPath
   }
 
   // should only be used on objects with predefined ids

@@ -23,6 +23,7 @@ export default function Map({courseDispatch, course}: MapProps) {
       map: map
     })
 
+    // TODO: update the course id to be the actual course id from firebase
     const waypoint: Waypoint = {
       name: 'test',
       waypoint_id: `${Object.keys(course.waypoints).length}`,
