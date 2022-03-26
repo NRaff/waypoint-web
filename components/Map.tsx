@@ -22,18 +22,17 @@ export default function Map({courseDispatch, course}: MapProps) {
     })
     marker.setLngLat(point as mapboxgl.LngLatLike)
     marker.addTo(map)
-  }
 
-  //   // TODO: update the course id to be the actual course id from firebase
-  //   const waypoint: Waypoint = {
-  //     name: 'test',
-  //     waypoint_id: `${Object.keys(course.waypoints).length}`,
-  //     course_id: 'test1',
-  //     type: PointType.Start,
-  //     point: point
-  //   }
-  //   courseDispatch({type: 'ADD_WAYPOINT', payload: waypoint})
-  // }
+    // TODO: update the course id to be the actual course id from firebase
+    const waypoint: Waypoint = {
+      name: 'test',
+      waypoint_id: `${Object.keys(course.waypoints).length}`,
+      course_id: 'test1',
+      type: PointType.Start,
+      point: point
+    }
+    courseDispatch({type: 'ADD_WAYPOINT', payload: waypoint})
+  }
 
 
   return (

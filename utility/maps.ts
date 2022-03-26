@@ -32,7 +32,7 @@ export const initMapBoxWithHandler = (
     },
     positionOptions: {
       enableHighAccuracy: true
-    }
+    },
   })
   map.addControl(control)
   map.on('click', (ev) => handler(ev))
