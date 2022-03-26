@@ -1,31 +1,28 @@
+import mapboxgl, { EventData as MapEventData } from "mapbox-gl"
 import { useEffect, useReducer, useState } from "react"
-import { initMapBox, initMapWithHandlerAsync } from "utility/maps"
+import { initMapBoxWithHandler, initMapWithHandlerAsync } from "utility/maps"
 import { useSession } from "utility/selectors"
 import { Coordinates, MapProps, Waypoint, PointType } from "utility/types"
 import styles from '../styles/modules/map.module.css'
 
 export default function Map({courseDispatch, course}: MapProps) {
-  let map: google.maps.Map
+  let map: mapboxgl.Map
   const {uid} = useSession()
   
   // TODO: Switch to Mapbox for terrain shading 
     useEffect(() => {
-      initMapBox('course-map')
+      map = initMapBoxWithHandler('course-map', placeMarker)
     }, [])
-  // useEffect(() => {
-  //   initMapWithHandlerAsync('course-map', 'click', placeMarker)
-  //   .then(res => map = res)
-  // }, [])
 
-  // const placeMarker = (e: any) => {
-  //   const point: Coordinates = {}
-  //   point.lat = e.latLng.lat()
-  //   point.lng = e.latLng.lng()
-
-  //   const marker = new google.maps.Marker({
-  //     position: point as google.maps.LatLngLiteral,
-  //     map: map
-  //   })
+  const placeMarker = (e: MapEventData) => {
+    const point: Coordinates = e.lngLat
+    // const feature = map.queryRenderedFeatures(e.point)[0]
+    const marker = new mapboxgl.Marker({
+      draggable: true,
+    })
+    marker.setLngLat(point as mapboxgl.LngLatLike)
+    marker.addTo(map)
+  }
 
   //   // TODO: update the course id to be the actual course id from firebase
   //   const waypoint: Waypoint = {
@@ -43,8 +40,6 @@ export default function Map({courseDispatch, course}: MapProps) {
     <div
       id="course-map"
       className={styles.map}
-    >
-      TEST MAP
-    </div>
+    ></div>
   )
 }

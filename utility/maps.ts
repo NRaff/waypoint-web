@@ -1,26 +1,42 @@
 import { Loader } from "@googlemaps/js-api-loader";
 import { ACCESS_TOKEN } from "config/mapbox_config";
 import { firebaseConfig } from "config/setup_firebase";
-import mapboxgl from 'mapbox-gl';
+import mapboxgl, { GeolocateControl } from 'mapbox-gl';
 
 export const MapLoader = new Loader({
   apiKey: firebaseConfig.apiKey,
   version: 'weekly',
 })
 
-export const initMapBox = (
+export const initMapBoxWithHandler = (
   mapId: string,
+  handler: Function
 ) => {
   mapboxgl.accessToken = ACCESS_TOKEN
   const map = new mapboxgl.Map({
     container: mapId,
     style: 'mapbox://styles/nraff/cl17db9sb003t15un9s3npd3o',
-    center: [150.644, -34.397],
+    center: [-122.4194, 37.7749],
     zoom: 9,
     keyboard: true,
     optimizeForTerrain: true,
     touchZoomRotate: true,
   })
+  const control: GeolocateControl = new GeolocateControl({
+    trackUserLocation: false,
+    showAccuracyCircle: true,
+    showUserLocation: true,
+    fitBoundsOptions: {
+      maxZoom: 15,
+      maxDuration: 1
+    },
+    positionOptions: {
+      enableHighAccuracy: true
+    }
+  })
+  map.addControl(control)
+  map.on('click', (ev) => handler(ev))
+  return map
 }
 
 export const initMapWithHandler = (
