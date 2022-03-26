@@ -9,7 +9,7 @@ import {
   onChildRemoved,
   off,
 } from "firebase/database";
-import { setupFirebase } from "firebaseUtil/setup_firebase";
+import { setupFirebase } from "config/setup_firebase";
 import { Dispatch } from "redux";
 import { noCoursesFound, receiveAllCourses } from "redux/actions/actions";
 import { ActivityType, CoursePermission } from "utility/types";
@@ -45,6 +45,7 @@ export class FirebaseObject {
     .then(() => {
       const newUserObjectRef = ref(db, `${this.usersObjectsPath}/${newObjectRef.key}`)
       set(newUserObjectRef, true)
+      // if parent object exists, add that here as well
     })
     return newObjectRef.key
   }

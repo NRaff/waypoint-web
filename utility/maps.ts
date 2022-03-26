@@ -1,10 +1,27 @@
 import { Loader } from "@googlemaps/js-api-loader";
-import { firebaseConfig } from "firebaseUtil/setup_firebase";
+import { ACCESS_TOKEN } from "config/mapbox_config";
+import { firebaseConfig } from "config/setup_firebase";
+import mapboxgl from 'mapbox-gl';
 
 export const MapLoader = new Loader({
   apiKey: firebaseConfig.apiKey,
   version: 'weekly',
 })
+
+export const initMapBox = (
+  mapId: string,
+) => {
+  mapboxgl.accessToken = ACCESS_TOKEN
+  const map = new mapboxgl.Map({
+    container: mapId,
+    style: 'mapbox://styles/nraff/cl17db9sb003t15un9s3npd3o',
+    center: [150.644, -34.397],
+    zoom: 9,
+    keyboard: true,
+    optimizeForTerrain: true,
+    touchZoomRotate: true,
+  })
+}
 
 export const initMapWithHandler = (
   mapId: string,

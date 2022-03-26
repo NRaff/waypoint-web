@@ -13,7 +13,7 @@ import {
 import { Dispatch } from 'redux';
 import { NewAuth, Session, SignInAuth } from './types';
 import { setAuthError, signupUser } from 'redux/actions/actions';
-import { setupFirebase } from 'firebaseUtil/setup_firebase';
+import { setupFirebase } from 'config/setup_firebase';
 import { NextRouter } from 'next/router';
 import { setProvider } from './authTypes';
 import { UX_TYPES } from 'redux/redux_types';
