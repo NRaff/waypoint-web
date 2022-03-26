@@ -1,6 +1,6 @@
 import mapboxgl, { EventData as MapEventData } from "mapbox-gl"
 import { useEffect, useReducer, useState } from "react"
-import { initMapBoxWithHandler, initMapWithHandlerAsync } from "utility/maps"
+import { initMapBoxWithHandler } from "utility/maps"
 import { useSession } from "utility/selectors"
 import { Coordinates, MapProps, Waypoint, PointType } from "utility/types"
 import styles from '../styles/modules/map.module.css'
@@ -33,7 +33,6 @@ export default function Map({courseDispatch, course}: MapProps) {
     }
     courseDispatch({type: 'ADD_WAYPOINT', payload: waypoint})
   }
-
 
   return (
     <div
