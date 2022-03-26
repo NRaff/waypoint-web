@@ -5,16 +5,32 @@ import SidebarNavItem from "./SidebarNavItem"
 import ProfileNavItem from "./ProfileNavItem"
 import { Course } from "models/Course"
 import { useSession } from "utility/selectors"
+import { CoursePermission } from "utility/types"
+import { useDispatch } from "react-redux"
+import { setSelectedCourse } from "redux/actions/actions"
 
 const ACTIVITIES_SELECTED = 'activitiesSelected'
 
 export default function InAppNav({curType, setType}:ActivityHeaderProps) {
   const { uid } = useSession()
-  // const course = new Course(uid)
+  const dispatch = useDispatch()
+  const courseDefault = {
+    name: '',
+    length: 0,
+    duration: 0,
+    type: CoursePermission.Private,
+    created_by: uid,
+    id: '',
+    waypointsList: [],
+    waypoints: {}
+  }
+  const course = new Course(uid, courseDefault)
 
   function createCourse() {
-    // course.addToList()
-    console.log('Add course clicked')
+    // create the new course as blank
+    course.updateToList()
+    // select the newly created course
+    dispatch(setSelectedCourse({courseId: course.id}))
   }
 
   return (

@@ -4,10 +4,10 @@ import { Session, ReduxAction, Ui } from "utility/types"
 
 const { SESSION, ERRORS, UI } = UX_TYPES
 
-const defaultUi = {
+const defaultUi: Ui = {
   selectedCourse: null,
   selectedRace: null,
-} as Ui
+}
 
 export const uiReducer = (
   state: Ui = defaultUi, 

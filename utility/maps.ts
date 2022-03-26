@@ -9,6 +9,7 @@ export const initMapBoxWithHandler = (
   const map = new mapboxgl.Map({
     container: mapId,
     style: 'mapbox://styles/nraff/cl17db9sb003t15un9s3npd3o',
+    // TODO: add a users set location to their user defaults
     center: [-122.4194, 37.7749],
     zoom: 9,
     keyboard: true,

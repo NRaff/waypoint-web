@@ -2,7 +2,7 @@ import Map from "./Map"
 import styles from '../styles/modules/newCourse.module.css'
 import { useReducer } from "react"
 import { Course as CourseType, CoursePermission, ReduxAction, Waypoint as WaypointType } from "utility/types"
-import { useSession } from "utility/selectors"
+import { useCourse, useSession } from "utility/selectors"
 import { Course } from "models/Course"
 import { Waypoint } from "models/Waypoint"
 import WaypointList from "./WaypointList"
@@ -10,7 +10,7 @@ import { CourseReducer } from "redux/reducers/course_reducer"
 
 export default function NewCourse() {
   const { uid } = useSession()
-
+  const selectedCourse = useCourse()
   //TODO: refactor:
     // change new course to actually create a placeholder in firebase (e.g. saved vs. published)
     // add query for published and unpublished? (add selector)
@@ -29,33 +29,31 @@ export default function NewCourse() {
     waypoints: {}
   }
 
-  const [course, courseDispatch] = useReducer(CourseReducer, defaultCourse)
+  const [newCourse, courseDispatch] = useReducer(CourseReducer, selectedCourse || defaultCourse)
   
   const saveCourse = () => {
-    const courseDetails = {
-      name: course.name,
-      length: course.length,
-      duration: course.duration,
-      type: course.type,
-      created_by: course.created_by,
-    } as CourseType
+    // const courseDetails = {
+    //   name: course.name,
+    //   length: course.length,
+    //   duration: course.duration,
+    //   type: course.type,
+    //   created_by: course.created_by,
+    // } as CourseType
+    const course = new Course(uid, newCourse)
     const waypointsToSave = Object.assign({},course.waypoints)
     Object.values(waypointsToSave).forEach((waypoint: WaypointType) => {
-      const wp = new Waypoint(uid, waypoint)
+      const wp = new Waypoint(uid, waypoint, [course.id])
       const wpId = wp.addToList()
       // courseDetails.waypointsList.push(wpId)
 
     })
-    const courseToSave = new Course(uid, courseDetails)
-    courseToSave.addToList()
+    course.addToList()
   }
-
-  console.log(course.waypoints)
 
   return (
     <div className={styles.newCourse}>
-      <Map courseDispatch={courseDispatch} course={course}/>
-      <WaypointList course={course} />
+      <Map courseDispatch={courseDispatch} course={newCourse}/>
+      <WaypointList course={newCourse} />
       <section className={styles.courseDetails}>
         <label>Course Name
         <input type="text" />
@@ -70,7 +68,7 @@ export default function NewCourse() {
             <input type="radio" id="Public" name='visibility' />
             Public
           </label>
-          <h1>{course.waypoints['test1'] ? course.waypoints['test1'].name : 'No Waypoint'}</h1>
+          <h1>{newCourse.waypoints['test1'] ? newCourse.waypoints['test1'].name : 'No Waypoint'}</h1>
         </section>
       </section>
       <button

@@ -90,9 +90,9 @@ export interface Waypoints {
 }
 
 export interface Waypoint {
+  id: string;
   name: string;
   course_id: string;
-  waypoint_id: string;
   type: PointType;
   point: Coordinates;
 }

@@ -8,6 +8,7 @@ import {
   onChildChanged,
   onChildRemoved,
   off,
+  update,
 } from "firebase/database";
 import { setupFirebase } from "config/setup_firebase";
 import { Dispatch } from "redux";
@@ -23,14 +24,27 @@ export class FirebaseObject {
   private usersObjectsPath: any;
   private currentUserId: string;
   private listeners: Array<any>;
+  private objectsPath: string;
+  private parentPaths?: Array<string>
 
-  constructor(type: ActivityType, currentUserId: string) {
+  constructor(type: ActivityType, currentUserId: string, parentPaths?: Array<string>) {
     this.type = type
     this.objectRef = ref(db, type)
     this.listeners = []
     this.currentUserId = currentUserId
     this.usersObjectsPath = `users/${currentUserId}/${type}`
+    this.objectsPath = ''
+    this.parentPaths = parentPaths
+
     // TODO: add parent object path, not just usersObjectPath
+  }
+
+  get path() {
+    return this.objectsPath
+  }
+
+  set path(path: string) {
+    this.objectsPath = path
   }
 
   // should only be used on objects with predefined ids
@@ -38,16 +52,20 @@ export class FirebaseObject {
 
   }
 
-  // to be used on objects with ids that should be auto generated
   addToList(object: any) {
-    const newObjectRef = push(this.objectRef)
-    set(newObjectRef, object)
-    .then(() => {
-      const newUserObjectRef = ref(db, `${this.usersObjectsPath}/${newObjectRef.key}`)
-      set(newUserObjectRef, true)
-      // if parent object exists, add that here as well
-    })
-    return newObjectRef.key
+    const newObjectKey = push(this.objectRef).key
+    object.id = newObjectKey
+    const updates: any = {}
+    updates[`${this.type}/${newObjectKey}`] = object
+    this.objectsPath = `${this.type}/${newObjectKey}`
+    updates[`${this.usersObjectsPath}/${newObjectKey}`] = true
+    // check for other parents and add updates for those if applicable
+    if (this.parentPaths) {
+      this.parentPaths.forEach((path: string) => {
+        updates[`${path}/${newObjectKey}`] = true
+      })
+    }
+    return update(ref(db), updates)
   }
 
   static updateObject(key: string){
