@@ -21,7 +21,7 @@ export const initMapBoxWithHandler = (
     showUserLocation: true,
     fitBoundsOptions: {
       maxZoom: 15,
-      maxDuration: 1
+      maxDuration: 2
     },
     positionOptions: {
       enableHighAccuracy: true
