@@ -1,4 +1,4 @@
-import { Dispatch } from "redux";
+import { Course as CourseClass } from "models/Course";
 
 export interface Session {
   uid: string;
@@ -59,7 +59,7 @@ export interface ActivityHeaderProps {
 // TODO: Fix the props
 export interface MapProps {
   courseDispatch: any;
-  course: Course;
+  course: CourseClass;
 }
 
 export interface Activity {

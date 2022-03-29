@@ -43,6 +43,10 @@ export class FirebaseObject {
     return this.objectsPath
   }
 
+  get parents() {
+    return this.parentPaths
+  }
+
   set path(path: string) {
     this.objectsPath = path
   }
@@ -65,6 +69,7 @@ export class FirebaseObject {
         updates[`${path}/${newObjectKey}`] = true
       })
     }
+    debugger
     return update(ref(db), updates)
   }
 

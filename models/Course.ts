@@ -21,8 +21,16 @@ export class Course extends FirebaseObject {
     return super.addToList(this.course)
   }
 
+  addWaypoint(waypoint: Waypoint) {
+    this.course.waypoints[waypoint.id] = waypoint
+  }
+
   get id(): string {
     return this.course.id
+  }
+
+  get waypoints(): { [key: string]: Waypoint } {
+    return this.course.waypoints
   }
 
   set name(name: string) {
@@ -43,10 +51,6 @@ export class Course extends FirebaseObject {
 
   set createdBy(uid: string) {
     this.course.created_by = uid
-  }
-
-  set waypoints(waypoint: Waypoint) {
-    this.course.waypoints[waypoint.id] = waypoint
   }
 
 

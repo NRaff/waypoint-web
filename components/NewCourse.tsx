@@ -1,16 +1,25 @@
 import Map from "./Map"
 import styles from '../styles/modules/newCourse.module.css'
-import { useReducer } from "react"
+import { useEffect, useReducer } from "react"
 import { Course as CourseType, CoursePermission, ReduxAction, Waypoint as WaypointType } from "utility/types"
 import { useCourse, useSession } from "utility/selectors"
 import { Course } from "models/Course"
 import { Waypoint } from "models/Waypoint"
 import WaypointList from "./WaypointList"
 import { CourseReducer } from "redux/reducers/course_reducer"
+import { defaultCourse } from "utility/defaults"
 
 export default function NewCourse() {
   const { uid } = useSession()
   const selectedCourse = useCourse()
+  let course: Course = new Course(uid, selectedCourse || defaultCourse(uid))
+
+  useEffect(() => {
+    if (selectedCourse) {
+      debugger
+      course = new Course(uid, selectedCourse)
+    }
+  }, [selectedCourse])
   //TODO: refactor:
     // change new course to actually create a placeholder in firebase (e.g. saved vs. published)
     // add query for published and unpublished? (add selector)
@@ -18,28 +27,10 @@ export default function NewCourse() {
     // change waypoints to save to firebase on each click (and delete accordingly as well)
     // update new course details to be inside the map (use the map as background)
 
-  const defaultCourse: CourseType = {
-    name: '',
-    length: 0,
-    duration: 0,
-    type: CoursePermission.Private,
-    created_by: uid,
-    id: '',
-    waypointsList: [],
-    waypoints: {}
-  }
-
-  const [newCourse, courseDispatch] = useReducer(CourseReducer, selectedCourse || defaultCourse)
+  const [newCourse, courseDispatch] = useReducer(CourseReducer, selectedCourse || defaultCourse(uid))
   
   const saveCourse = () => {
-    // const courseDetails = {
-    //   name: course.name,
-    //   length: course.length,
-    //   duration: course.duration,
-    //   type: course.type,
-    //   created_by: course.created_by,
-    // } as CourseType
-    const course = new Course(uid, newCourse)
+    debugger
     const waypointsToSave = Object.assign({},course.waypoints)
     Object.values(waypointsToSave).forEach((waypoint: WaypointType) => {
       const wp = new Waypoint(uid, waypoint, [course.id])
@@ -49,10 +40,9 @@ export default function NewCourse() {
     })
     course.addToList()
   }
-
   return (
     <div className={styles.newCourse}>
-      <Map courseDispatch={courseDispatch} course={newCourse}/>
+      <Map courseDispatch={courseDispatch} course={course}/>
       <WaypointList course={newCourse} />
       <section className={styles.courseDetails}>
         <label>Course Name

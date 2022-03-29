@@ -1,8 +1,9 @@
 import mapboxgl, { EventData as MapEventData, PointLike } from "mapbox-gl"
+import { Waypoint } from "models/Waypoint"
 import { useEffect, useReducer, useState } from "react"
 import { initMapBoxWithHandler } from "utility/maps"
 import { useSession } from "utility/selectors"
-import { Coordinates, MapProps, Waypoint, PointType } from "utility/types"
+import { Coordinates, MapProps, Waypoint as WaypointType, PointType } from "utility/types"
 import styles from '../styles/modules/map.module.css'
 import MapPopup from "./MapPopup"
 
@@ -25,14 +26,16 @@ export default function Map({courseDispatch, course}: MapProps) {
     marker.on('drag', (e) => {console.log('marker is dragging')})
     addPopup(feature, point as mapboxgl.LngLatLike)
     // TODO: update the course id to be the actual course id from firebase
-    const waypoint: Waypoint = {
+    const waypoint: WaypointType = {
       name: 'test',
-      waypoint_id: `${Object.keys(course.waypoints).length}`,
+      id: `${Object.keys(course.waypoints).length}`,
       course_id: 'test1',
       type: PointType.Start,
       point: point
     }
-
+    // course.addWaypoint(waypoint)
+    const wp = new Waypoint(uid, waypoint, [course.id])
+    wp.addToList()
     courseDispatch({type: 'ADD_WAYPOINT', payload: waypoint})
   }
 

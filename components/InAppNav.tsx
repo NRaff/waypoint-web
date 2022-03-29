@@ -28,7 +28,7 @@ export default function InAppNav({curType, setType}:ActivityHeaderProps) {
 
   function createCourse() {
     // create the new course as blank
-    course.updateToList()
+    course.addToList()
     // select the newly created course
     dispatch(setSelectedCourse({courseId: course.id}))
   }
