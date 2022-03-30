@@ -122,3 +122,8 @@ export enum CourseDetailType {
   New = 'New',
   Selected = 'Selected',
 }
+
+export interface ExpectType {
+  itemType: string;
+  path: string;
+}

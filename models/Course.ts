@@ -1,10 +1,10 @@
 import { Dispatch } from "redux";
-import { ActivityType, CoursePermission, Waypoint } from "utility/types";
+import { ActivityType, CoursePermission, ExpectType, Waypoint } from "utility/types";
 import { FirebaseObject } from "./FirebaseObject";
 import { Course as CourseType } from "utility/types";
 
 
-export class Course extends FirebaseObject {
+export class Course extends FirebaseObject<ExpectType> {
   private course: CourseType;
 
   constructor(currentUserId: string, course: CourseType) {
@@ -26,11 +26,13 @@ export class Course extends FirebaseObject {
   }
 
   get id(): string {
+    console.log('GOT ID FOR COURSE')
     return this.course.id
   }
 
   get waypoints(): { [key: string]: Waypoint } {
-    return this.course.waypoints
+    console.log('Waypoints getter')
+    return this.course.waypoints || {}
   }
 
   set name(name: string) {

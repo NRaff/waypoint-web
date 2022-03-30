@@ -1,12 +1,13 @@
 import { FirebaseObject } from "./FirebaseObject";
 import { ActivityType, Waypoint as WaypointType } from "utility/types";
+import { Course } from "./Course";
 
 
-export class Waypoint extends FirebaseObject {
+export class Waypoint extends FirebaseObject<Course> {
   private waypoint: WaypointType;
 
-  constructor(currentUserId: string, waypoint: WaypointType, parentPath: Array<string>) {
-    super(ActivityType.Waypoint, currentUserId, parentPath)
+  constructor(currentUserId: string, waypoint: WaypointType, parentItem: Array<Course>) {
+    super(ActivityType.Waypoint, currentUserId, parentItem)
     this.waypoint = waypoint
   }
   override addToList(): Promise<void> {

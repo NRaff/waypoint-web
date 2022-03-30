@@ -12,11 +12,11 @@ import { defaultCourse } from "utility/defaults"
 export default function NewCourse() {
   const { uid } = useSession()
   const selectedCourse = useCourse()
-  let course: Course = new Course(uid, selectedCourse || defaultCourse(uid))
+  // let course: Course = new Course(uid, selectedCourse || defaultCourse(uid))
+  let course: Course | null = selectedCourse ? new Course(uid, selectedCourse) : null
 
   useEffect(() => {
     if (selectedCourse) {
-      debugger
       course = new Course(uid, selectedCourse)
     }
   }, [selectedCourse])
@@ -30,10 +30,12 @@ export default function NewCourse() {
   const [newCourse, courseDispatch] = useReducer(CourseReducer, selectedCourse || defaultCourse(uid))
   
   const saveCourse = () => {
-    debugger
+    if(!course) {
+      throw Error('Course has not been loaded')
+    }
     const waypointsToSave = Object.assign({},course.waypoints)
     Object.values(waypointsToSave).forEach((waypoint: WaypointType) => {
-      const wp = new Waypoint(uid, waypoint, [course.id])
+      const wp = new Waypoint(uid, waypoint, [course!])
       const wpId = wp.addToList()
       // courseDetails.waypointsList.push(wpId)
 
@@ -42,7 +44,7 @@ export default function NewCourse() {
   }
   return (
     <div className={styles.newCourse}>
-      <Map courseDispatch={courseDispatch} course={course}/>
+      {course ? <Map courseDispatch={courseDispatch} course={course}/> : null}
       <WaypointList course={newCourse} />
       <section className={styles.courseDetails}>
         <label>Course Name

@@ -14,29 +14,28 @@ import { setupFirebase } from "config/setup_firebase";
 import { Dispatch } from "redux";
 import { noCoursesFound, receiveAllCourses } from "redux/actions/actions";
 import { ActivityType, CoursePermission } from "utility/types";
+import {ExpectType} from "../utility/types"
 
 setupFirebase()
 const db = getDatabase()
 
-export class FirebaseObject {
+export class FirebaseObject<ParentType extends ExpectType> {
   private type: string;
   private objectRef: any;
   private usersObjectsPath: any;
   private currentUserId: string;
   private listeners: Array<any>;
   private objectsPath: string;
-  private parentPaths?: Array<string>
+  private parentItems?: Array<ParentType>
 
-  constructor(type: ActivityType, currentUserId: string, parentPaths?: Array<string>) {
+  constructor(type: ActivityType, currentUserId: string, parentItems?: Array<ParentType>) {
     this.type = type
     this.objectRef = ref(db, type)
     this.listeners = []
     this.currentUserId = currentUserId
     this.usersObjectsPath = `users/${currentUserId}/${type}`
     this.objectsPath = ''
-    this.parentPaths = parentPaths
-
-    // TODO: add parent object path, not just usersObjectPath
+    this.parentItems = parentItems
   }
 
   get path() {
@@ -44,7 +43,11 @@ export class FirebaseObject {
   }
 
   get parents() {
-    return this.parentPaths
+    return this.parentItems
+  }
+
+  get itemType() {
+    return this.type
   }
 
   set path(path: string) {
@@ -64,12 +67,11 @@ export class FirebaseObject {
     this.objectsPath = `${this.type}/${newObjectKey}`
     updates[`${this.usersObjectsPath}/${newObjectKey}`] = true
     // check for other parents and add updates for those if applicable
-    if (this.parentPaths) {
-      this.parentPaths.forEach((path: string) => {
-        updates[`${path}/${newObjectKey}`] = true
+    if (this.parentItems) {
+      this.parentItems.forEach((item: ParentType) => {
+        updates[this.constructParentReference(item, newObjectKey!)] = true
       })
     }
-    debugger
     return update(ref(db), updates)
   }
 
@@ -88,6 +90,10 @@ export class FirebaseObject {
       }
     })
     return objectListener
+  }
+  private constructParentReference(item: ParentType, newRef: string): string {
+    const itemToChildKey = `${item.path}/${this.type}/${newRef}`
+    return itemToChildKey
   }
 
   private static getAction(type: ActivityType, genericAction: string) {

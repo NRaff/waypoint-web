@@ -29,12 +29,12 @@ export default function Map({courseDispatch, course}: MapProps) {
     const waypoint: WaypointType = {
       name: 'test',
       id: `${Object.keys(course.waypoints).length}`,
-      course_id: 'test1',
+      course_id: course.id,
       type: PointType.Start,
       point: point
     }
     // course.addWaypoint(waypoint)
-    const wp = new Waypoint(uid, waypoint, [course.id])
+    const wp = new Waypoint(uid, waypoint, [course])
     wp.addToList()
     courseDispatch({type: 'ADD_WAYPOINT', payload: waypoint})
   }
