@@ -1,12 +1,21 @@
 import { Course, ReduxAction } from "utility/types"
 
+export enum CourseActionTypes {
+  UpdateName = 'UPDATE_NAME',
+  UpdateLength = 'UPDATE_LENGTH',
+  UpdateType = 'UPDATE_TYPE',
+  AddWaypoint = 'ADD_WAYPOINT',
+  RemoveWaypoint = 'REMOVE_WAYPOINT'
+}
+
 export const CourseReducer = (state: Course, { type, payload }: ReduxAction): Course => {
   Object.freeze(state)
   const nextState = Object.assign({}, state)
 
   switch (type) {
     case 'UPDATE_NAME':
-      nextState.name = payload
+      payload.course.name = payload.update
+      nextState.name = payload.update
       return nextState
     case 'UPDATE_LENGTH':
       nextState.length = payload

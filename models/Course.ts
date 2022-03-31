@@ -33,6 +33,22 @@ export class Course extends FirebaseObject<ExpectType> {
     return this.course.waypoints || {}
   }
 
+  get name() {
+    return this.course.name
+  }
+
+  get length() {
+    return this.course.length
+  }
+
+  get visibility() {
+    return this.course.type
+  }
+
+  get self() {
+    return this.course
+  }
+
   set name(name: string) {
     this.course.name = name
   }

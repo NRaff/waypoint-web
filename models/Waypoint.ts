@@ -19,6 +19,10 @@ export class Waypoint extends FirebaseObject<Course> {
     return this.waypoint
   }
 
+  get name() {
+    return this.waypoint.name
+  }
+
   override addToList(): Promise<void> {
     return super.addToList(this.waypoint)
   }

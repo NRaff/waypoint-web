@@ -1,6 +1,6 @@
 import Map from "./Map"
 import styles from '../styles/modules/newCourse.module.css'
-import { useEffect, useReducer } from "react"
+import { useEffect, useReducer, useState } from "react"
 import { Course as CourseType, CoursePermission, ReduxAction, Waypoint as WaypointType } from "utility/types"
 import { useCourse, useSession } from "utility/selectors"
 import { Course } from "models/Course"
@@ -8,6 +8,7 @@ import { Waypoint } from "models/Waypoint"
 import WaypointList from "./WaypointList"
 import { CourseReducer } from "redux/reducers/course_reducer"
 import { defaultCourse } from "utility/defaults"
+import { CourseActionTypes as Actions } from "redux/reducers/course_reducer"
 
 export default function NewCourse() {
   const { uid } = useSession()
@@ -33,34 +34,72 @@ export default function NewCourse() {
     if(!course) {
       throw Error('Course has not been loaded')
     }
-    // this is all redundant code since waypoints are added in realtime
-    // const waypointsToSave = Object.assign({},course.waypoints)
-    // debugger
-    // Object.values(waypointsToSave).forEach((waypoint: WaypointType) => {
-    //   const wp = new Waypoint(uid, waypoint, [course!])
-    //   const wpId = wp.addToList()
-    //   // courseDetails.waypointsList.push(wpId)
-
-    // })
+    debugger
     course.addToList()
   }
+
+  const updateCourse = (type: Actions, update: string, setter: Function) => {
+    setter(update)
+    const payload = {
+      course,
+      update
+    }
+    courseDispatch({type, payload})
+  }
+
+  const setVisibility = (visibility: CoursePermission) => {
+    console.log(visibility)
+  }
+
+  // use state for form items
+  const [name, setName] = useState(course?.name)
+  const [visibility, updateVisibility] = useState(course?.visibility || CoursePermission.Private)
+
+  const getVisibility = (option: CoursePermission = CoursePermission.Private): boolean => {
+    debugger
+    switch(option) {
+      case visibility:
+        return true
+      default:
+        return false
+    }
+  }
+
+  // TODO: Need to fix visibility setting options
   return (
     <div className={styles.newCourse}>
       {course ? <Map courseDispatch={courseDispatch} course={course}/> : null}
       <WaypointList course={newCourse} />
       <section className={styles.courseDetails}>
         <label>Course Name
-        <input type="text" />
+        <input 
+          type="text"
+          value={name}
+          onChange={(e) => updateCourse(Actions.UpdateName, e.target.value, setName)}
+        />
         </label>
         <section className={styles.visibility}>
-          <label>Visibility</label>
-          <label htmlFor="Private">
-            <input type="radio" id="Private" name='visibility' />
-            Private
-          </label>
-          <label htmlFor="Public">
-            <input type="radio" id="Public" name='visibility' />
-            Public
+          <label
+            onClick={(e) => console.log(e.target.id)}
+          >Visibility
+            <label htmlFor="Private">
+              <input 
+                type="radio" 
+                id="Private" 
+                name='visibility'
+                checked={getVisibility(CoursePermission.Private)}
+              />
+              Private
+            </label>
+            <label htmlFor="Public">
+              <input 
+                type="radio" 
+                id="Public" 
+                name='visibility'
+                checked={getVisibility(CoursePermission.Public)}
+              />
+              Public
+            </label>
           </label>
           <h1>{newCourse.waypoints['test1'] ? newCourse.waypoints['test1'].name : 'No Waypoint'}</h1>
         </section>

@@ -108,8 +108,8 @@ export interface Course extends Waypoints {
 }
 
 export enum CoursePermission {
-  Private,
-  Public,
+  Private = 'Private',
+  Public = 'Public',
 }
 
 export enum ActivityType {
