@@ -36,7 +36,7 @@ export default function Map({courseDispatch, course}: MapProps) {
     // course.addWaypoint(waypoint)
     const wp = new Waypoint(uid, waypoint, [course])
     wp.addToList()
-    courseDispatch({type: 'ADD_WAYPOINT', payload: waypoint})
+    courseDispatch({type: 'ADD_WAYPOINT', payload: wp})
   }
 
   const updateWaypointPosition = (e: MapEventData) => {

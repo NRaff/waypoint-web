@@ -18,11 +18,11 @@ export const CourseReducer = (state: Course, { type, payload }: ReduxAction): Co
       nextState.type = payload
       return nextState
     case 'ADD_WAYPOINT':
-      nextState.waypoints[payload.waypoint_id] = payload
+      nextState.waypoints[payload.id] = payload.getWaypoint
       nextState.waypointsList = Object.keys(nextState.waypoints)
       return nextState
     case 'REMOVE_WAYPOINT':
-      delete nextState.waypoints[payload.waypoint_id]
+      delete nextState.waypoints[payload.id]
       nextState.waypointsList = Object.keys(nextState.waypoints)
       return nextState
     default:

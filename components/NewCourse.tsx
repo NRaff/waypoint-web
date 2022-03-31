@@ -33,13 +33,15 @@ export default function NewCourse() {
     if(!course) {
       throw Error('Course has not been loaded')
     }
-    const waypointsToSave = Object.assign({},course.waypoints)
-    Object.values(waypointsToSave).forEach((waypoint: WaypointType) => {
-      const wp = new Waypoint(uid, waypoint, [course!])
-      const wpId = wp.addToList()
-      // courseDetails.waypointsList.push(wpId)
+    // this is all redundant code since waypoints are added in realtime
+    // const waypointsToSave = Object.assign({},course.waypoints)
+    // debugger
+    // Object.values(waypointsToSave).forEach((waypoint: WaypointType) => {
+    //   const wp = new Waypoint(uid, waypoint, [course!])
+    //   const wpId = wp.addToList()
+    //   // courseDetails.waypointsList.push(wpId)
 
-    })
+    // })
     course.addToList()
   }
   return (

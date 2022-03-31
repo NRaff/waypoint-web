@@ -26,12 +26,10 @@ export class Course extends FirebaseObject<ExpectType> {
   }
 
   get id(): string {
-    console.log('GOT ID FOR COURSE')
     return this.course.id
   }
 
   get waypoints(): { [key: string]: Waypoint } {
-    console.log('Waypoints getter')
     return this.course.waypoints || {}
   }
 

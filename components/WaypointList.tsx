@@ -8,9 +8,12 @@ export default function WaypointList({course}: any) {
   return (
     <ul className={styles.waypointsList}>
       {
-        Object.values(waypoints).map((waypoint) =>
-          <WaypointCard waypoint={waypoint as WaypointType} />
-        )
+        Object.values(waypoints).map((waypoint) =>{
+          const waypointMapped: WaypointType = waypoint as WaypointType
+          return (
+            <WaypointCard waypoint={waypointMapped} key={waypointMapped.id}/>
+          )
+        })
       }
     </ul>
   )

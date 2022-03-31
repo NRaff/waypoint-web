@@ -10,6 +10,15 @@ export class Waypoint extends FirebaseObject<Course> {
     super(ActivityType.Waypoint, currentUserId, parentItem)
     this.waypoint = waypoint
   }
+
+  get id() {
+    return this.waypoint.id
+  }
+
+  get getWaypoint() {
+    return this.waypoint
+  }
+
   override addToList(): Promise<void> {
     return super.addToList(this.waypoint)
   }

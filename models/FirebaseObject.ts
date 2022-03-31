@@ -58,7 +58,12 @@ export class FirebaseObject<ParentType extends ExpectType> {
   setObject(){
 
   }
-
+  /**
+   * Takes in an object (e.g. course/waypoint) and parses it into the
+   * applicable NoSQL collection in the Realtime Database in firebase.
+   * @param object course/waypoint/other js object 
+   * @returns Empty promise
+   */
   addToList(object: any) {
     const newObjectKey = push(this.objectRef).key
     object.id = newObjectKey
