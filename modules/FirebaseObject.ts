@@ -12,7 +12,10 @@ import {
 } from "firebase/database";
 import { setupFirebase } from "config/setup_firebase";
 import { Dispatch } from "models/store";
-import { noCoursesFound, receiveAllCourses } from "redux/actions/actions";
+import {
+  noCoursesFound,
+  receiveAllCourses,
+} from "redux/actions/actions";
 import { ActivityType, CoursePermission } from "utility/types";
 import { ExpectType } from "../utility/types";
 
@@ -66,7 +69,7 @@ export class FirebaseObject<ParentType extends ExpectType> {
    * @param object course/waypoint/other js object
    * @returns Empty promise
    */
-  addToList(object: any) {
+  async addToList(object: any): Promise<void> {
     const newObjectKey = push(this.objectRef).key;
     object.id = newObjectKey;
     const updates: any = {};
@@ -76,7 +79,9 @@ export class FirebaseObject<ParentType extends ExpectType> {
     // check for other parents and add updates for those if applicable
     if (this.parentItems) {
       this.parentItems.forEach((item: ParentType) => {
-        updates[this.constructParentReference(item, newObjectKey!)] = true;
+        updates[
+          this.constructParentReference(item, newObjectKey!)
+        ] = true;
       });
     }
     return update(ref(db), updates);
@@ -84,7 +89,10 @@ export class FirebaseObject<ParentType extends ExpectType> {
 
   static updateObject(key: string) {}
 
-  static getObjectsInList(type: ActivityType, dispatch: Dispatch) {
+  static getObjectsInList(
+    type: ActivityType,
+    dispatch: Dispatch
+  ) {
     const objectsRef = ref(db, type);
     const objectListener = onValue(objectsRef, (snapshot) => {
       if (snapshot.exists()) {
@@ -96,12 +104,18 @@ export class FirebaseObject<ParentType extends ExpectType> {
     });
     return objectListener;
   }
-  private constructParentReference(item: ParentType, newRef: string): string {
+  private constructParentReference(
+    item: ParentType,
+    newRef: string
+  ): string {
     const itemToChildKey = `${item.path}/${this.type}/${newRef}`;
     return itemToChildKey;
   }
 
-  private static getAction(type: ActivityType, genericAction: string) {
+  private static getAction(
+    type: ActivityType,
+    genericAction: string
+  ) {
     // should return the correct action to use based on the type of entity
   }
 }
