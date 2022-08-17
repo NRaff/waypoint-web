@@ -9,6 +9,8 @@ import {
   onChildRemoved,
   off,
   update,
+  DatabaseReference,
+  Unsubscribe,
 } from "firebase/database";
 import { setupFirebase } from "config/setup_firebase";
 import { Dispatch } from "models/store";
@@ -92,16 +94,19 @@ export class FirebaseObject<ParentType extends ExpectType> {
   static getObjectsInList(
     type: ActivityType,
     dispatch: Dispatch
-  ) {
-    const objectsRef = ref(db, type);
-    const objectListener = onValue(objectsRef, (snapshot) => {
-      if (snapshot.exists()) {
-        dispatch.courses.receiveAllCourses(snapshot.val());
-        // dispatch(receiveAllCourses(snapshot.val()));
-      } else {
-        dispatch(noCoursesFound());
+  ): Unsubscribe {
+    const objectsRef: DatabaseReference = ref(db, type);
+    const objectListener: Unsubscribe = onValue(
+      objectsRef,
+      (snapshot) => {
+        if (snapshot.exists()) {
+          dispatch.courses.receiveAllCourses(snapshot.val());
+          // dispatch(receiveAllCourses(snapshot.val()));
+        } else {
+          dispatch(noCoursesFound());
+        }
       }
-    });
+    );
     return objectListener;
   }
   private constructParentReference(
