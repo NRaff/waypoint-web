@@ -3,7 +3,7 @@ import { ActivityHeaderProps } from "utility/types"
 import styles from '@/styles/modules/inAppNav.module.css'
 import SidebarNavItem from "./SidebarNavItem"
 import ProfileNavItem from "./ProfileNavItem"
-import { Course } from "models/Course"
+import { Course } from "modules/Course"
 import { useSession } from "utility/selectors"
 import { CoursePermission } from "utility/types"
 import { useDispatch } from "react-redux"

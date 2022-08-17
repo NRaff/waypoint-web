@@ -1,5 +1,5 @@
 import mapboxgl, { EventData as MapEventData, PointLike } from "mapbox-gl"
-import { Waypoint } from "models/Waypoint"
+import { Waypoint } from "modules/Waypoint"
 import { useEffect, useReducer, useState } from "react"
 import { initMapBoxWithHandler } from "utility/maps"
 import { useSession } from "utility/selectors"

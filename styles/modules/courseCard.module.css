@@ -1,6 +1,6 @@
 .card {
-  background-color: white;
-  color: #202124;
+  background-color: #292C35;
+  color: whitesmoke;
   border-radius: .25rem;
   padding: .5rem;
   margin-top: .25rem;
@@ -8,14 +8,17 @@
 }
 
 .card:hover {
-  border-left-style: solid;
-  border-width: .25rem;
-  border-left-color: #6ED6D7;
+  border-left: solid .4rem #E09145;
+  border-bottom-left-radius: .25rem;
+  border-top-left-radius: .25rem;
   cursor: pointer;
 }
 
 .selectedCard {
-  border-left: solid .25rem #6ED6D7;
-  background: linear-gradient(to right top, #EF5D3E,50%, #F6A143);
+  border-left: solid .4rem #E09145;
+  border-bottom-left-radius: .25rem;
+  border-top-left-radius: .25rem;
+  /* background: linear-gradient(to right top, #EF5D3E,50%, #F6A143); */
+  background-color: #17181D;
   color: white;
 }

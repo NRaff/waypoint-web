@@ -1,6 +1,6 @@
 import styles from '@/styles/modules/waypointApp.module.css'
 import { useSession } from "utility/selectors";
-import { Course } from "models/Course";
+import { Course } from "modules/Course";
 import { useEffect, useState } from "react";
 import useFirebaseAuth from "hooks/useFirebaseAuth";
 import { useDispatch } from "react-redux";

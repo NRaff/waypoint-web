@@ -1,4 +1,4 @@
-import { Course as CourseClass } from "models/Course";
+import { Course as CourseClass } from "modules/Course";
 
 export interface Session {
   uid: string;
@@ -48,7 +48,7 @@ export interface NavItemProps {
 }
 
 export interface ActivityListProps {
-  type: 'Races' | 'Courses'
+  type: "Races" | "Courses";
 }
 
 export interface ActivityHeaderProps {
@@ -75,18 +75,18 @@ export interface Coordinates {
 }
 
 export enum PointType {
-  Start = 'Start',
-  Port = 'Port',
-  Starboard = 'Starboard',
-  Gate = 'Gate',
-  Finish = 'Finish'
+  Start = "Start",
+  Port = "Port",
+  Starboard = "Starboard",
+  Gate = "Gate",
+  Finish = "Finish",
 }
 
 export interface Waypoints {
   waypointsList: Array<string>;
   waypoints: {
     [key: string]: Waypoint;
-  }
+  };
 }
 
 export interface Waypoint {
@@ -104,23 +104,22 @@ export interface Course extends Waypoints {
   type: CoursePermission;
   created_by: string;
   id: string;
-
 }
 
 export enum CoursePermission {
-  Private = 'Private',
-  Public = 'Public',
+  Private = "Private",
+  Public = "Public",
 }
 
 export enum ActivityType {
-  Races = 'races',
-  Courses = 'courses',
-  Waypoint = 'waypoints'
+  Races = "races",
+  Courses = "courses",
+  Waypoint = "waypoints",
 }
 
 export enum CourseDetailType {
-  New = 'New',
-  Selected = 'Selected',
+  New = "New",
+  Selected = "Selected",
 }
 
 export interface ExpectType {

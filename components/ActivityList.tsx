@@ -2,11 +2,11 @@ import { ActivityListProps } from "utility/types";
 import styles from "@/styles/modules/activityList.module.css"
 import { useCourses } from "utility/selectors";
 import CourseCard from "./CourseCard";
-import { Course } from "models/Course";
+import { Course } from "utility/types";
 
 export default function ActivityList({type}: ActivityListProps) {
   // select data from store based on type
-  const courses = useCourses() as Array<Course>
+  const courses = useCourses()
 
   return (
     <div className={styles.activityList}>
