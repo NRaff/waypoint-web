@@ -2,12 +2,14 @@
 import '@/styles/global.css'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import type { AppProps } from 'next/app'
-import { useStore } from 'redux/store'
 import { Provider } from 'react-redux'
 import { setupFirebase } from 'config/setup_firebase'
+import { useStore } from 'models/store';
+
+
 
 export default function WaypointWeb({ Component, pageProps }: AppProps) {
-  const store = useStore(pageProps.initialReduxState)
+  const store = useStore(pageProps)
   setupFirebase()
   return (
     <Provider store={store}>
