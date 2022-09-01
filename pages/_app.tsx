@@ -3,7 +3,6 @@ import '@/styles/global.css'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import type { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
-import { setupFirebase } from 'config/setup_firebase'
 import { useStore } from 'models/store';
 import { ClerkProvider, RedirectToSignIn, SignedIn, SignedOut } from '@clerk/nextjs';
 import { useRouter } from 'next/router';
