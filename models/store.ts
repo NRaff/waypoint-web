@@ -51,8 +51,7 @@ export const setupRematchStore = (
   return _store;
 };
 
-export const useStore = (initialState: RootModel) => {
-  console.log({ initialState });
+export const useStore = (initialState?: RootModel) => {
   const store = useMemo(
     () => setupRematchStore(initialState),
     [initialState]

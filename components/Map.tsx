@@ -51,7 +51,6 @@ export default function Map({courseDispatch, course}: MapProps) {
     .setLngLat(point)
     .setHTML(MapPopup())
     .addTo(map)
-    console.log(feature)
   }
 
   return (
