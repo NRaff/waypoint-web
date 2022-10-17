@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <WaypointWrapper>
       <WaypointHead siteTitle='Waypoint Home' />
-      {/* <WaypointNav type='loggedIn'/> */}
+      <WaypointNav />
       <WaypointApp />
     </WaypointWrapper>
   )

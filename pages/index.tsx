@@ -20,11 +20,13 @@ interface WaypointInstantiationProps {
   }
 
 export const getServerSideProps = withServerSideAuth(({req, resolvedUrl}): WaypointInstantiationProps | any => {
+  const redirectTo = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/' : resolvedUrl
+  console.log({redirectTo})
   const {sessionId} = req.auth;
   if (!sessionId) {
     return {
       redirect: { 
-        destination: "/sign-in?redirect_url=" + resolvedUrl,
+        destination: "/sign-in?redirect_url=/profile" + redirectTo,
         props: {}
       },
       props: {}
@@ -42,6 +44,8 @@ export const getServerSideProps = withServerSideAuth(({req, resolvedUrl}): Waypo
 
 const Start = ({waypoint, __clerk_ssr_state}: WaypointInstantiationProps) => {
   const store = useStore(waypoint)
+  store.dispatch.session.receiveSession(__clerk_ssr_state)
+  console.log(store.getState())
   // dispatch user and session here
     return (
       <WaypointWrapper home>

@@ -11,20 +11,14 @@ import { CourseDetailType } from "utility/types";
 
 // TODO: catch listeners to turn them off on dismount
 export function WaypointApp() {
-  const authStatus = useFirebaseAuth()
-  const { uid } = useSession()
-  const dispatch = useDispatch()
 
   const [listType, setListType] = useState('Races')
 
-  useEffect(() => {
-    Course.listCourses(dispatch)
-  }, [])
   return (
     <div className={styles.waypointApp}>
       <InAppNav curType={listType} setType={setListType} />
-      <ActivityList type={listType as any} />
-      <CourseDetail type='NEW'/>
+      {/* <ActivityList type={listType as any} />
+      <CourseDetail type='NEW'/> */}
     </div>
   )
 }
