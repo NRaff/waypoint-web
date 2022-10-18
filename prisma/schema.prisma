@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Rounding {
+  starboard
+  port
+}
+
+enum MarkType {
+  offset
+  buoy
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String?  @unique
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  vessels   Vessel[]
+  courses   Course[]
+  races     Racers[]
+
+  @@map("users")
+}
+
+model Vessel {
+  id      String @id @default(cuid())
+  name    String
+  ownerId String @map("owner_id")
+  owner   User   @relation(fields: [ownerId], references: [id])
+
+  @@map("vessels")
+}
+
+model Course {
+  id                String     @id @default(cuid())
+  name              String
+  length            Float
+  estimatedDuration Float?     @map(name: "estimated_duration")
+  isPublic          Boolean    @map(name: "is_public")
+  createdById       String     @map(name: "created_by_id")
+  createdBy         User       @relation(fields: [createdById], references: [id])
+  waypoints         Waypoint[]
+  races             Race[]
+
+  @@map("courses")
+}
+
+model Waypoint {
+  id        String   @id @default(cuid())
+  latitude  Float
+  longitude Float
+  rounding  Rounding
+  markType  MarkType
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id])
+
+  @@map("waypoints")
+}
+
+model Racers {
+  id      String @id @default(cuid())
+  raceId  String @map("race_id")
+  race    Race   @relation(fields: [raceId], references: [id])
+  racerId String @map("racer_id")
+  racer   User   @relation(fields: [racerId], references: [id])
+
+  @@map("racers")
+}
+
+model Race {
+  id       String   @id @default(cuid())
+  name     String
+  racers   Racers[]
+  courseId String   @map("course_id")
+  course   Course   @relation(fields: [courseId], references: [id])
+
+  @@map("races")
+}
