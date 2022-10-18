@@ -14,9 +14,11 @@ watch-test:
 migrate-remote:
 	npx prisma db push
 
-.PHONY migrate-dev: # append --name to add migration name
+# append --name to add migration name
+# append --create-only to create the file only for modification
+.PHONY migrate-dev: 
 migrate-dev:
-	dotenv -e .env.local -- npx prisma migrate dev
+	dotenv -e .env.local -- npx prisma migrate dev $(FLAGS)
 
 .PHONY prisma-ui:
 prisma-ui:

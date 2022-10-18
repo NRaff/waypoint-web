@@ -43,15 +43,15 @@ model Vessel {
 }
 
 model Course {
-  id                String     @id @default(cuid())
-  name              String
-  length            Float
-  estimatedDuration Float?     @map(name: "estimated_duration")
-  isPublic          Boolean    @map(name: "is_public")
-  createdById       String     @map(name: "created_by_id")
-  createdBy         User       @relation(fields: [createdById], references: [id])
-  waypoints         Waypoint[]
-  races             Race[]
+  id                       String     @id @default(cuid())
+  name                     String
+  lengthMiles              Float
+  estimatedDurationMinutes Float?     @map(name: "estimated_duration")
+  isPublic                 Boolean    @map(name: "is_public")
+  createdById              String     @map(name: "created_by_id")
+  createdBy                User       @relation(fields: [createdById], references: [id])
+  waypoints                Waypoint[]
+  races                    Race[]
 
   @@map("courses")
 }
