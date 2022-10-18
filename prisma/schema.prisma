@@ -45,8 +45,8 @@ model Vessel {
 model Course {
   id                       String     @id @default(cuid())
   name                     String
-  lengthMiles              Float
-  estimatedDurationMinutes Float?     @map(name: "estimated_duration")
+  lengthMiles              Float      @map(name: "length_miles")
+  estimatedDurationMinutes Float?     @map(name: "estimated_duration_miles")
   isPublic                 Boolean    @map(name: "is_public")
   createdById              String     @map(name: "created_by_id")
   createdBy                User       @relation(fields: [createdById], references: [id])

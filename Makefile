@@ -11,8 +11,8 @@ watch-test:
 	npm run test
 
 .PHONY migrate-prod:
-migrate-remote:
-	npx prisma db push
+migrate-prod:
+	dotenv -e .env.prod -- npx prisma db push
 
 # append --name to add migration name
 # append --create-only to create the file only for modification
