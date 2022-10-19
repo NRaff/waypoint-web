@@ -9,10 +9,11 @@ interface SessionState {
 export const session = createModel<RootModel>()({
   state: {} as SessionState,
   reducers: {
-    receiveSession(
+    getSession: (state) => state,
+    receiveSession: (
       _state: SessionState,
       clerkSSRState: any
-    ): SessionState {
+    ): SessionState => {
       return {
         sessionId: clerkSSRState.sessionId,
         userId: clerkSSRState.userId,

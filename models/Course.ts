@@ -1,6 +1,8 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from "models";
 import { Course } from "utility/types";
+import { HttpResponse } from "./api";
+import { Dispatch } from "./store";
 
 interface CourseState {
   [key: string]: Course;
@@ -9,10 +11,10 @@ interface CourseState {
 export const courses = createModel<RootModel>()({
   state: {} as CourseState,
   reducers: {
-    receiveAllCourses(
+    receiveAllCourses: (
       _state: CourseState,
       { courses }: { courses: Course[] }
-    ): CourseState {
+    ): CourseState => {
       return courses.reduce(
         (nextState: CourseState, course: Course) => ({
           ...nextState,
@@ -22,4 +24,10 @@ export const courses = createModel<RootModel>()({
       );
     },
   },
+  effects: (dispatch: Dispatch) => ({
+    getAllCourses: async (): Promise<void> => {
+      console.log("make request to get all courses");
+      dispatch.api.getAllCourses();
+    },
+  }),
 });
