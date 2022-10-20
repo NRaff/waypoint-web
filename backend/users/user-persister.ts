@@ -1,5 +1,5 @@
 import { User } from "@prisma/client";
-import prisma from "../prisma";
+import prisma from "../../config/prisma.config";
 
 type UserInsertParams = Omit<User, "createdAt" | "updatedAt">;
 

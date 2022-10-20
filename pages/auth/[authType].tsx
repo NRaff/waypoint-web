@@ -1,9 +1,9 @@
-import Auth from "@/components/Auth";
+import Auth from "frontend/components/Auth";
 import Head from "next/head";
-import WaypointWrapper, { siteTitle } from "@/components/WaypointWrapper";
+import WaypointWrapper, { siteTitle } from "frontend/components/WaypointWrapper";
 import { useRouter } from "next/router";
-import WaypointNav from "@/components/WaypointNav";
-import WaypointHead from "@/components/WaypointHead";
+import WaypointNav from "frontend/components/WaypointNav";
+import WaypointHead from "frontend/components/WaypointHead";
 
 export default function Login() {
   const router = useRouter()

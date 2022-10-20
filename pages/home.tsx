@@ -1,8 +1,8 @@
 import Link from "next/link";
-import WaypointHead from "@/components/WaypointHead";
-import WaypointWrapper from "@/components/WaypointWrapper";
-import WaypointNav from "@/components/WaypointNav";
-import { WaypointApp } from "@/components/WaypointApp";
+import WaypointHead from "frontend/components/WaypointHead";
+import WaypointWrapper from "frontend/components/WaypointWrapper";
+import WaypointNav from "frontend/components/WaypointNav";
+import { WaypointApp } from "frontend/components/WaypointApp";
 
 export default function Home() {
   return (

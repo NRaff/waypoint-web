@@ -13,13 +13,16 @@ import {
   Unsubscribe,
 } from "firebase/database";
 import { setupFirebase } from "config/setup_firebase";
-import { Dispatch } from "models/store";
+import { Dispatch } from "frontend/models/store";
 import {
   noCoursesFound,
   receiveAllCourses,
-} from "redux/actions/actions";
-import { ActivityType, CoursePermission } from "utility/types";
-import { ExpectType } from "../utility/types";
+} from "frontend/redux/actions/actions";
+import {
+  ActivityType,
+  CoursePermission,
+} from "shared/utility/types";
+import { ExpectType } from "../shared/utility/types";
 
 setupFirebase();
 const db = getDatabase();

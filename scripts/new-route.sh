@@ -1,1 +1,0 @@
-touch pages/api/courses/test.ts

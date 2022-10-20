@@ -1,5 +1,5 @@
 import { Course, User } from "@prisma/client";
-import prisma from "backend/prisma";
+import prisma from "config/prisma.config";
 
 type CourseInsertParams = Omit<
   Course,

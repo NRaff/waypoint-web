@@ -3,7 +3,7 @@ import '@/styles/global.css'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import type { AppProps } from 'next/app'
 import { Provider, useDispatch } from 'react-redux'
-import { Dispatch, useStore } from 'models/store';
+import { Dispatch, useStore } from 'frontend/models/store';
 import { ClerkProvider, RedirectToSignIn, SignedIn, SignedOut } from '@clerk/nextjs';
 import { useRouter } from 'next/router';
 

@@ -3,10 +3,10 @@ import {
   CoursePermission,
   ExpectType,
   Waypoint,
-} from "utility/types";
+} from "shared/utility/types";
 import { FirebaseObject } from "./FirebaseObject";
-import { Course as CourseType } from "utility/types";
-import { Dispatch } from "models/store";
+import { Course as CourseType } from "shared/utility/types";
+import { Dispatch } from "frontend/models/store";
 
 export class Course extends FirebaseObject<ExpectType> {
   private course: CourseType;
@@ -18,7 +18,10 @@ export class Course extends FirebaseObject<ExpectType> {
   }
 
   static listCourses(dispatch: Dispatch) {
-    return FirebaseObject.getObjectsInList(ActivityType.Courses, dispatch);
+    return FirebaseObject.getObjectsInList(
+      ActivityType.Courses,
+      dispatch
+    );
   }
 
   override addToList(): Promise<void> {
