@@ -27,4 +27,3 @@ prisma-ui:
 .PHONY prisma-types:
 prisma-types:
 	npx prisma generate
-
