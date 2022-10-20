@@ -1,4 +1,5 @@
 import { createModel, RematchDispatch } from "@rematch/core";
+import axios from "../config/axiosConfig";
 import { RootModel } from "models";
 import { courses } from "./course";
 import { Dispatch, RootState } from "./store";
@@ -91,10 +92,14 @@ const API_CONFIG: ApiConfig = {
       route: "/getAllCourses",
       request: async () => {
         console.log("make request to get all courses");
-        return Promise.resolve({
-          status: 200,
-          data: "Hello world",
-        });
+        try {
+          return await axios.post("/api/courses/create", {
+            message: "hello world",
+          });
+        } catch (error) {
+          console.log({ error });
+          throw error;
+        }
       },
     },
   },
