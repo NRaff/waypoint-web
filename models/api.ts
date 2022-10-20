@@ -1,5 +1,5 @@
 import { createModel, RematchDispatch } from "@rematch/core";
-import axios from "../config/axiosConfig";
+import axios from "./apiConfig";
 import { RootModel } from "models";
 import { courses } from "./course";
 import { Dispatch, RootState } from "./store";
