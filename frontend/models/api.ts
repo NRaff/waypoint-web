@@ -103,6 +103,16 @@ const API_CONFIG: ApiConfig = {
       },
     },
   },
+  users: {
+    create: {
+      route: "/create",
+      request: async () =>
+        axios.post("/api/users/create", {
+          name: "Test User",
+          email: "test@email.com",
+        }),
+    },
+  },
 };
 
 export const api = createModel<RootModel>()({
@@ -124,6 +134,10 @@ export const api = createModel<RootModel>()({
     getAllCourses: decorateApiRequest(
       dispatch,
       API_CONFIG.courses.getAllCourses
+    ),
+    createUser: decorateApiRequest(
+      dispatch,
+      API_CONFIG.users.create
     ),
   }),
 });

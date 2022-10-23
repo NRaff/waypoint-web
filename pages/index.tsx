@@ -48,7 +48,8 @@ const Start = ({waypoint, __clerk_ssr_state}: WaypointInstantiationProps) => {
   const dispatch = useDispatch<Dispatch>()
   store.dispatch.session.receiveSession(__clerk_ssr_state)
   console.log(store.getState())
-  dispatch.courses.getAllCourses()
+  // dispatch.courses.getAllCourses()
+  dispatch.api.createUser()
   // dispatch user and session here
     return (
       <WaypointWrapper home>

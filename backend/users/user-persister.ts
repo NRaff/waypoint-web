@@ -1,7 +1,10 @@
 import { User } from "@prisma/client";
 import prisma from "../../config/prisma.config";
 
-type UserInsertParams = Omit<User, "createdAt" | "updatedAt">;
+type UserInsertParams = Omit<
+  User,
+  "id" | "createdAt" | "updatedAt"
+>;
 
 const create = async (user: UserInsertParams) =>
   prisma.user.create({
