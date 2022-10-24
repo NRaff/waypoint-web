@@ -1,15 +1,8 @@
-import {
-  createModel,
-  ModelEffect,
-  RematchDispatch,
-} from "@rematch/core";
+import { createModel } from "@rematch/core";
 import axios from "../../config/api.config";
 import { RootModel } from "frontend/models";
-import { courses } from "./courses";
-import { Dispatch, RootState } from "./store";
+import { Dispatch } from "./store";
 import { AxiosResponse } from "axios";
-import { UserCreateRequest } from "backend/users/user-routes";
-import { User } from "@prisma/client";
 import DecoratedApi, {
   ApiRoutesConfig,
 } from "frontend/framework/requests/DecoratedApi";
