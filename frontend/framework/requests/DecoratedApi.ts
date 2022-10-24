@@ -59,7 +59,6 @@ const decorateApiRequest =
     });
     return response;
   };
-
 class DecoratedApi {
   private apiModelConfig;
   constructor(config: ApiRoutesConfig, dispatch: Dispatch) {
