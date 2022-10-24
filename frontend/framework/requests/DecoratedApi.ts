@@ -3,7 +3,7 @@ import { AxiosResponse } from "axios";
 import { RootModel } from "frontend/models";
 import { Dispatch } from "../../models/store";
 
-interface ApiRoutesConfig {
+export interface ApiRoutesConfig {
   [key: string]: {
     route: string; // todo: update to routes enum
     request: <TRequest, TResponse>(
@@ -11,10 +11,6 @@ interface ApiRoutesConfig {
     ) => Promise<AxiosResponse<TResponse>>;
   };
 }
-
-// interface ApiModelConfig {
-//   [key: string]: ModelEffect<RootModel>
-// }
 
 const decorateApiRequest =
   <TPayload, TResponse>(

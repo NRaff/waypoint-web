@@ -1,7 +1,6 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from "frontend/models";
 import { Course } from "shared/utility/types";
-import { HttpResponse } from "./api";
 import { Dispatch } from "./store";
 
 interface CourseState {

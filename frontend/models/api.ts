@@ -1,4 +1,8 @@
-import { createModel, RematchDispatch } from "@rematch/core";
+import {
+  createModel,
+  ModelEffect,
+  RematchDispatch,
+} from "@rematch/core";
 import axios from "../../config/api.config";
 import { RootModel } from "frontend/models";
 import { courses } from "./courses";
@@ -6,7 +10,9 @@ import { Dispatch, RootState } from "./store";
 import { AxiosResponse } from "axios";
 import { UserCreateRequest } from "backend/users/user-routes";
 import { User } from "@prisma/client";
-import DecoratedApi from "frontend/framework/requests/DecoratedApi";
+import DecoratedApi, {
+  ApiRoutesConfig,
+} from "frontend/framework/requests/DecoratedApi";
 
 export type HttpResponse<T> = {
   status:
@@ -34,63 +40,8 @@ interface ApiState {
   [key: string]: RequestState; // TODO: should use route as key
 }
 
-const decorateApiRequest =
-  <TPayload, TResponse>(
-    dispatch: Dispatch,
-    {
-      route,
-      request,
-    }: {
-      route: string; // TODO: update this to route enum
-      request: (
-        options?: TPayload
-      ) => Promise<AxiosResponse<TResponse>>;
-    }
-  ): ((
-    options?: TPayload
-  ) => Promise<AxiosResponse<TResponse>>) =>
-  async (options?: TPayload) => {
-    console.info("Initiate api request", {
-      user: dispatch.session.getSession(),
-      route,
-    });
-    dispatch.api.setRequestState({
-      route,
-      isLoading: true,
-    });
-    const response = await request(options);
-    console.info("Completed api request", {
-      user: dispatch.session.getSession(),
-      route,
-      response,
-    });
-    if (response.status !== 200) {
-      // TODO: should dispatch error toast
-      console.error("There was an issue with your request", {
-        ...response,
-      });
-      dispatch.api.setRequestState({
-        route,
-        isLoading: false,
-        error: response.statusText,
-      });
-    }
-    dispatch.api.setRequestState({
-      route,
-      isLoading: false,
-    });
-    return response;
-  };
-
 type ApiConfig = {
-  [key: string]: {
-    [key: string]: {
-      route: string; // todo: update to routes enum
-      request: <TRequest, TResponse>(
-        options: TRequest
-      ) => Promise<AxiosResponse<TResponse>>;
-    };
-  };
+  [key: string]: ApiRoutesConfig;
 };
 
 const API_CONFIG: ApiConfig = {
