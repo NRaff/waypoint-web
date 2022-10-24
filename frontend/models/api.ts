@@ -1,8 +1,12 @@
 import { createModel, RematchDispatch } from "@rematch/core";
 import axios from "../../config/api.config";
 import { RootModel } from "frontend/models";
-import { courses } from "./course";
+import { courses } from "./courses";
 import { Dispatch, RootState } from "./store";
+import { AxiosResponse } from "axios";
+import { UserCreateRequest } from "backend/users/user-routes";
+import { User } from "@prisma/client";
+import DecoratedApi from "frontend/framework/requests/DecoratedApi";
 
 export type HttpResponse<T> = {
   status:
@@ -31,19 +35,21 @@ interface ApiState {
 }
 
 const decorateApiRequest =
-  (
+  <TPayload, TResponse>(
     dispatch: Dispatch,
     {
       route,
       request,
-      options,
     }: {
       route: string; // TODO: update this to route enum
-      request: (options?: any) => Promise<HttpResponse<any>>;
-      options?: any;
+      request: (
+        options?: TPayload
+      ) => Promise<AxiosResponse<TResponse>>;
     }
-  ): (() => Promise<void>) =>
-  async () => {
+  ): ((
+    options?: TPayload
+  ) => Promise<AxiosResponse<TResponse>>) =>
+  async (options?: TPayload) => {
     console.info("Initiate api request", {
       user: dispatch.session.getSession(),
       route,
@@ -52,7 +58,7 @@ const decorateApiRequest =
       route,
       isLoading: true,
     });
-    const response = await request();
+    const response = await request(options);
     console.info("Completed api request", {
       user: dispatch.session.getSession(),
       route,
@@ -66,22 +72,23 @@ const decorateApiRequest =
       dispatch.api.setRequestState({
         route,
         isLoading: false,
-        error: response.error,
+        error: response.statusText,
       });
     }
     dispatch.api.setRequestState({
       route,
       isLoading: false,
     });
+    return response;
   };
 
 type ApiConfig = {
   [key: string]: {
     [key: string]: {
       route: string; // todo: update to routes enum
-      request: <TRequest>(
+      request: <TRequest, TResponse>(
         options: TRequest
-      ) => Promise<HttpResponse<any>>;
+      ) => Promise<AxiosResponse<TResponse>>;
     };
   };
 };
@@ -104,13 +111,12 @@ const API_CONFIG: ApiConfig = {
     },
   },
   users: {
-    create: {
+    createUser: {
       route: "/create",
-      request: async () =>
-        axios.post("/api/users/create", {
-          name: "Test User",
-          email: "test@email.com",
-        }),
+      request: async <UserCreateRequest, User>(
+        user: UserCreateRequest
+      ): Promise<AxiosResponse<User>> =>
+        axios.post<User>("/api/users/create", user),
     },
   },
 };
@@ -130,14 +136,18 @@ export const api = createModel<RootModel>()({
       },
     }),
   },
-  effects: (dispatch: Dispatch) => ({
-    getAllCourses: decorateApiRequest(
-      dispatch,
-      API_CONFIG.courses.getAllCourses
-    ),
-    createUser: decorateApiRequest(
-      dispatch,
-      API_CONFIG.users.create
-    ),
-  }),
+  effects: (dispatch: Dispatch) => {
+    const decoratedUsersApi = new DecoratedApi(
+      API_CONFIG.users,
+      dispatch
+    );
+    const decoratedCoursesApi = new DecoratedApi(
+      API_CONFIG.courses,
+      dispatch
+    );
+    return {
+      ...decoratedUsersApi.decoratedApiModel(),
+      ...decoratedCoursesApi.decoratedApiModel(),
+    };
+  },
 });

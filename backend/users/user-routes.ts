@@ -34,9 +34,17 @@ const createUser = async (
   });
 };
 
+const upsertUser = async (req: NextApiRequest): Promise<User> =>
+  UserPersister.upsertUser(req.body);
+
 const createUserRoute = new RouteHandler<
   UserCreateRequest,
   User
 >("createUser", "/users/create", createUser, createSchema);
 
-export default createUserRoute.createHandler();
+const upsertUserRoute = new RouteHandler<
+  UserCreateRequest,
+  User
+>("upsertUser", "/users/create", upsertUser, createSchema);
+
+export default upsertUserRoute.createHandler();

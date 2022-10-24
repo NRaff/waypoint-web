@@ -4,6 +4,7 @@ import { Dispatch, setupRematchStore, useStore } from 'frontend/models/store'
 import { withServerSideAuth } from '@clerk/nextjs/ssr'
 import { GetServerSidePropsResult } from 'next'
 import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
 
 const setupRematch = () => {
   const store = setupRematchStore()
@@ -47,9 +48,15 @@ const Start = ({waypoint, __clerk_ssr_state}: WaypointInstantiationProps) => {
   const store = useStore(waypoint)
   const dispatch = useDispatch<Dispatch>()
   store.dispatch.session.receiveSession(__clerk_ssr_state)
-  console.log(store.getState())
-  // dispatch.courses.getAllCourses()
-  dispatch.api.createUser()
+  useEffect(() => {
+    const completeRequest = async () => {
+      await dispatch.users.createUser({
+        name: 'Eric Raff',
+        email: 'eraff@xlconstruction.com'
+      })
+    }
+    completeRequest()
+  })
   // dispatch user and session here
     return (
       <WaypointWrapper home>
