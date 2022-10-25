@@ -1,5 +1,6 @@
 import { User } from "@prisma/client";
 import { createModel } from "@rematch/core";
+import { AxiosResponse } from "axios";
 import { UserCreateRequest } from "backend/users/user-routes";
 import { RootModel } from ".";
 import { Dispatch } from "./store";
@@ -7,6 +8,12 @@ import { Dispatch } from "./store";
 export enum UserControls {
   createUser = "createUser",
 }
+
+export type UserControlTypes = {
+  [UserControls.createUser]: (
+    user: UserCreateRequest
+  ) => Promise<AxiosResponse<User>>;
+};
 interface UsersState {
   [key: string]: User;
 }
@@ -37,7 +44,7 @@ export const users = createModel<RootModel>()({
       const response = await dispatch.api.createUser(user);
       if (response.status === 200) {
         dispatch.users.receiveUsers({
-          users: [response.data as User],
+          users: [response.data],
         });
       }
       //TODO: dispatch error

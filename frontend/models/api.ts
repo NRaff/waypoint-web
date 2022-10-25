@@ -6,8 +6,8 @@ import { AxiosResponse } from "axios";
 import DecoratedApi, {
   ApiRoutesConfig,
 } from "frontend/framework/requests/DecoratedApi";
-import { UserControls } from "./users";
-import { CoursesControls } from "./courses";
+import { UserControls, UserControlTypes } from "./users";
+import { CourseControlTypes, CoursesControls } from "./courses";
 
 export type HttpResponse<T> = {
   status:
@@ -91,14 +91,14 @@ export const api = createModel<RootModel>()({
     }),
   },
   effects: (dispatch: Dispatch) => {
-    const decoratedUsersApi = new DecoratedApi(
-      API_CONFIG.users,
-      dispatch
-    );
-    const decoratedCoursesApi = new DecoratedApi(
-      API_CONFIG.courses,
-      dispatch
-    );
+    const decoratedUsersApi = new DecoratedApi<
+      UserControls,
+      UserControlTypes
+    >(API_CONFIG.users, dispatch);
+    const decoratedCoursesApi = new DecoratedApi<
+      CoursesControls,
+      CourseControlTypes
+    >(API_CONFIG.courses, dispatch);
     return {
       ...decoratedUsersApi.decoratedApiModel(),
       ...decoratedCoursesApi.decoratedApiModel(),

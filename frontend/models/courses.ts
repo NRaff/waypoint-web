@@ -7,6 +7,12 @@ import { Dispatch } from "./store";
 export enum CoursesControls {
   getAllCourses = "getAllCourses",
 }
+
+export type CourseControlTypes = {
+  [CoursesControls.getAllCourses]: () => Promise<
+    AxiosResponse<any>
+  >;
+};
 interface CourseState {
   [key: string]: Course;
 }

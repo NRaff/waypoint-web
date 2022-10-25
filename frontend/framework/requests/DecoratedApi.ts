@@ -1,5 +1,6 @@
 import { AxiosResponse } from "axios";
 import { RouteConfig } from "frontend/models/api";
+import { UserControlTypes } from "frontend/models/users";
 import { Dispatch } from "../../models/store";
 
 export type ApiRoutesConfig<TControls extends string> = Record<
@@ -47,7 +48,7 @@ const decorateApiRequest =
     });
     return response;
   };
-class DecoratedApi<TControls extends string> {
+class DecoratedApi<TControls extends string, TControlTypes> {
   private apiModelConfig;
   constructor(
     config: ApiRoutesConfig<TControls>,
@@ -66,7 +67,7 @@ class DecoratedApi<TControls extends string> {
         ...modelConfig,
         [key]: decorateApiRequest(dispatch, value),
       }),
-      {} as ApiModelConfig<TControls>
+      {} as TControlTypes
     );
   }
 
