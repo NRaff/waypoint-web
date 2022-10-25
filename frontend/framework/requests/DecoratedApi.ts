@@ -14,21 +14,8 @@ export type ApiModelConfig<TControls extends string> = {
 };
 
 const decorateApiRequest =
-  <TPayload, TResponse>(
-    dispatch: Dispatch,
-    {
-      route,
-      request,
-    }: {
-      route: string; // TODO: update this to route enum
-      request: (
-        options?: TPayload
-      ) => Promise<AxiosResponse<TResponse>>;
-    }
-  ): ((
-    options?: TPayload
-  ) => Promise<AxiosResponse<TResponse>>) =>
-  async (options?: TPayload) => {
+  (dispatch: Dispatch, { route, request }: RouteConfig) =>
+  async (options?: any) => {
     console.info("Initiate api request", {
       user: dispatch.session.getSession(),
       route,
@@ -60,11 +47,7 @@ const decorateApiRequest =
     });
     return response;
   };
-class DecoratedApi<
-  TControls extends string,
-  TRequest,
-  TResponse
-> {
+class DecoratedApi<TControls extends string> {
   private apiModelConfig;
   constructor(
     config: ApiRoutesConfig<TControls>,

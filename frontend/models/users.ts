@@ -37,7 +37,7 @@ export const users = createModel<RootModel>()({
       const response = await dispatch.api.createUser(user);
       if (response.status === 200) {
         dispatch.users.receiveUsers({
-          users: [response.data],
+          users: [response.data as User],
         });
       }
       //TODO: dispatch error
