@@ -6,6 +6,8 @@ import { AxiosResponse } from "axios";
 import DecoratedApi, {
   ApiRoutesConfig,
 } from "frontend/framework/requests/DecoratedApi";
+import { UserControls } from "./users";
+import { CoursesControls } from "./courses";
 
 export type HttpResponse<T> = {
   status:
@@ -33,11 +35,19 @@ interface ApiState {
   [key: string]: RequestState; // TODO: should use route as key
 }
 
-type ApiConfig = {
-  [key: string]: ApiRoutesConfig;
+export type RouteConfig = {
+  route: string; // todo: update to routes enum
+  request: <TRequest, TResponse>(
+    options: TRequest
+  ) => Promise<AxiosResponse<TResponse>>;
 };
 
-const API_CONFIG: ApiConfig = {
+interface ModelsConfig {
+  courses: Record<CoursesControls, RouteConfig>;
+  users: Record<UserControls, RouteConfig>;
+}
+
+const API_CONFIG: ModelsConfig = {
   courses: {
     getAllCourses: {
       route: "/getAllCourses",

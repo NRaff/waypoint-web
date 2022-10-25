@@ -1,16 +1,17 @@
-import { ModelEffect } from "@rematch/core";
 import { AxiosResponse } from "axios";
-import { RootModel } from "frontend/models";
+import { RouteConfig } from "frontend/models/api";
 import { Dispatch } from "../../models/store";
 
-export interface ApiRoutesConfig {
-  [key: string]: {
-    route: string; // todo: update to routes enum
-    request: <TRequest, TResponse>(
-      options: TRequest
-    ) => Promise<AxiosResponse<TResponse>>;
-  };
-}
+export type ApiRoutesConfig<TControls extends string> = Record<
+  TControls,
+  RouteConfig
+>;
+
+export type ApiModelConfig<TControls extends string> = {
+  [key in TControls]: (
+    options?: unknown
+  ) => Promise<AxiosResponse<unknown, any>>;
+};
 
 const decorateApiRequest =
   <TPayload, TResponse>(
@@ -59,23 +60,30 @@ const decorateApiRequest =
     });
     return response;
   };
-class DecoratedApi {
+class DecoratedApi<
+  TControls extends string,
+  TRequest,
+  TResponse
+> {
   private apiModelConfig;
-  constructor(config: ApiRoutesConfig, dispatch: Dispatch) {
+  constructor(
+    config: ApiRoutesConfig<TControls>,
+    dispatch: Dispatch
+  ) {
     this.apiModelConfig = this.setApiConfig(config, dispatch);
   }
 
   private setApiConfig(
-    config: ApiRoutesConfig,
+    config: ApiRoutesConfig<TControls>,
     dispatch: Dispatch
   ) {
-    const configItems = Object.entries(config);
+    const configItems = Object.entries<RouteConfig>(config);
     return configItems.reduce(
       (modelConfig, [key, value]) => ({
         ...modelConfig,
         [key]: decorateApiRequest(dispatch, value),
       }),
-      {}
+      {} as ApiModelConfig<TControls>
     );
   }
 

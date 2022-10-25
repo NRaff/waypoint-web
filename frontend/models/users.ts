@@ -4,6 +4,9 @@ import { UserCreateRequest } from "backend/users/user-routes";
 import { RootModel } from ".";
 import { Dispatch } from "./store";
 
+export enum UserControls {
+  createUser = "createUser",
+}
 interface UsersState {
   [key: string]: User;
 }

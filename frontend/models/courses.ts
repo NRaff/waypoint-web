@@ -3,6 +3,9 @@ import { RootModel } from "frontend/models";
 import { Course } from "shared/utility/types";
 import { Dispatch } from "./store";
 
+export enum CoursesControls {
+  getAllCourses = "getAllCourses",
+}
 interface CourseState {
   [key: string]: Course;
 }
