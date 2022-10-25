@@ -1,6 +1,5 @@
 import { AxiosResponse } from "axios";
 import { RouteConfig } from "frontend/models/api";
-import { UserControlTypes } from "frontend/models/users";
 import { Dispatch } from "../../models/store";
 
 export type ApiRoutesConfig<TControls extends string> = Record<

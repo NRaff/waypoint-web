@@ -1,8 +1,4 @@
-import type {
-  NextApiHandler,
-  NextApiRequest,
-  NextApiResponse,
-} from "next";
+import type { NextApiRequest } from "next";
 import { JSONSchemaType } from "ajv";
 import { UserPersister } from "./user-persister";
 import { User } from "@prisma/client";

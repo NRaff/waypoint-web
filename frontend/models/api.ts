@@ -3,11 +3,9 @@ import axios from "../../config/api.config";
 import { RootModel } from "frontend/models";
 import { Dispatch } from "./store";
 import { AxiosResponse } from "axios";
-import DecoratedApi, {
-  ApiRoutesConfig,
-} from "frontend/framework/requests/DecoratedApi";
 import { UserControls, UserControlTypes } from "./users";
 import { CourseControlTypes, CoursesControls } from "./courses";
+import DecoratedApi from "frontend/framework/requests/DecoratedApi";
 
 export type HttpResponse<T> = {
   status:
