@@ -6,6 +6,7 @@ import { AxiosResponse } from "axios";
 import { UserControls, UserControlTypes } from "./users";
 import { CourseControlTypes, CoursesControls } from "./courses";
 import DecoratedApi from "frontend/framework/requests/DecoratedApi";
+import { Course, User } from "@prisma/client";
 
 export type HttpResponse<T> = {
   status:
@@ -48,27 +49,16 @@ interface ModelsConfig {
 const API_CONFIG: ModelsConfig = {
   courses: {
     getAllCourses: {
-      route: "/getAllCourses",
-      request: async () => {
-        console.log("make request to get all courses");
-        try {
-          return await axios.post("/api/courses/create", {
-            message: "hello world",
-          });
-        } catch (error) {
-          console.log({ error });
-          throw error;
-        }
-      },
+      route: "/getAll",
+      request: async (_options) =>
+        axios.post("/api/courses/getAll"),
     },
   },
   users: {
     createUser: {
       route: "/create",
-      request: async <UserCreateRequest, User>(
-        user: UserCreateRequest
-      ): Promise<AxiosResponse<User>> =>
-        axios.post<User>("/api/users/create", user),
+      request: async (user) =>
+        axios.post("/api/users/create", user),
     },
   },
 };

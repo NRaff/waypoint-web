@@ -10,7 +10,7 @@ export enum CoursesControls {
 
 export type CourseControlTypes = {
   [CoursesControls.getAllCourses]: () => Promise<
-    AxiosResponse<any>
+    AxiosResponse<Course[]>
   >;
 };
 interface CourseState {
@@ -36,7 +36,13 @@ export const courses = createModel<RootModel>()({
   effects: (dispatch: Dispatch) => ({
     getAllCourses: async (): Promise<void> => {
       console.log("make request to get all courses");
-      dispatch.api.getAllCourses();
+      const response = await dispatch.api.getAllCourses();
+      if (response.status === 200) {
+        dispatch.courses.receiveAllCourses({
+          courses: response.data,
+        });
+      }
+      // TODO: dispatch error
     },
   }),
 });

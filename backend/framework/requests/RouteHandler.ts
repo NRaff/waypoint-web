@@ -3,7 +3,7 @@ import type {
   NextApiRequest,
   NextApiResponse,
 } from "next";
-import Ajv, { JSONSchemaType } from "ajv";
+import Ajv, { JSONSchemaType, ValidateFunction } from "ajv";
 
 type ErrorResponse = {
   status: number;
@@ -14,15 +14,15 @@ type ErrorResponse = {
 class RequestValidator<TReq, TRes> {
   request: NextApiRequest;
   response: NextApiResponse<TRes | ErrorResponse>;
-  validate: any;
+  validate: ValidateFunction<TReq> | null;
   constructor(
     request: NextApiRequest,
     response: NextApiResponse,
-    schema: JSONSchemaType<TReq>
+    schema?: JSONSchemaType<TReq>
   ) {
     this.request = request;
     this.response = response;
-    this.validate = this.setValidate(schema);
+    this.validate = schema ? this.setValidate(schema) : null;
     this.assertRequestIsValid();
   }
 
@@ -32,13 +32,20 @@ class RequestValidator<TReq, TRes> {
   }
 
   private assertRequestBody() {
-    if (!this.validate(this.request.body)) {
-      this.response.status(404).send({
-        status: 404,
-        message: "Invalid request",
-        errors: this.validate.errors,
-      });
+    if (this.validate !== null) {
+      if (!this.validate(this.request.body)) {
+        this.response.status(404).send({
+          status: 404,
+          message: "Invalid request",
+          errors: this.validate.errors
+            ? this.validate.errors
+            : undefined,
+        });
+      }
     }
+    console.info("No request validation required", {
+      requestBody: this.request.body,
+    });
   }
 
   private assertIsPostRequest() {
@@ -70,12 +77,12 @@ class RouteHandler<TReq, TRes> {
   name: string;
   path: string;
   handler: NextApiHandler<TRes>;
-  schema: JSONSchemaType<TReq>;
+  schema?: JSONSchemaType<TReq>;
   constructor(
     name: string,
     path: string,
     handler: NextApiHandler,
-    schema: JSONSchemaType<TReq>
+    schema?: JSONSchemaType<TReq>
   ) {
     this.name = name;
     this.path = path;
