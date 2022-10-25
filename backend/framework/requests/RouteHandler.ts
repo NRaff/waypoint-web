@@ -42,10 +42,15 @@ class RequestValidator<TReq, TRes> {
             : undefined,
         });
       }
+      console.info(`Request at successfully validated`, {
+        url: this.request.url,
+        body: this.request.body,
+      });
+    } else {
+      console.info("No request validation required", {
+        requestBody: this.request.body,
+      });
     }
-    console.info("No request validation required", {
-      requestBody: this.request.body,
-    });
   }
 
   private assertIsPostRequest() {
@@ -111,6 +116,7 @@ class RouteHandler<TReq, TRes> {
       console.log(`Completed request to ${this.path}`, {
         routeName: this.name,
         routePath: this.path,
+        result,
       });
       return response.status(200).send(result as TRes);
     };
