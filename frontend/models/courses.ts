@@ -1,4 +1,5 @@
 import { createModel } from "@rematch/core";
+import { AxiosResponse } from "axios";
 import { RootModel } from "frontend/models";
 import { Course } from "shared/utility/types";
 import { Dispatch } from "./store";
