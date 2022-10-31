@@ -20,15 +20,13 @@ let store:
   | RematchStore<RootModel, Record<string, never>>
   | undefined;
 
-const shouldUseLogger = true;
+const shouldUseLogger = false;
 const includeUserSessionMiddleware: Middleware<
   Store,
   Dispatch
 > = (api) => (next) => {
-  // const state = api.getState();
-  // console.log({ rematchMiddlewareState: state.session });
-  // console.log({ sessionMiddleware: state });
-  return (action) => next(action);
+  const state = api.getState();
+  return (action) => next(action, state.session);
 };
 const middlewares = shouldUseLogger
   ? [logger]

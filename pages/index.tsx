@@ -23,7 +23,6 @@ interface WaypointInstantiationProps {
 
 export const getServerSideProps = withServerSideAuth(({req, resolvedUrl}): WaypointInstantiationProps | any => {
   const redirectTo = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/' : resolvedUrl
-  console.log({redirectTo})
   const {sessionId} = req.auth;
   if (!sessionId) {
     return {
