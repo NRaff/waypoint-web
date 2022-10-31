@@ -40,7 +40,6 @@ export const users = createModel<RootModel>()({
       user: UserCreateRequest,
       ...restArgs: any[]
     ): Promise<User | void> => {
-      console.log({ createUserArgs: restArgs });
       const response = await dispatch.api.createUser(
         user,
         ...restArgs
