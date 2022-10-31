@@ -6,23 +6,6 @@ import { AxiosResponse } from "axios";
 import { UserControls, UserControlTypes } from "./users";
 import { CourseControlTypes, CoursesControls } from "./courses";
 import DecoratedApi from "frontend/framework/requests/DecoratedApi";
-import { Course, User } from "@prisma/client";
-
-export type HttpResponse<T> = {
-  status:
-    | 200
-    | 201
-    | 300
-    | 302
-    | 400
-    | 401
-    | 402
-    | 403
-    | 404
-    | 500;
-  data: T;
-  error?: any;
-};
 
 type RequestState = {
   isLoading: boolean;

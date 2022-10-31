@@ -15,7 +15,7 @@ export type ApiModelConfig<TControls extends string> = {
 
 const decorateApiRequest =
   (dispatch: Dispatch, { route, request }: RouteConfig) =>
-  async (options?: any) => {
+  async (options?: any, ...restArgs: any[]) => {
     const currentUser = dispatch.currentUser;
     console.log({ currentDecoratedUser: currentUser });
     console.info("Initiate api request", {

@@ -59,8 +59,8 @@ const Start = ({waypoint, __clerk_ssr_state}: WaypointInstantiationProps) => {
   }, [])
 
   useEffect(() => {
-    console.log({users,session, courses, currentUser: dispatch.currentUser})
-  }, [users,session, courses, dispatch.currentUser])
+    console.log({users,session, courses})
+  }, [users,session, courses])
 
   // create user request only after setting the current user
   const [didRequest, setDidRequest] = useState(false)
@@ -75,7 +75,7 @@ const Start = ({waypoint, __clerk_ssr_state}: WaypointInstantiationProps) => {
       setDidRequest(true)
     }
     console.log({didRequest})
-    if (dispatch.currentUser && !didRequest) {
+    if (!didRequest) {
       console.log('doing request')
       completeRequest()
     }

@@ -41,12 +41,7 @@ export const users = createModel<RootModel>()({
     ): Promise<User | void> => {
       const response = await dispatch.api.createUser(user);
       console.log({ createUserArgs: restArgs });
-      console.log("try anything");
       if (response.status === 200) {
-        console.log("Did receive users");
-        console.log({
-          "response data": response.data,
-        });
         dispatch.users.receiveUsers({
           users: [response.data],
         });

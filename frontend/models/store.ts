@@ -26,6 +26,7 @@ const includeUserSessionMiddleware: Middleware<
   Dispatch
 > = (api) => (next) => {
   const state = api.getState();
+  //@ts-ignore
   return (action) => next(action, state.session);
 };
 const middlewares = shouldUseLogger
