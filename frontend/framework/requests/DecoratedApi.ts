@@ -16,10 +16,11 @@ export type ApiModelConfig<TControls extends string> = {
 const decorateApiRequest =
   (dispatch: Dispatch, { route, request }: RouteConfig) =>
   async (options?: any, ...restArgs: any[]) => {
-    console.log({ currentDecoratedUser: restArgs[0].session });
+    const user = restArgs[0].session;
     console.info("Initiate api request", {
       request,
       route,
+      user,
     });
     dispatch.api.setRequestState({
       route,
@@ -29,6 +30,7 @@ const decorateApiRequest =
     console.info("Completed api request", {
       route,
       response,
+      user,
     });
     if (response.status !== 200) {
       // TODO: should dispatch error toast

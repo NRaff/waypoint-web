@@ -45,7 +45,6 @@ const API_CONFIG: ModelsConfig = {
       request: async (user, ...restArgs: any[]) => {
         const api = new RequestHandler(restArgs[0].session);
         return api.request("/users/create", user);
-        // return axios.post("/api/users/create", user),
       },
     },
   },
