@@ -1,19 +1,12 @@
 import {
   init,
-  MiddlewareCreator,
   RematchDispatch,
   RematchRootState,
   RematchStore,
 } from "@rematch/core";
 import { models, RootModel } from "frontend/models";
-import { useEffect, useMemo, useState } from "react";
-import { useSelector } from "react-redux";
-import {
-  Action,
-  AnyAction,
-  Middleware,
-  MiddlewareAPI,
-} from "redux";
+import { useMemo } from "react";
+import { Middleware } from "redux";
 import logger from "redux-logger";
 
 let store:

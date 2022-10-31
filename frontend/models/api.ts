@@ -6,6 +6,7 @@ import { AxiosResponse } from "axios";
 import { UserControls, UserControlTypes } from "./users";
 import { CourseControlTypes, CoursesControls } from "./courses";
 import DecoratedApi from "frontend/framework/requests/DecoratedApi";
+import RequestHandler from "frontend/framework/requests/request";
 
 type RequestState = {
   isLoading: boolean;
@@ -20,7 +21,8 @@ interface ApiState {
 export type RouteConfig = {
   route: string; // todo: update to routes enum
   request: <TRequest, TResponse>(
-    options: TRequest
+    options: TRequest,
+    ...restArgs: any[]
   ) => Promise<AxiosResponse<TResponse>>;
 };
 
@@ -40,8 +42,11 @@ const API_CONFIG: ModelsConfig = {
   users: {
     createUser: {
       route: "/create",
-      request: async (user) =>
-        axios.post("/api/users/create", user),
+      request: async (user, ...restArgs: any[]) => {
+        const api = new RequestHandler(restArgs[0].session);
+        return api.request("/users/create", user);
+        // return axios.post("/api/users/create", user),
+      },
     },
   },
 };

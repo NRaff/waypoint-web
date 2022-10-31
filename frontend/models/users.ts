@@ -11,7 +11,8 @@ export enum UserControls {
 
 export type UserControlTypes = {
   [UserControls.createUser]: (
-    user: UserCreateRequest
+    user: UserCreateRequest,
+    ...restArgs: any[]
   ) => Promise<AxiosResponse<User>>;
 };
 export interface UsersState {
@@ -39,8 +40,11 @@ export const users = createModel<RootModel>()({
       user: UserCreateRequest,
       ...restArgs: any[]
     ): Promise<User | void> => {
-      const response = await dispatch.api.createUser(user);
       console.log({ createUserArgs: restArgs });
+      const response = await dispatch.api.createUser(
+        user,
+        ...restArgs
+      );
       if (response.status === 200) {
         dispatch.users.receiveUsers({
           users: [response.data],

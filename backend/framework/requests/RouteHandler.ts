@@ -111,6 +111,7 @@ class RouteHandler<TReq, TRes> {
       console.log(`Begin request to ${this.path}`, {
         routeName: this.name,
         routePath: this.path,
+        headers: request.headers,
       });
       const result = await this.handler(request, response);
       console.log(`Completed request to ${this.path}`, {
