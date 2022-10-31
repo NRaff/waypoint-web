@@ -1,15 +1,38 @@
 import {
   init,
+  MiddlewareCreator,
   RematchDispatch,
   RematchRootState,
   RematchStore,
 } from "@rematch/core";
 import { models, RootModel } from "frontend/models";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
+import {
+  Action,
+  AnyAction,
+  Middleware,
+  MiddlewareAPI,
+} from "redux";
+import logger from "redux-logger";
 
 let store:
   | RematchStore<RootModel, Record<string, never>>
   | undefined;
+
+const shouldUseLogger = true;
+const includeUserSessionMiddleware: Middleware<
+  Store,
+  Dispatch
+> = (api) => (next) => {
+  // const state = api.getState();
+  // console.log({ rematchMiddlewareState: state.session });
+  // console.log({ sessionMiddleware: state });
+  return (action) => next(action);
+};
+const middlewares = shouldUseLogger
+  ? [logger]
+  : [includeUserSessionMiddleware];
 /**
  * Source from the next js example, [here](github.com/vercel/next.js/blob/canary/examples/with-rematch/shared/store.js),
  * and [here](https://github.com/naponmeka/nextjs-typescript-with-rematch/blob/main/store.ts)
@@ -20,11 +43,15 @@ export const initializeStore = (initialState?: RootModel) => {
       models,
       redux: {
         initialState,
+        middlewares,
       },
     });
   }
   return init({
     models,
+    redux: {
+      middlewares,
+    },
   });
 };
 

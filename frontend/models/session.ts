@@ -1,5 +1,6 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from "frontend/models";
+import { Dispatch } from "./store";
 
 interface SessionState {
   sessionId: string;
@@ -7,17 +8,15 @@ interface SessionState {
 }
 
 export const session = createModel<RootModel>()({
+  name: "session",
   state: {} as SessionState,
   reducers: {
-    getSession: (state) => state,
     receiveSession: (
       _state: SessionState,
       clerkSSRState: any
-    ): SessionState => {
-      return {
-        sessionId: clerkSSRState.sessionId,
-        userId: clerkSSRState.userId,
-      };
-    },
+    ): SessionState => ({
+      sessionId: clerkSSRState.sessionId,
+      userId: clerkSSRState.userId,
+    }),
   },
 });

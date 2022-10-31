@@ -1,10 +1,10 @@
 import WaypointWrapper from 'frontend/components/WaypointWrapper'
 import WaypointNav from 'frontend/components/WaypointNav'
-import { Dispatch, setupRematchStore, useStore } from 'frontend/models/store'
+import { Dispatch, RootState, setupRematchStore, useStore } from 'frontend/models/store'
 import { withServerSideAuth } from '@clerk/nextjs/ssr'
 import { GetServerSidePropsResult } from 'next'
-import { useDispatch } from 'react-redux'
-import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useEffect, useState } from 'react'
 
 const setupRematch = () => {
   const store = setupRematchStore()
@@ -45,20 +45,42 @@ export const getServerSideProps = withServerSideAuth(({req, resolvedUrl}): Waypo
 })
 
 const Start = ({waypoint, __clerk_ssr_state}: WaypointInstantiationProps) => {
-  const store = useStore(waypoint)
-  const dispatch = useDispatch<Dispatch>()
-  store.dispatch.session.receiveSession(__clerk_ssr_state)
+  // const store = useStore(waypoint)
+  const dispatch = useDispatch()
+  const {users, session, courses} = useSelector((state: RootState) => {
+    return {
+      users: state.users, 
+      session: state.session,
+      courses: state.courses,
+    }
+  }) 
+  // set store from props and get current user
   useEffect(() => {
+    dispatch.session.receiveSession(__clerk_ssr_state)
+  }, [])
+
+  useEffect(() => {
+    console.log({users,session, courses, currentUser: dispatch.currentUser})
+  }, [users,session, courses, dispatch.currentUser])
+
+  // create user request only after setting the current user
+  const [didRequest, setDidRequest] = useState(false)
+  useEffect(() => {
+    console.log('try request')
     const completeRequest = async () => {
       await dispatch.users.createUser({
         name: 'Eric Raff',
         email: 'eraff@xlconstruction.com'
       })
       await dispatch.courses.getAllCourses()
+      setDidRequest(true)
     }
-
-    completeRequest()
-  })
+    console.log({didRequest})
+    if (dispatch.currentUser && !didRequest) {
+      console.log('doing request')
+      completeRequest()
+    }
+  }, [dispatch.currentUser])
   // dispatch user and session here
     return (
       <WaypointWrapper home>

@@ -14,7 +14,7 @@ export type UserControlTypes = {
     user: UserCreateRequest
   ) => Promise<AxiosResponse<User>>;
 };
-interface UsersState {
+export interface UsersState {
   [key: string]: User;
 }
 
@@ -25,24 +25,28 @@ export const users = createModel<RootModel>()({
       _state: UsersState,
       { users }: { users: User[] }
     ): UsersState => {
-      console.log(users);
-      const newState = users.reduce(
+      return users.reduce(
         (nextState: UsersState, user: User) => ({
           ...nextState,
           [user.id]: user,
         }),
         {}
       );
-      console.log({ newState });
-      return newState;
     },
   },
   effects: (dispatch: Dispatch) => ({
     createUser: async (
-      user: UserCreateRequest
+      user: UserCreateRequest,
+      ...restArgs: any[]
     ): Promise<User | void> => {
       const response = await dispatch.api.createUser(user);
+      console.log({ createUserArgs: restArgs });
+      console.log("try anything");
       if (response.status === 200) {
+        console.log("Did receive users");
+        console.log({
+          "response data": response.data,
+        });
         dispatch.users.receiveUsers({
           users: [response.data],
         });
