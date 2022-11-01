@@ -12,4 +12,4 @@ const getAllCoursesRoute = new RouteHandler<null, Course[]>(
   getAll
 );
 
-export default getAllCoursesRoute.createHandler();
+export default getAllCoursesRoute.createAuthenticatedUserRoute();

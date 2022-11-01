@@ -16,10 +16,15 @@ type UserSession = {
   userId: string;
 };
 
-const isUserSession = (payload: any): payload is UserSession => {
-  if (payload?.sessionId && payload?.userId) return payload;
+const isUserSession = (payload: any): UserSession | null => {
+  if (payload?.sessionId && payload?.userId) {
+    return {
+      sessionId: payload.sessionId,
+      userId: payload.userId,
+    };
+  }
   console.error("No user data for request", { payload });
-  throw new Error("No user data for request");
+  return null;
 };
 
 class RequestHandler {

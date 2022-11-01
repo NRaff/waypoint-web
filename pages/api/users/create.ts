@@ -1,3 +1,3 @@
-import CreateUserHandler from "../../../backend/users/user-routes";
+import CreateUserHandler from "../../../backend/users/users-routes";
 
 export default CreateUserHandler;
