@@ -1,3 +1,3 @@
-import GetAllCoursesHandler from "../../../backend/courses/course-routes";
+import GetAllCoursesHandler from "../../../backend/courses/courses-routes";
 
 export default GetAllCoursesHandler;
