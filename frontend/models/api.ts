@@ -35,8 +35,10 @@ const API_CONFIG: ModelsConfig = {
   courses: {
     getAllCourses: {
       route: "/getAll",
-      request: async (_options) =>
-        axios.post("/api/courses/getAll"),
+      request: async (_options, ...restArgs: any[]) => {
+        const api = new RequestHandler(restArgs[0].session);
+        return api.request("/courses/getAll", {});
+      },
     },
   },
   users: {

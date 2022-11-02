@@ -35,7 +35,6 @@ export const courses = createModel<RootModel>()({
   },
   effects: (dispatch: Dispatch) => ({
     getAllCourses: async (): Promise<void> => {
-      console.log("make request to get all courses");
       const response = await dispatch.api.getAllCourses();
       if (response.status === 200) {
         dispatch.courses.receiveAllCourses({

@@ -1,3 +1,3 @@
-import CreateUserHandler from "../../../backend/users/users-routes";
+import UserRoutes from "backend/users/users-routes";
 
-export default CreateUserHandler;
+export default UserRoutes.upsertUser;

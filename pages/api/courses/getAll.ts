@@ -1,3 +1,3 @@
-import GetAllCoursesHandler from "../../../backend/courses/courses-routes";
+import CoursesController from "backend/courses/courses-controller";
 
-export default GetAllCoursesHandler;
+export default CoursesController.getAll;

@@ -1,15 +1,9 @@
 import { Course } from "@prisma/client";
 import RouteHandler from "backend/framework/requests/RouteHandler";
-import { NextApiRequest } from "next";
+import { NextApiHandler, NextApiRequest } from "next";
 import { CoursePersister } from "./courses-persister";
+import CoursesController from "./courses-controller";
 
-const getAll = async (_req: NextApiRequest): Promise<Course[]> =>
-  CoursePersister.getAll();
-
-const getAllCoursesRoute = new RouteHandler<null, Course[]>(
-  "getAllCourses",
-  "/courses/getAll",
-  getAll
-);
-
-export default getAllCoursesRoute.createAuthenticatedUserRoute();
+const CoursesRoutes = {
+  getAll: CoursesController.getAll as NextApiHandler<Course[]>,
+};

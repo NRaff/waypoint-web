@@ -87,7 +87,7 @@ type AuthenticatedUserHandlerParams<Res> =
     user: User;
   };
 
-enum RouteRequirement {
+export enum RouteRequirement {
   withUser = "authenticatedUser",
   withAdmin = "authenticatedAdmin",
   public = "public",
@@ -156,11 +156,16 @@ class RouteHandler<TReq, TRes> {
     }
   };
 
-  private createHandler = (requirement: RouteRequirement) => {
+  createHandler = (requirement: RouteRequirement) => {
     return async (
       request: NextApiRequest,
       response: NextApiResponse<TRes>
     ) => {
+      console.log(`Begin request to ${this.path}`, {
+        routeName: this.name,
+        routePath: this.path,
+        headers: request.headers,
+      });
       const maybeRouteUser = await this.getRequestUser(
         requirement,
         request
@@ -173,11 +178,6 @@ class RouteHandler<TReq, TRes> {
       if (validatedRequest.isRequestError()) {
         return validatedRequest.response;
       }
-      console.log(`Begin request to ${this.path}`, {
-        routeName: this.name,
-        routePath: this.path,
-        headers: request.headers,
-      });
       const result = await this.handler(request, maybeRouteUser);
       console.log(`Completed request to ${this.path}`, {
         routeName: this.name,

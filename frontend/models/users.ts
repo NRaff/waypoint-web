@@ -1,7 +1,7 @@
 import { User } from "@prisma/client";
 import { createModel } from "@rematch/core";
 import { AxiosResponse } from "axios";
-import { UserCreateRequest } from "backend/users/users-routes";
+import { UserCreateRequest } from "backend/users/users-controller";
 import { RootModel } from ".";
 import { Dispatch } from "./store";
 
