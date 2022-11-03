@@ -1,5 +1,11 @@
 # **Waypoint**
 
+## Todo:
+
+[ ] create migration to stash the auth id for user retrieval [ ]
+reset authentication to use the clerk hooks instead (start with
+email pass, provide hidden option for clerk modal of
+providers...(need to figure out how to handle this)
 
 ## Resources
 
@@ -57,23 +63,23 @@
 
 - Organizer
 
-	- Create a Race
+  - Create a Race
 
-	- Approve racer to join
+  - Approve racer to join
 
-	- Invite racer
+  - Invite racer
 
-	- Start race
+  - Start race
 
-	- End race
+  - End race
 
 - Racer
 
-	- Join a race
+  - Join a race
 
-	- View my races
+  - View my races
 
-	- Review race
+  - Review race
 
 - Watch race
 
@@ -103,23 +109,24 @@
 
 - Organizer
 
-	- Start race
+  - Start race
 
-	- End race
+  - End race
 
-	- Watch racers
+  - Watch racers
 
 - Racer
 
-	- Waypoint guidance
+  - Waypoint guidance
 
-	- Lead time gap
+  - Lead time gap
 
 ## Data structure
 
-https://firebase.google.com/docs/database/web/structure-data  
+https://firebase.google.com/docs/database/web/structure-data
 
-- the arrays noted may need to be indices as explained in the structure documentation
+- the arrays noted may need to be indices as explained in the
+  structure documentation
 
 ### Users
 
@@ -171,11 +178,11 @@ https://firebase.google.com/docs/database/web/structure-data
 
 - paths: [path]
 
-	- latitude: float
+  - latitude: float
 
-	- longitude: float
+  - longitude: float
 
-	- timestamp: timestamp
+  - timestamp: timestamp
 
 ### Waypoints
 
@@ -187,11 +194,10 @@ https://firebase.google.com/docs/database/web/structure-data
 
 - points: [point]
 
-	- latitude: float
+  - latitude: float
 
-	- longitude: float
+  - longitude: float
 
 - pass_direction: string {starboard, port, through}
 
 - order: number
-
