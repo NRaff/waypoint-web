@@ -1,12 +1,9 @@
-import type {
-  NextApiHandler,
-  NextApiRequest,
-  NextApiResponse,
-} from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 import Ajv, { JSONSchemaType, ValidateFunction } from "ajv";
 import { User } from "@prisma/client";
 import { UserPersister } from "backend/users/users-persister";
 import { ControllerHandler } from "../controls/controls";
+import { getAuth } from "@clerk/nextjs/server";
 
 type ErrorResponse = {
   status: number;
@@ -80,13 +77,6 @@ class RequestValidator<TReq, TRes> {
   }
 }
 
-type BaseNextHandler<Res> = Parameters<NextApiHandler<Res>>;
-
-type AuthenticatedUserHandlerParams<Res> =
-  BaseNextHandler<Res> & {
-    user: User;
-  };
-
 export enum RouteRequirement {
   withUser = "authenticatedUser",
   withAdmin = "authenticatedAdmin",
@@ -114,26 +104,21 @@ class RouteHandler<TReq, TRes> {
   private getUserForRequest = async (
     request: NextApiRequest
   ): Promise<User> => {
-    if (request.headers.session_id && request.headers.user_id) {
-      if (Array.isArray(request.headers.user_id)) {
-        console.error("Multiple user_ids provided in headers", {
-          headers: request.headers,
-        });
-        throw new Error("Multiple user_ids in request");
-      }
-      return UserPersister.findById(request.headers.user_id);
+    const { userId } = getAuth(request);
+    if (!userId) {
+      console.error("No user found for request", {
+        request,
+      });
+      throw new Error("User not Found");
     }
-    console.error("User not found for authenticated user route");
-    throw new Error(
-      "User not found for authenticated user route"
-    );
+    return UserPersister.findById(userId);
   };
 
   private getAdminForRequest = async (
     request: NextApiRequest
   ): Promise<User> => {
-    //todo: implement real admin
-    return await this.getUserForRequest(request);
+    //todo: implement real admin by checking claims
+    return this.getUserForRequest(request);
   };
 
   private getRequestUser = async (
@@ -142,7 +127,7 @@ class RouteHandler<TReq, TRes> {
   ) => {
     switch (requirement) {
       case RouteRequirement.withUser:
-        return await this.getUserForRequest(request);
+        return this.getUserForRequest(request);
       case RouteRequirement.withAdmin:
         return await this.getAdminForRequest(request);
       case RouteRequirement.public:

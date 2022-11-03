@@ -2,10 +2,11 @@
 import '@/styles/global.css'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import type { AppProps } from 'next/app'
-import { Provider, useDispatch } from 'react-redux'
-import { Dispatch, useStore } from 'frontend/models/store';
-import { ClerkProvider, RedirectToSignIn, SignedIn, SignedOut } from '@clerk/nextjs';
+import { Provider } from 'react-redux'
+import { useStore } from 'frontend/models/store';
+import { ClerkProvider, RedirectToSignIn, SignedIn, SignedOut, useSignIn } from '@clerk/nextjs';
 import { useRouter } from 'next/router';
+import React from 'react';
 
 
 const publicPages = [
@@ -17,6 +18,7 @@ export default function WaypointWeb({ Component, pageProps }: AppProps) {
   const {pathname} = useRouter()
   const isPublicPage = publicPages.includes(pathname)
   // const dispatch = useDispatch<Dispatch>()
+  const {signIn} = useSignIn()
   return (
     <ClerkProvider>
       <Provider store={store}>
@@ -32,7 +34,9 @@ export default function WaypointWeb({ Component, pageProps }: AppProps) {
                 <Component {...pageProps} />
               </SignedIn>
               <SignedOut>
-                <RedirectToSignIn />
+                {/* <RedirectToSignIn /> */}
+                <h1>Hello world</h1>
+                {/* {signIn()} */}
               </SignedOut>
             </>
           )

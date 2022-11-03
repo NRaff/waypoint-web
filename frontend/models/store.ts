@@ -6,7 +6,6 @@ import {
 } from "@rematch/core";
 import { models, RootModel } from "frontend/models";
 import { useMemo } from "react";
-import { Middleware } from "redux";
 import logger from "redux-logger";
 
 let store:
@@ -14,17 +13,7 @@ let store:
   | undefined;
 
 const shouldUseLogger = false;
-const includeUserSessionMiddleware: Middleware<
-  Store,
-  Dispatch
-> = (api) => (next) => {
-  const state = api.getState();
-  //@ts-ignore
-  return (action) => next(action, state.session);
-};
-const middlewares = shouldUseLogger
-  ? [logger]
-  : [includeUserSessionMiddleware];
+const middlewares = shouldUseLogger ? [logger] : [];
 /**
  * Source from the next js example, [here](github.com/vercel/next.js/blob/canary/examples/with-rematch/shared/store.js),
  * and [here](https://github.com/naponmeka/nextjs-typescript-with-rematch/blob/main/store.ts)

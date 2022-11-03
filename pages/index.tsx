@@ -71,7 +71,7 @@ const Start = ({waypoint, __clerk_ssr_state}: WaypointInstantiationProps) => {
         name: 'Eric Raff',
         email: 'eraff@xlconstruction.com'
       })
-      await dispatch.courses.getAllCourses()
+      // await dispatch.courses.getAllCourses()
       setDidRequest(true)
     }
     console.log({didRequest})
