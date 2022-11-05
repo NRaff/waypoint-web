@@ -1,5 +1,6 @@
 import { User } from "@prisma/client";
 import { JSONSchemaType } from "ajv";
+import ClerkService from "backend/auth/clerk-service";
 import { Controller } from "backend/framework/controls/controls";
 import { RouteRequirement } from "backend/framework/requests/RouteHandler";
 import { NextApiRequest } from "next";
@@ -9,6 +10,11 @@ import { UserPersister } from "./users-persister";
 export interface UserCreateRequest {
   name: string;
   email: string;
+}
+
+enum UserControls {
+  upserUser = "upsertUser",
+  createUser = "createUser",
 }
 
 const createSchema: JSONSchemaType<UserCreateRequest> = {
@@ -21,6 +27,7 @@ const createSchema: JSONSchemaType<UserCreateRequest> = {
   additionalProperties: false,
 };
 
+// DEPRECATED: Should remove all create functions
 const createUser = async (
   req: NextApiRequest
 ): Promise<User> => {
@@ -28,16 +35,12 @@ const createUser = async (
   return UserPersister.create({
     name,
     email,
+    authenticationId: "Manual addition",
   });
 };
 
 const upsertUser = async (req: NextApiRequest): Promise<User> =>
   UserPersister.upsertUser(req.body);
-
-enum UserControls {
-  upserUser = "upsertUser",
-  createUser = "createUser",
-}
 
 const UserController = Controller.register<UserControls>({
   name: "users",
@@ -51,7 +54,7 @@ const UserController = Controller.register<UserControls>({
     upsertUser: {
       handler: upsertUser,
       route: "/upsert",
-      routeRequirement: RouteRequirement.public,
+      routeRequirement: RouteRequirement.withUser,
       getSchema: () => createSchema,
     },
   },

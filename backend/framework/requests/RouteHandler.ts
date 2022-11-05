@@ -4,6 +4,8 @@ import { User } from "@prisma/client";
 import { UserPersister } from "backend/users/users-persister";
 import { ControllerHandler } from "../controls/controls";
 import { getAuth } from "@clerk/nextjs/server";
+import ClerkService from "backend/auth/clerk-service";
+import AuthController from "backend/auth/auth-controller";
 
 type ErrorResponse = {
   status: number;
@@ -101,24 +103,11 @@ class RouteHandler<TReq, TRes> {
     this.schema = schema;
   }
 
-  private getUserForRequest = async (
-    request: NextApiRequest
-  ): Promise<User> => {
-    const { userId } = getAuth(request);
-    if (!userId) {
-      console.error("No user found for request", {
-        request,
-      });
-      throw new Error("User not Found");
-    }
-    return UserPersister.findById(userId);
-  };
-
   private getAdminForRequest = async (
     request: NextApiRequest
   ): Promise<User> => {
     //todo: implement real admin by checking claims
-    return this.getUserForRequest(request);
+    return AuthController.getOrCreateAuthenticatedUser(request);
   };
 
   private getRequestUser = async (
@@ -127,9 +116,11 @@ class RouteHandler<TReq, TRes> {
   ) => {
     switch (requirement) {
       case RouteRequirement.withUser:
-        return this.getUserForRequest(request);
+        return AuthController.getOrCreateAuthenticatedUser(
+          request
+        );
       case RouteRequirement.withAdmin:
-        return await this.getAdminForRequest(request);
+        return this.getAdminForRequest(request);
       case RouteRequirement.public:
         console.info("Public route was requested", {
           url: request.url,

@@ -21,15 +21,15 @@ enum MarkType {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  authId    String   @unique @map(name: "auth_id")
-  name      String
-  email     String?  @unique
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
-  vessels   Vessel[]
-  courses   Course[]
-  races     Racers[]
+  id               String   @id @default(cuid())
+  authenticationId String   @unique @map(name: "authentication_id")
+  name             String
+  email            String?  @unique
+  createdAt        DateTime @default(now()) @map(name: "created_at")
+  updatedAt        DateTime @updatedAt @map(name: "updated_at")
+  vessels          Vessel[]
+  courses          Course[]
+  races            Racers[]
 
   @@map("users")
 }

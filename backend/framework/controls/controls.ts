@@ -14,7 +14,7 @@ export type Control = {
   handler: ControllerHandler;
   route: string;
   routeRequirement: RouteRequirement;
-  getSchema?: <T>() => JSONSchemaType<T>;
+  getSchema?: <T>() => any;
 };
 export type Controls<TControls extends string> = {
   name: string;

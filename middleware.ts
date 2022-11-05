@@ -36,24 +36,9 @@ const handleRequest = (request: NextRequest) => {
   return NextResponse.next();
 };
 
+// todo: authenticate user from clerk and upsert user on backend when loading home page
 export default withClerkMiddleware((request: NextRequest) => {
-  console.log("running middleware");
   return handleRequest(request);
-  // const { userId } = getAuth(req);
-  // if (!isServingAuthPage(req)) {
-  //   console.log("Request does not include sign-in");
-  //   if (!userId) {
-  //     console.info(
-  //       "No authenticated user - redirecting to login"
-  //     );
-  //     const signInUrl = new URL("/auth/login", req.url);
-  //     // Note: this will cause an infinite loop of redirects if the condition above is always truthy
-  //     signInUrl.searchParams.set("redirect_url", req.url);
-  //     return NextResponse.redirect(signInUrl);
-  //   }
-  // }
-  // // Do anything you need in your middleware.
-  // return NextResponse.next();
 });
 
 // Stop Middleware running on static files like images

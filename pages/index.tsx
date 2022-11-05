@@ -63,23 +63,23 @@ const Start = ({waypoint, __clerk_ssr_state}: WaypointInstantiationProps) => {
   }, [users,session, courses])
 
   // create user request only after setting the current user
-  const [didRequest, setDidRequest] = useState(false)
-  useEffect(() => {
-    console.log('try request')
-    const completeRequest = async () => {
-      await dispatch.users.createUser({
-        name: 'Eric Raff',
-        email: 'eraff@xlconstruction.com'
-      })
-      // await dispatch.courses.getAllCourses()
-      setDidRequest(true)
-    }
-    console.log({didRequest})
-    if (!didRequest) {
-      console.log('doing request')
-      completeRequest()
-    }
-  }, [dispatch.currentUser])
+  // const [didRequest, setDidRequest] = useState(false)
+  // useEffect(() => {
+  //   console.log('try request')
+  //   const completeRequest = async () => {
+  //     await dispatch.users.createUser({
+  //       name: 'Eric Raff',
+  //       email: 'eraff@xlconstruction.com'
+  //     })
+  //     // await dispatch.courses.getAllCourses()
+  //     setDidRequest(true)
+  //   }
+  //   console.log({didRequest})
+  //   if (!didRequest) {
+  //     console.log('doing request')
+  //     completeRequest()
+  //   }
+  // }, [dispatch.currentUser])
   // dispatch user and session here
     return (
       <WaypointWrapper home>
