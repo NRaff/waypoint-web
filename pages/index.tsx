@@ -46,27 +46,16 @@ export const getServerSideProps = withServerSideAuth(({req, resolvedUrl}): Waypo
 const Start = ({waypoint, __clerk_ssr_state}: WaypointInstantiationProps) => {
   // const store = useStore(waypoint)
   const dispatch = useDispatch()
-  const {users, session, courses} = useSelector((state: RootState) => {
-    return {
-      users: state.users, 
-      session: state.session,
-      courses: state.courses,
-    }
-  }) 
   // set store from props and get current user
   useEffect(() => {
     dispatch.session.receiveSession(__clerk_ssr_state)
   }, [])
-
-  useEffect(() => {
-    console.log({users,session, courses})
-  }, [users,session, courses])
-
-    return (
-      <WaypointWrapper home>
-        <WaypointNav />
-      </WaypointWrapper>
-    )
+  return (
+    <WaypointWrapper home>
+      <WaypointNav />
+      <h1 className='bg-black'>Hello World</h1>
+    </WaypointWrapper>
+  )
 }
 
 export default Start

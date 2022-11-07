@@ -1,5 +1,6 @@
 // import '@/styles/reset.css'
 import '@/styles/global.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import type { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
