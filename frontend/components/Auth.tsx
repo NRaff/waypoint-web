@@ -6,7 +6,6 @@ export default function Auth({authType} : any) {
 
   return (
     <section className={styles.authContainer}>
-      <Button />
       {authType === 'signup' ?
         <SignUp 
           redirectUrl={'http://localhost:3000/'}
