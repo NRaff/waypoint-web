@@ -1,16 +1,18 @@
+import Logo from "@/components/Logo";
 import Auth from "frontend/components/Auth";
 import { useRouter } from "next/router";
-import { Navbar } from "react-bootstrap";
+import styles from '../../styles/modules/openNav.module.css'
 
 export default function Login() {
   const router = useRouter()
   const { authType } = router.query
 
   return (
-    <div>
-      <Navbar.Brand href="#home">Waypoint</Navbar.Brand>
-      
+    <>
+      <nav className={styles.navBar}>
+        <Logo />
+      </nav>
       <Auth authType={authType} />
-    </div>
+    </>
   )
 }
