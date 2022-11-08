@@ -1,6 +1,5 @@
 import styles from '@/styles/modules/auth.module.css'
 import { SignIn, SignUp } from '@clerk/nextjs'
-import { Button } from 'react-bootstrap'
 
 export default function Auth({authType} : any) {
 
