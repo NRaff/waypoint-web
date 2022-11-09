@@ -1,11 +1,7 @@
-import Link from "next/link";
 import Logo from "./Logo";
-// import styles from '@/styles/modules/waypointNav.module.css'
-import ProfileNavItem from "./ProfileNavItem";
 import { UserButton } from "@clerk/nextjs";
-import { AppBar, Container, Typography } from "@mui/material";
+import { AppBar, Container } from "@mui/material";
 import { StyleSheet } from "frontend/framework/utils/types";
-import { Label } from "@mui/icons-material";
 
 const styles: StyleSheet = {
   container: {
