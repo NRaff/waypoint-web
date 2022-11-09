@@ -53,7 +53,6 @@ const Start = ({waypoint, __clerk_ssr_state}: WaypointInstantiationProps) => {
   return (
     <WaypointWrapper home>
       <WaypointNav />
-      <h1 className='bg-black'>Hello World</h1>
     </WaypointWrapper>
   )
 }

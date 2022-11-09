@@ -1,12 +1,41 @@
 import Link from 'next/link'
-import styles from '@/styles/modules/logo.module.css'
+import { Container, Icon, SxProps, Typography } from '@mui/material'
+import { SailingSharp } from '@mui/icons-material'
+import { StyleSheet } from 'frontend/framework/utils/types'
+
+const styles:StyleSheet = {
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    maxWidth: 'fit-content',
+    padding: '.1rem',
+  },
+  sailIcon: {
+    marginRight: '.1rem'
+  },
+  waypoint: {
+    fontFamily: 'revert',
+    letterSpacing: '.2rem',
+    color: 'inherit',
+    textDecoration: 'none',
+  }
+}
 
 export default function Logo() {
   return (
-    <h1 className={styles.waypoint}>
-      <Link href='/'>
-        <a>⛵️ Waypoint</a>
-      </Link>
-    </h1>
+    <Container disableGutters sx={styles.container}>
+      <SailingSharp fontSize='large' sx={styles.sailIcon}/>
+      <Typography
+        variant='h4'
+        noWrap
+        component='a'
+        href='/'
+        sx={styles.waypoint}
+      >
+        Waypoint
+      </Typography>
+    </Container>
   )
 }
