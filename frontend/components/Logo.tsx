@@ -1,6 +1,5 @@
-import Link from 'next/link'
-import { Container, Icon, SxProps, Typography } from '@mui/material'
-import { SailingSharp } from '@mui/icons-material'
+import { Container, Typography } from '@mui/material'
+import SailingSharp from '@mui/icons-material/SailingSharp'
 import { StyleSheet } from 'frontend/framework/utils/types'
 
 const styles:StyleSheet = {
