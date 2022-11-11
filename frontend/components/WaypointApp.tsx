@@ -1,13 +1,25 @@
-import { useState } from "react";
-import { CSSObject, styled, Theme, useTheme } from '@mui/material/styles';
 import { AppBarProps, Box, CssBaseline, Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material';
 import MuiAppBar from '@mui/material/AppBar'
 import MuiDrawer from '@mui/material/Drawer'
-import { ChevronLeft, ChevronRight, Inbox, Mail, Menu } from "@mui/icons-material";
+import { CSSObject, styled, Theme, useTheme } from '@mui/material/styles';
+import { ChevronLeft, ChevronRight, EmojiEvents, Flag, Inbox, Mail, Menu, ShareLocation } from "@mui/icons-material";
+import { useState } from "react";
 import Logo from "./Logo";
 import { UserButton } from "@clerk/nextjs";
+import WaypointNav from './WaypointNav';
 
 const baseWidth = 240
+
+const MenuItems = {
+  races: {
+    title: 'Races',
+    icon: <EmojiEvents />
+  },
+  courses: {
+    title: 'Courses',
+    icon: <ShareLocation />
+  }
+}
 
 const openedStyle = (theme: Theme): CSSObject => ({
   width: baseWidth,
@@ -39,28 +51,6 @@ const DrawerHeader = styled('div')(({theme}) => ({
   ...theme.mixins.toolbar,
 }))
 
-interface NavBarProps extends AppBarProps {
-  open?: boolean
-}
-
-const NavBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open'
-})<NavBarProps>(({theme, open}) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: baseWidth,
-    width: `calc(100% - ${baseWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}))
-
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     width: baseWidth,
@@ -78,7 +68,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function WaypointDrawer() {
+export default function WaypointContainer() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -93,24 +83,7 @@ export default function WaypointDrawer() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <NavBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: 'none' }),
-            }}
-          >
-            <Menu />
-          </IconButton>
-          <Logo />
-          <UserButton />
-        </Toolbar>
-      </NavBar>
+      <WaypointNav openHandler={handleDrawerOpen} open={open} baseWidth={baseWidth} />
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
@@ -119,8 +92,8 @@ export default function WaypointDrawer() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Races', 'Courses'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+          {Object.values(MenuItems).map(({title, icon}) => (
+            <ListItem key={title} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -135,38 +108,14 @@ export default function WaypointDrawer() {
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 2 === 0 ? <Inbox /> : <Mail />}
+                  {icon}
                 </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary={title} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
         <Divider />
-        <List>
-          {['Create course', 'My courses'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {index % 2 === 0 ? <Inbox /> : <Mail />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
