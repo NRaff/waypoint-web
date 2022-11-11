@@ -5,6 +5,7 @@ import { withServerSideAuth } from '@clerk/nextjs/ssr'
 import { GetServerSidePropsResult } from 'next'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
+import WaypointDrawer from '@/components/WaypointApp'
 
 const setupRematch = () => {
   const store = setupRematchStore()
@@ -52,7 +53,8 @@ const Start = ({waypoint, __clerk_ssr_state}: WaypointInstantiationProps) => {
   }, [])
   return (
     <WaypointWrapper home>
-      <WaypointNav />
+      {/* <WaypointNav /> */}
+      <WaypointDrawer />
     </WaypointWrapper>
   )
 }
