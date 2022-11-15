@@ -86,8 +86,6 @@ export const WaypointContainer: React.FC<WaypointContainerProps> = ({
     setOpen(false);
   };
 
-
-  console.log({children})
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
