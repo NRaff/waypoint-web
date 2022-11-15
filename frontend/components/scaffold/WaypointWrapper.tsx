@@ -1,4 +1,4 @@
-import WaypointHead from './WaypointHead'
+import WaypointHead from '../WaypointHead'
 
 // TODO: Review next js blog to add back relevant meta data
 export const siteTitle = 'Waypoint'

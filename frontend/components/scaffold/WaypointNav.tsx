@@ -1,6 +1,6 @@
-import Logo from "./Logo";
+import Logo from "../Logo";
 import { UserButton } from "@clerk/nextjs";
-import { Container, IconButton, styled, Toolbar } from "@mui/material";
+import { IconButton, styled, Toolbar } from "@mui/material";
 import MuiAppBar, { AppBarProps } from '@mui/material/AppBar'
 import { StyleSheet } from "frontend/framework/utils/types";
 import { Menu } from "@mui/icons-material";

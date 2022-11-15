@@ -1,11 +1,10 @@
-import WaypointWrapper from 'frontend/components/WaypointWrapper'
-import WaypointNav from 'frontend/components/WaypointNav'
-import { Dispatch, RootState, setupRematchStore, useStore } from 'frontend/models/store'
+import WaypointWrapper from '@/components/scaffold/WaypointWrapper'
+import {setupRematchStore, useStore } from 'frontend/models/store'
 import { withServerSideAuth } from '@clerk/nextjs/ssr'
-import { GetServerSidePropsResult } from 'next'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
-import WaypointDrawer from '@/components/WaypointApp'
+import { WaypointContainer } from '@/components/scaffold/WaypointContainer'
+import { CSSObject, Theme, Typography } from '@mui/material'
 
 const setupRematch = () => {
   const store = setupRematchStore()
@@ -53,10 +52,21 @@ const Start = ({waypoint, __clerk_ssr_state}: WaypointInstantiationProps) => {
   }, [])
   return (
     <WaypointWrapper home>
-      {/* <WaypointNav /> */}
-      <WaypointDrawer />
+      <WaypointContainer>
+        <Typography
+          variant='h4'
+          noWrap
+          component='p'
+        >
+          Content here...
+        </Typography>
+      </WaypointContainer>
     </WaypointWrapper>
   )
 }
+
+const textStyle = (theme: Theme): CSSObject => ({
+  color: 'black'
+})
 
 export default Start

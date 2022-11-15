@@ -29,8 +29,7 @@ export default function Logo() {
       <Typography
         variant='h4'
         noWrap
-        component='a'
-        href='/'
+        component='h1'
         sx={styles.waypoint}
       >
         Waypoint
