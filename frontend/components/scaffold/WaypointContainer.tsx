@@ -123,7 +123,7 @@ export const WaypointContainer: React.FC<WaypointContainerProps> = ({
         </List>
         <Divider />
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3}}>
+      <Box component="main" sx={{ flexGrow: 1, p: 1}}>
         {/* 
           Retain drawer header here to preserve spacing (otherwise the content
           will be under the navbar) 

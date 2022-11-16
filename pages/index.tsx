@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { WaypointContainer } from '@/components/scaffold/WaypointContainer'
 import { CSSObject, Tabs, Theme, Typography } from '@mui/material'
 import SectionTabs, { Section } from '@/components/scaffold/SectionTabs'
+import WaypointSection from '@/components/scaffold/WaypointSection'
 
 const setupRematch = () => {
   const store = setupRematchStore()
@@ -54,7 +55,7 @@ const Start = ({waypoint, __clerk_ssr_state}: WaypointInstantiationProps) => {
   return (
     <WaypointWrapper home>
       <WaypointContainer>
-        <SectionTabs section={Section.courses} />
+        <WaypointSection section={Section.courses} />
       </WaypointContainer>
     </WaypointWrapper>
   )

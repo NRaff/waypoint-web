@@ -1,4 +1,5 @@
-import { Tab, Tabs } from "@mui/material";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs"
 import React, { useCallback, useMemo, useState } from "react";
 
 export enum Section {
@@ -66,6 +67,7 @@ const SectionTabs: React.FC<SectionTabProps> = ({section}) => {
     <Tabs
       value={selectedTab}
       onChange={handleTabSelection}
+      variant='fullWidth'
     >
       {
         tabs.map(tab => (
