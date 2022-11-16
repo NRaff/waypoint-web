@@ -7,7 +7,7 @@ const styles:StyleSheet = {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     maxWidth: 'fit-content',
     padding: '.1rem',
   },

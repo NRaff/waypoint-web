@@ -4,7 +4,8 @@ import { withServerSideAuth } from '@clerk/nextjs/ssr'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { WaypointContainer } from '@/components/scaffold/WaypointContainer'
-import { CSSObject, Theme, Typography } from '@mui/material'
+import { CSSObject, Tabs, Theme, Typography } from '@mui/material'
+import SectionTabs, { Section } from '@/components/scaffold/SectionTabs'
 
 const setupRematch = () => {
   const store = setupRematchStore()
@@ -53,13 +54,7 @@ const Start = ({waypoint, __clerk_ssr_state}: WaypointInstantiationProps) => {
   return (
     <WaypointWrapper home>
       <WaypointContainer>
-        <Typography
-          variant='h4'
-          noWrap
-          component='p'
-        >
-          Content here...
-        </Typography>
+        <SectionTabs section={Section.courses} />
       </WaypointContainer>
     </WaypointWrapper>
   )

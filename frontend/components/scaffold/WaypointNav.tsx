@@ -5,19 +5,6 @@ import MuiAppBar, { AppBarProps } from '@mui/material/AppBar'
 import { StyleSheet } from "frontend/framework/utils/types";
 import { Menu } from "@mui/icons-material";
 
-const styles: StyleSheet = {
-  container: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderRadius: '.1rem'
-  },
-  appBar: {
-    borderRadius: '.2rem'
-  }
-}
-
 interface NavBarProps extends AppBarProps {
   open: boolean,
   openHandler: () => void,
@@ -56,7 +43,6 @@ const WaypointNav: React.FC<NavBarProps> = ({
             onClick={openHandler}
             edge="start"
             sx={{
-              marginRight: 5,
               ...(open && { display: 'none' }),
             }}
           >
